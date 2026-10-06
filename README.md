@@ -44,4 +44,4 @@ El resultado está en `dist/`. Se puede servir con cualquier hosting de ficheros
 
 - Catálogo semilla del generador de planes, más 290 ejercicios ilustrados de Everkinetic (Greg Priday), traducidos y empaquetados bajo CC BY-SA 4.0. El crédito y la licencia completa están en Ajustes → Acerca de. El texto legal está en `data/exercises/LICENSE-SOURCE.txt`.
 - Sistema visual de la rama de arte: emblemas de rango, insignias, ilustraciones y la pantalla de transformación al subir de rango. Las fuentes Archivo Black, Outfit y JetBrains Mono van en el build (SIL Open Font License). No se pide una CDN.
-- Everkinetic no trae nivel ni patrón de movimiento. Esos campos quedan vacíos. El plan semanal sigue saliendo de la semilla, que sí tiene nivel, patrón y equipo.
+- Everkinetic no trae nivel ni patrón en el origen. `src/catalog/map-everkinetic.ts` se los asigna a los 290, junto con el equipo del spec, sin modificar las ilustraciones. El plan semanal sale de ese catálogo. La semilla solo cubre un hueco cuando no hay candidato. El crédito y la licencia CC BY-SA 4.0 están en Ajustes → Acerca de.
