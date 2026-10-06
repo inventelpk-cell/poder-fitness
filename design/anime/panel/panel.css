@@ -1,0 +1,71 @@
+/* Panel de combate: chaflán grande, borde grueso, trama marcada. */
+
+.pf-panel {
+  --pf-aura: var(--pf-cyan);
+  position: relative;
+  color: var(--pf-text);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 22%) padding-box,
+    linear-gradient(165deg, #161a24 0%, #0c0e14 55%, #10131a 100%) padding-box,
+    linear-gradient(120deg, var(--pf-aura), #ffe14a 80%) border-box;
+  border: var(--pf-border) solid transparent;
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--pf-chamfer)) 0,
+    100% var(--pf-chamfer),
+    100% 100%,
+    var(--pf-chamfer) 100%,
+    0 calc(100% - var(--pf-chamfer))
+  );
+  filter:
+    drop-shadow(0 0 10px color-mix(in srgb, var(--pf-aura) 90%, transparent))
+    drop-shadow(0 16px 28px rgba(0, 0, 0, 0.55));
+}
+
+.pf-panel--inclinado {
+  clip-path: polygon(
+    0 14px,
+    calc(100% - 36px) 0,
+    100% 36px,
+    100% calc(100% - 8px),
+    28px 100%,
+    0 calc(100% - 36px)
+  );
+}
+
+.pf-panel__tono {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.72;
+  background-image: radial-gradient(circle, #05060a 1.35px, transparent 1.55px);
+  background-size: 6px 6px;
+  mix-blend-mode: multiply;
+}
+
+.pf-placa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 2px 12px;
+  background: linear-gradient(90deg, var(--pf-aura), #ffe14a);
+  color: #07080d;
+  font-family: var(--pf-font-display);
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  transform: skewX(var(--pf-skew));
+}
+
+.pf-placa span {
+  transform: skewX(14deg);
+}
+
+.pf-energia {
+  background-image:
+    radial-gradient(circle, rgba(5, 6, 10, 0.9) 1.25px, transparent 1.45px),
+    linear-gradient(90deg, var(--pf-aura) 0%, var(--pf-aura) 78%, #ffe14a 100%);
+  background-size: 5px 5px, 100% 100%;
+}

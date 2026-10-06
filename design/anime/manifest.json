@@ -1,0 +1,230 @@
+{
+  "nombre": "Poder Fitness — HUD anime",
+  "version": "1.0.0",
+  "direccion": "Anime a tope: auras, rayos, trama marcada, paneles cortados, colores eléctricos.",
+  "licencia": "Obra original. Bebas Neue, Rajdhani, Outfit y JetBrains Mono bajo SIL Open Font License. Los SVG de Everkinetic no van en este paquete: la presentación CSS es una modificación visual y los originales no se alteran.",
+  "piezas": [
+    {
+      "id": "tokens",
+      "ruta": "tokens/tokens.css",
+      "uso": "Color, tipo, chaflán, glow, motion y reduced-motion.",
+      "alt": "Hoja de tokens del HUD anime."
+    },
+    {
+      "id": "panel-css",
+      "ruta": "panel/panel.css",
+      "uso": "Panel reutilizable con chaflán de 32 px, borde de 4 px y trama.",
+      "alt": "Estilos del panel de juego."
+    },
+    {
+      "id": "panel",
+      "ruta": "panel/panel.svg",
+      "uso": "Panel cortado para insertar como asset.",
+      "alt": "Panel de juego con chaflán grande, borde luminoso y trama de manga."
+    },
+    {
+      "id": "textura-energia",
+      "ruta": "panel/textura-energia.svg",
+      "uso": "Relleno de medidor: trama marcada y gradiente hacia el oro.",
+      "alt": "Textura de energía, trama negra sobre cian que termina en oro."
+    },
+    {
+      "id": "efectos-css",
+      "ruta": "efectos/efectos.css",
+      "uso": "Cifra de poder, medidor, anillo, flash, frame, shake, +XP y sello.",
+      "alt": "Estilos de las piezas de combate."
+    },
+    {
+      "id": "medidor-super",
+      "ruta": "efectos/medidor-super.svg",
+      "uso": "Cuatro segmentos en paralelogramo, vacíos y llenos.",
+      "alt": "Medidor de super de cuatro segmentos, fila vacía y fila llena."
+    },
+    {
+      "id": "anillo-carga",
+      "ruta": "efectos/anillo-carga.svg",
+      "uso": "Anillo de descanso, trazo de 8 px, arco desde arriba.",
+      "alt": "Anillo de carga cian con el tramo final en oro y el centro libre."
+    },
+    {
+      "id": "frame-impacto",
+      "ruta": "efectos/frame-impacto.svg",
+      "uso": "Esquinas grandes de un solo golpe, 390×844.",
+      "alt": "Marco de impacto con esquinas gruesas en oro y cian."
+    },
+    {
+      "id": "popup-xp",
+      "ruta": "efectos/popup-xp.svg",
+      "uso": "Cartel +XP. En pantalla viva se usa la clase .pf-xp.",
+      "alt": "Cartel de más XP en oro eléctrico."
+    },
+    {
+      "id": "sello-hecho",
+      "ruta": "efectos/sello-hecho.svg",
+      "uso": "Sello Hecho. En pantalla viva se usa la clase .pf-hecho.",
+      "alt": "Sello Hecho, girado, con borde cian."
+    },
+    {
+      "id": "lineas-velocidad",
+      "ruta": "efectos/lineas-velocidad.svg",
+      "uso": "Líneas radiales del golpe. Se disparan una vez.",
+      "alt": "Líneas de velocidad blancas, radiales y visibles."
+    },
+    {
+      "id": "rayos",
+      "ruta": "efectos/rayos.svg",
+      "uso": "Rayos del aura y del impacto.",
+      "alt": "Rayos angulares cian con núcleo blanco."
+    },
+    {
+      "id": "particulas",
+      "ruta": "efectos/particulas.svg",
+      "uso": "Chispas del golpe y de la transformación.",
+      "alt": "Partículas de oro, cian y naranja."
+    },
+    {
+      "id": "emblema-chispa",
+      "ruta": "emblemas/chispa.svg",
+      "uso": "Rango Chispa.",
+      "alt": "Emblema del rango Chispa: estrella pequeña, un corte en el anillo y aura cian pálida."
+    },
+    {
+      "id": "emblema-brasa",
+      "ruta": "emblemas/brasa.svg",
+      "uso": "Rango Brasa.",
+      "alt": "Emblema del rango Brasa: diamante de fuego, doble corte y aura naranja."
+    },
+    {
+      "id": "emblema-llama",
+      "ruta": "emblemas/llama.svg",
+      "uso": "Rango Llama.",
+      "alt": "Emblema del rango Llama: una llama, esquinas de marco y aura naranja intensa."
+    },
+    {
+      "id": "emblema-incendio",
+      "ruta": "emblemas/incendio.svg",
+      "uso": "Rango Incendio.",
+      "alt": "Emblema del rango Incendio: dos llamas, esquinas, brillo y aura roja."
+    },
+    {
+      "id": "emblema-tormenta",
+      "ruta": "emblemas/tormenta.svg",
+      "uso": "Rango Tormenta.",
+      "alt": "Emblema del rango Tormenta: tres arcos de viento, arco exterior y aura azul."
+    },
+    {
+      "id": "emblema-relampago",
+      "ruta": "emblemas/relampago.svg",
+      "uso": "Rango Relámpago.",
+      "alt": "Emblema del rango Relámpago: un rayo, arco, chispa y aura cian."
+    },
+    {
+      "id": "emblema-nova",
+      "ruta": "emblemas/nova.svg",
+      "uso": "Rango Nova.",
+      "alt": "Emblema del rango Nova: estrella de ocho puntas y doble borde dorado."
+    },
+    {
+      "id": "emblema-eclipse",
+      "ruta": "emblemas/eclipse.svg",
+      "uso": "Rango Eclipse.",
+      "alt": "Emblema del rango Eclipse: creciente, disco y corona dorada."
+    },
+    {
+      "id": "emblema-mitico",
+      "ruta": "emblemas/mitico.svg",
+      "uso": "Rango Mítico.",
+      "alt": "Emblema del rango Mítico: hexágono partido, doble anillo, oro y azul."
+    },
+    {
+      "id": "emblema-absoluto",
+      "ruta": "emblemas/absoluto.svg",
+      "uso": "Rango Absoluto.",
+      "alt": "Emblema del rango Absoluto: halo, estrella blanca y rayos de oro."
+    },
+    {
+      "id": "sentadilla",
+      "ruta": "ilustraciones/sentadilla.svg",
+      "uso": "Ejercicio sin archivo Everkinetic. Dibujo original.",
+      "alt": "Sentadilla con barra, línea clara sobre negro."
+    },
+    {
+      "id": "zancada",
+      "ruta": "ilustraciones/zancada.svg",
+      "uso": "Ejercicio sin archivo Everkinetic. Dibujo original.",
+      "alt": "Zancada, línea clara sobre negro."
+    },
+    {
+      "id": "curl-femoral-deslizante",
+      "ruta": "ilustraciones/curl-femoral-deslizante.svg",
+      "uso": "Ejercicio sin archivo Everkinetic. Dibujo original.",
+      "alt": "Curl femoral deslizante: figura tendida, cadera alta y talones sobre deslizadores."
+    },
+    {
+      "id": "everkinetic-linea",
+      "ruta": "everkinetic/linea.css",
+      "uso": "Presenta los SVG Everkinetic como línea tintada sin editar el archivo.",
+      "alt": "Receta CSS de línea clara sobre oscuro para ilustraciones Everkinetic."
+    },
+    {
+      "id": "transformacion",
+      "ruta": "transformacion/index.html",
+      "uso": "Secuencia cinematográfica. ?demo=1 recorre Chispa → Brasa.",
+      "alt": "Pantalla de transformación de rango, autónoma y grabable."
+    },
+    {
+      "id": "fuente-bebas",
+      "ruta": "fuentes/bebas-neue-latin-400.woff2",
+      "uso": "Display. Familia CSS Poder Display.",
+      "alt": "Bebas Neue, recorte latino, licencia OFL."
+    },
+    {
+      "id": "fuente-rajdhani",
+      "ruta": "fuentes/rajdhani-latin-700.woff2",
+      "uso": "Cifras de poder. Familia CSS Poder Cifra.",
+      "alt": "Rajdhani 700, recorte latino, licencia OFL."
+    },
+    {
+      "id": "fuente-outfit-400",
+      "ruta": "fuentes/outfit-latin-400.woff2",
+      "uso": "Cuerpo a 400. Familia CSS Poder Sans.",
+      "alt": "Outfit 400, recorte latino, licencia OFL."
+    },
+    {
+      "id": "fuente-outfit-600",
+      "ruta": "fuentes/outfit-latin-600.woff2",
+      "uso": "Cuerpo a 600. Familia CSS Poder Sans.",
+      "alt": "Outfit 600, recorte latino, licencia OFL."
+    },
+    {
+      "id": "fuente-jetbrains",
+      "ruta": "fuentes/jetbrains-mono-latin-500.woff2",
+      "uso": "Series y pesos. Familia CSS Poder Mono.",
+      "alt": "JetBrains Mono 500, recorte latino, licencia OFL."
+    },
+    {
+      "id": "mockup-hoy",
+      "ruta": "mockups/hoy.png",
+      "uso": "Referencia de Hoy a 390×844.",
+      "alt": "Pantalla Hoy: cifra de poder enorme, aura, rayos y medidor de super."
+    },
+    {
+      "id": "mockup-reproductor",
+      "ruta": "mockups/reproductor.png",
+      "uso": "Referencia del reproductor a 390×844.",
+      "alt": "Reproductor como combate: carta del ejercicio y paneles cortados."
+    },
+    {
+      "id": "mockup-reproductor-impacto",
+      "ruta": "mockups/reproductor-impacto.png",
+      "uso": "Referencia del golpe al completar una serie, 390×844.",
+      "alt": "Instante de completar una serie: flash, marco de impacto, +XP y anillo de descanso."
+    },
+    {
+      "id": "mockup-press-banca",
+      "ruta": "mockups/press-banca.svg",
+      "uso": "Dibujo original solo para el escenario de los mockups.",
+      "alt": "Press banca en línea clara. No es un archivo Everkinetic."
+    }
+  ]
+}

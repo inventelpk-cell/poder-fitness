@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none" role="img">
+  <title>Emblema Relámpago</title>
+  <desc>Emblema del rango Relámpago: un rayo, arco, chispa y aura cian.</desc>
+  <defs>
+    <filter id="relampago-blur" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="8.5"/></filter><pattern id="relampago-tone" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1.4" cy="1.4" r="1.25" fill="#05060A"/></pattern><linearGradient id="relampago-bolt" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#2EC8FF"/><stop offset="1" stop-color="#F7FDFF"/></linearGradient>
+  </defs>
+  <circle cx="80" cy="80" r="52" fill="#5CE1FF" opacity="0.88" filter="url(#relampago-blur)"/>
+  
+  <circle cx="80" cy="80" r="58" fill="#07080D"/>
+  <circle cx="80" cy="80" r="58" fill="url(#relampago-tone)" opacity="0.55"/>
+  <circle cx="80" cy="80" r="68" fill="none" stroke="#5CE1FF" stroke-width="5" stroke-dasharray="197.6 16.0 197.6 16.0" transform="rotate(-50 80 80)"/>
+  <circle cx="80" cy="80" r="58" fill="none" stroke="#F4F1EA" stroke-opacity="0.28" stroke-width="1.5"/>
+  
+    <path d="M46 62 V46 H62" fill="none" stroke="#5CE1FF" stroke-width="4" stroke-linecap="square"/>
+    <path d="M114 62 V46 H98" fill="none" stroke="#5CE1FF" stroke-width="4" stroke-linecap="square"/>
+    <path d="M46 98 V114 H62" fill="none" stroke="#5CE1FF" stroke-width="4" stroke-linecap="square"/>
+    <path d="M114 98 V114 H98" fill="none" stroke="#5CE1FF" stroke-width="4" stroke-linecap="square"/>
+    <path d="M28 58 A 58 58 0 0 1 102 28" fill="none" stroke="#fff" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round"/><path d="M24 96 A 70 70 0 0 1 96 22" fill="none" stroke="#F3FCFF" stroke-width="3" opacity="0.9"/>
+  
+        <path d="M 96.8 29.6 L 65.3 75.8 L 82.1 75.8 L 61.1 132.5 L 103.1 82.1 L 84.2 82.1 L 96.8 29.6 Z" fill="url(#relampago-bolt)"/>
+        <polygon points="114.00,34.00 115.84,40.16 122.00,42.00 115.84,43.84 114.00,50.00 112.16,43.84 106.00,42.00 112.16,40.16" fill="#F3FCFF"/>
+</svg>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Hoy — HUD</title>
+  <link rel="stylesheet" href="escena.css" />
+</head>
+<body>
+  <main class="telefono">
+    <header class="barra">
+      <p class="marca">PO<b>DER</b></p>
+      <p class="fecha">Mar 6 oct</p>
+    </header>
+
+    <section class="pf-panel heroe" aria-label="Poder">
+      <img class="pf-lineas" src="../efectos/lineas-velocidad.svg" alt="" />
+      <img class="pf-rayos" src="../efectos/rayos.svg" alt="" />
+      <div class="pf-panel__tono"></div>
+      <div class="heroe__cuerpo">
+        <span class="pf-placa"><span>Relámpago</span></span>
+        <img class="emblema" src="../emblemas/relampago.svg" alt="Emblema del rango Relámpago: un rayo, arco, chispa y aura cian." />
+        <p class="pf-poder">1.840</p>
+        <p class="xp-linea">XP de este nivel <b>720 / 900</b></p>
+        <div class="pf-super" aria-hidden="true">
+          <span class="is-on"></span>
+          <span class="is-on"></span>
+          <span class="is-on"></span>
+          <span class="is-parcial" style="--p: 80%"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="pf-panel pf-panel--inclinado semana">
+      <div class="fila-titulo">
+        <h2 class="kicker">Semana</h2>
+      </div>
+      <div class="pipas" aria-hidden="true">
+        <i class="pipa hecha"></i><i class="pipa hoy"></i><i class="pipa prevista"></i><i class="pipa prevista"></i><i class="pipa"></i><i class="pipa"></i><i class="pipa"></i>
+      </div>
+      <div class="dias"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+    </section>
+
+    <section class="pf-panel sesion">
+      <div class="fila-titulo">
+        <h2 class="kicker">Fuerza A</h2>
+        <span class="pf-placa"><span>Hoy</span></span>
+      </div>
+      <div class="lista">
+        <div class="ej"><b>Press banca</b><span>4×6</span></div>
+        <div class="ej"><b>Remo con barra</b><span>4×8</span></div>
+        <div class="ej"><b>Sentadilla</b><span>4×5</span></div>
+        <div class="ej"><b>Peso muerto</b><span>3×5</span></div>
+      </div>
+      <a class="entrar" href="#entreno">Entrenar</a>
+    </section>
+
+    <section class="pf-panel reto">
+      <h2 class="kicker">Reto del héroe</h2>
+      <div class="anillos">
+        <a class="mision" href="#reto">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="14" fill="none" stroke="#171C28" stroke-width="4"/><circle cx="18" cy="18" r="14" fill="none" stroke="#FF5A12" stroke-width="4" stroke-dasharray="66 88" transform="rotate(-90 18 18)"/></svg>
+          <small>Series</small>
+        </a>
+        <a class="mision" href="#reto">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="14" fill="none" stroke="#171C28" stroke-width="4"/><circle cx="18" cy="18" r="14" fill="none" stroke="#FFE14A" stroke-width="4" stroke-dasharray="58 88" transform="rotate(-90 18 18)"/></svg>
+          <small>Minutos</small>
+        </a>
+        <a class="mision" href="#reto">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="14" fill="none" stroke="#171C28" stroke-width="4"/><circle cx="18" cy="18" r="14" fill="none" stroke="#3DF0FF" stroke-width="4" stroke-dasharray="50 88" transform="rotate(-90 18 18)"/></svg>
+          <small>Racha</small>
+        </a>
+        <a class="mision" href="#reto">
+          <svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="14" fill="none" stroke="#171C28" stroke-width="4"/><circle cx="18" cy="18" r="14" fill="none" stroke="#2E6BFF" stroke-width="4" stroke-dasharray="30 88" transform="rotate(-90 18 18)"/></svg>
+          <small>Rango</small>
+        </a>
+      </div>
+    </section>
+
+    <nav class="nav">
+      <a class="activa" href="#hoy">Hoy</a>
+      <a href="#biblioteca">Biblioteca</a>
+      <a href="#reto">Reto</a>
+      <a href="#estadisticas">Estadísticas</a>
+    </nav>
+  </main>
+</body>
+</html>

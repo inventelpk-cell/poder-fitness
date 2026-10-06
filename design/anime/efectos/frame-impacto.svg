@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" fill="none" role="img">
+  <title>Frame de impacto</title>
+  <desc>Esquinas grandes de un solo golpe. No es un bucle.</desc>
+  <g stroke-linecap="square">
+    <path d="M18 132 V18 H132" stroke="#FFE14A" stroke-width="12"/>
+    <path d="M34 116 V34 H116" stroke="#3DF0FF" stroke-width="4"/>
+    <path d="M372 132 V18 H258" stroke="#FFE14A" stroke-width="12"/>
+    <path d="M356 116 V34 H274" stroke="#3DF0FF" stroke-width="4"/>
+    <path d="M18 712 V826 H132" stroke="#FFE14A" stroke-width="12"/>
+    <path d="M34 728 V810 H116" stroke="#3DF0FF" stroke-width="4"/>
+    <path d="M372 712 V826 H258" stroke="#FFE14A" stroke-width="12"/>
+    <path d="M356 728 V810 H274" stroke="#3DF0FF" stroke-width="4"/>
+  </g>
+</svg>

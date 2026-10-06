@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img">
+  <title>Press banca</title>
+  <desc>Dibujo original de press banca para el escenario del reproductor. No es un archivo Everkinetic.</desc>
+  <defs>
+    <filter id="glow" x="-20%" y="-30%" width="140%" height="160%">
+      <feGaussianBlur stdDeviation="3.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="640" height="360" fill="#07080D"/>
+  <g stroke="#3DF0FF" stroke-width="3" opacity="0.55" fill="none">
+    <path d="M40 40 L80 0 M80 80 L140 0 M120 120 L210 0 M160 180 L280 0"/>
+  </g>
+  <g filter="url(#glow)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M90 250 H430" stroke="#9AA3B5" stroke-width="10"/>
+    <path d="M150 250 V310 M360 250 V310" stroke="#9AA3B5" stroke-width="8"/>
+    <path d="M120 310 H190 M330 310 H400" stroke="#9AA3B5" stroke-width="8"/>
+    <circle cx="150" cy="168" r="28" stroke="#F4F1EA" stroke-width="10"/>
+    <path d="M176 180 C230 196 300 200 390 196" stroke="#F4F1EA" stroke-width="12"/>
+    <path d="M390 196 C430 188 470 210 500 250" stroke="#F4F1EA" stroke-width="12"/>
+    <path d="M500 250 L470 300" stroke="#F4F1EA" stroke-width="12"/>
+    <path d="M250 188 L230 110" stroke="#F4F1EA" stroke-width="12"/>
+    <path d="M330 192 L350 108" stroke="#F4F1EA" stroke-width="12"/>
+    <path d="M160 118 H520" stroke="#FFE14A" stroke-width="12"/>
+    <circle cx="168" cy="118" r="36" stroke="#FFE14A" stroke-width="8"/>
+    <circle cx="168" cy="118" r="18" stroke="#FFE14A" stroke-width="6"/>
+    <circle cx="512" cy="118" r="36" stroke="#FFE14A" stroke-width="8"/>
+    <circle cx="512" cy="118" r="18" stroke="#FFE14A" stroke-width="6"/>
+  </g>
+</svg>

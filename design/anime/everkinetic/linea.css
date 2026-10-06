@@ -1,0 +1,41 @@
+/*
+  Everkinetic — presentación en línea clara. Los SVG de origen NO se editan.
+
+  Ilustraciones de ejercicio: Everkinetic (https://github.com/everkinetic/data),
+  licencia CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/).
+  Esta hoja invierte el fondo blanco y tiñe el trazo. Es una modificación visual
+  de la presentación. Los archivos SVG originales quedan intactos.
+  Una exportación de esta vista (PNG, SVG aplanado) es un derivado y sigue en
+  CC BY-SA 4.0. Sentadilla, Zancada y Curl femoral deslizante no usan esta
+  clase: son dibujos originales.
+*/
+
+.pf-ek {
+  --pf-ek-tinta: #e8f6ff;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #07080d;
+}
+
+.pf-ek img,
+.pf-ek svg.pf-ek__origen {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: invert(1) contrast(1.65) brightness(1.12);
+}
+
+.pf-ek::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--pf-ek-tinta);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.pf-ek--cian { --pf-ek-tinta: #3df0ff; }
+.pf-ek--oro { --pf-ek-tinta: #ffe14a; }
+.pf-ek--hueso { --pf-ek-tinta: #f4f1ea; }

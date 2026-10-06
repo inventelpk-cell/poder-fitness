@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 168" fill="none" role="img">
+  <title>Panel de juego</title>
+  <desc>Panel reutilizable con chaflán grande, borde luminoso y trama de manga.</desc>
+  <defs>
+    <pattern id="tone" width="6" height="6" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.35" fill="#05060A"/>
+    </pattern>
+    <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.34"/>
+      <stop offset="0.22" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3DF0FF"/>
+      <stop offset="1" stop-color="#FFE14A"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-40%" width="140%" height="180%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#3DF0FF" flood-opacity="0.9"/>
+    </filter>
+  </defs>
+  <path filter="url(#glow)" d="M2 2 H324 L358 36 V166 H36 L2 132 Z" fill="#10131A" stroke="url(#edge)" stroke-width="4"/>
+  <path d="M6 6 H318 L350 38 V162 H40 L6 128 Z" fill="url(#tone)" opacity="0.45"/>
+  <path d="M6 6 H318 L350 38 V48 H6 Z" fill="url(#metal)"/>
+  <path d="M18 22 H150" stroke="#FFE14A" stroke-width="3"/>
+</svg>
