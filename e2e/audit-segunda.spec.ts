@@ -95,9 +95,23 @@ test('sustitutos, récords, ficha y reto en 390×844', async ({ page }, info) =>
   await records.scrollIntoViewIfNeeded()
   const lines = (await records.locator('p').allTextContents()).map((line) => line.trim()).filter(Boolean)
   expect(lines.some((line) => line.includes('Sentadilla') && line.includes('25,3'))).toBe(true)
+  expect(lines.some((line) => line.includes('8 reps a 20 kg') && line.includes(fecha))).toBe(true)
   expect(lines.every((line) => /· .+kg/.test(line))).toBe(true)
   for (const name of UNMARKED) expect(lines.join('\n')).not.toContain(name)
   await shot(page, '02-records')
+
+  const semana = await page.evaluate((months: string[]) => {
+    const date = new Date()
+    date.setDate(date.getDate() - ((date.getDay() + 6) % 7))
+    return `${date.getDate()} ${months[date.getMonth()].slice(0, 3)}`
+  }, MONTHS)
+  const volume = page.locator('article').filter({ has: page.getByRole('heading', { name: 'Volumen semanal' }) })
+  const volumeTable = volume.getByRole('table', { name: 'Volumen semanal en kg por grupo' })
+  await expect(volumeTable).toContainText(semana)
+  await expect(volumeTable).not.toContainText(/\d{2}-\d{2}/)
+  await expect(volume.getByRole('img', { name: 'Volumen de las últimas 12 semanas' }).getByText(semana)).toBeVisible()
+  await volumeTable.scrollIntoViewIfNeeded()
+  await page.screenshot({ path: '/opt/cursor/artifacts/audit/02b-volumen.png' })
 
   await page.locator('#e1rm').selectOption({ label: 'Sentadilla' })
   const table = page.getByRole('table', { name: '1RM estimado' })
@@ -116,6 +130,33 @@ test('sustitutos, récords, ficha y reto en 390×844', async ({ page }, info) =>
 
   const poder = page.getByRole('navigation', { name: 'Destinos' }).getByRole('link', { name: 'Poder' })
   await poder.click()
+  await page.getByRole('button', { name: 'Volver a ver el rango' }).click()
+  await page.waitForTimeout(280)
+  const live = await page.evaluate(() => {
+    const flash = document.querySelector('.pf-tx__flash')
+    const speed = document.querySelector('.pf-tx__speed')
+    const emblem = document.querySelector('.pf-tx__emblem')
+    const root = document.querySelector('.pf-tx')
+    return {
+      flashName: flash ? getComputedStyle(flash).animationName : '',
+      flashOpacity: flash ? Number(getComputedStyle(flash).opacity) : 0,
+      speedName: speed ? getComputedStyle(speed).animationName : '',
+      emblemSrc: emblem instanceof HTMLImageElement ? emblem.currentSrc || emblem.src : '',
+      runs: root?.getAnimations({ subtree: true }).length ?? 0,
+    }
+  })
+  expect(live.flashName).toBe('pf-tx-flash')
+  expect(live.flashOpacity).toBeGreaterThan(0.12)
+  expect(live.speedName).toBe('pf-tx-speed')
+  expect(live.emblemSrc).toContain('chispa.svg')
+  expect(live.runs).toBeGreaterThan(0)
+  await expect(page.getByRole('button', { name: 'Seguir' })).toHaveCount(0)
+  await page.screenshot({ path: '/opt/cursor/artifacts/audit/06-rango-vivo.png' })
+  const rango = page.getByRole('dialog', { name: 'Chispa' })
+  await expect(rango.getByRole('button', { name: 'Seguir' })).toBeVisible()
+  await expect(rango.getByText('El arco reconoce el primer entreno.')).toBeVisible()
+  await rango.getByRole('button', { name: 'Seguir' }).click()
+  await expect(page.locator('.pf-tx')).toHaveCount(0)
   await page.getByRole('link', { name: 'Reto del héroe' }).click()
   await expect(page.getByRole('heading', { name: 'Reto del héroe' })).toBeVisible()
   const flexiones = page.getByLabel('Anotar Flexiones')
@@ -139,4 +180,40 @@ test('sustitutos, récords, ficha y reto en 390×844', async ({ page }, info) =>
   await expect(page.locator('main')).not.toContainText('2.5')
   await page.getByRole('heading', { name: 'Historial' }).scrollIntoViewIfNeeded()
   await shot(page, '05-reto')
+})
+
+test.describe('rango con movimiento reducido', () => {
+  test.use({ reducedMotion: 'reduce' })
+
+  test('la pantalla queda estática y sin destello', async ({ page }, info) => {
+    test.skip(info.project.name !== 'mobile', 'la comprobación es el viewport 390×844')
+    expect(page.viewportSize()).toEqual({ width: 390, height: 844 })
+    await onboard(page)
+    await page.getByRole('navigation', { name: 'Destinos' }).getByRole('link', { name: 'Poder' }).click()
+    await page.getByRole('button', { name: 'Volver a ver el rango' }).click()
+    const dialog = page.getByRole('dialog', { name: 'Chispa' })
+    await expect(dialog.getByRole('button', { name: 'Seguir' })).toBeVisible()
+    await expect(dialog.getByText('El arco reconoce el primer entreno.')).toBeVisible()
+    const still = await page.evaluate(() => {
+      const flash = document.querySelector('.pf-tx__flash')
+      const speed = document.querySelector('.pf-tx__speed')
+      const from = document.querySelector('.pf-tx__from')
+      const root = document.querySelector('.pf-tx')
+      return {
+        flashOpacity: flash ? getComputedStyle(flash).opacity : '',
+        flashName: flash ? getComputedStyle(flash).animationName : '',
+        speedName: speed ? getComputedStyle(speed).animationName : '',
+        fromOpacity: from ? getComputedStyle(from).opacity : '',
+        runs: root?.getAnimations({ subtree: true }).length ?? -1,
+      }
+    })
+    expect(still.flashOpacity).toBe('0')
+    expect(still.flashName).toBe('none')
+    expect(still.speedName).toBe('none')
+    expect(still.fromOpacity).toBe('0')
+    expect(still.runs).toBe(0)
+    await page.screenshot({ path: '/opt/cursor/artifacts/audit/07-rango-quieto.png' })
+    await dialog.getByRole('button', { name: 'Seguir' }).click()
+    await expect(page.locator('.pf-tx')).toHaveCount(0)
+  })
 })

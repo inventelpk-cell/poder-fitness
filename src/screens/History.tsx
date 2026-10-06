@@ -179,12 +179,39 @@ export function History() {
             <img className="empty-art" src={asset('art/empty/historial.svg')} alt="" />
             <p>Los récords aparecen al repetir un ejercicio</p>
           </>
-        ) : markedMemory.map((item) => (
-          <p key={item.exerciseId}>{exerciseName(item.exerciseId, poder.exercises, poder.sessions)}{item.bestE1rmKg != null ? ` · ${formatWeight(item.bestE1rmKg, 'kg')} estimados` : ''}</p>
-        ))}
+        ) : markedMemory.map((item) => {
+          const nombre = exerciseName(item.exerciseId, poder.exercises, poder.sessions)
+          const when = recordWhen(item.exerciseId, item.bestE1rmKg, poder.sessions)
+          const parts = [nombre]
+          if (item.bestE1rmKg != null) parts.push(`${formatWeight(item.bestE1rmKg, 'kg')} estimados`)
+          for (const set of [...item.bestReps].sort((a, b) => b.weightKg - a.weightKg)) {
+            parts.push(`${set.reps} reps a ${formatWeight(set.weightKg, 'kg')}`)
+          }
+          if (when) parts.push(longDate(when))
+          return <p key={item.exerciseId}>{parts.join(' · ')}</p>
+        })}
       </article>
     </section>
   )
+}
+
+function recordWhen(
+  exerciseId: string,
+  bestE1rmKg: number | null,
+  sessions: {
+    status: string
+    date: string
+    exerciseE1rm: { exerciseId: string; e1rmKg: number }[]
+    exercises: { exerciseId: string; sets: { done: boolean; kind: string }[] }[]
+  }[],
+): string | null {
+  const done = sessions.filter((session) => session.status === 'completado')
+  if (bestE1rmKg != null) {
+    const hit = [...done].reverse().find((session) => session.exerciseE1rm.some((item) => item.exerciseId === exerciseId && Math.abs(item.e1rmKg - bestE1rmKg) < 0.051))
+    if (hit) return hit.date
+  }
+  const logged = [...done].reverse().find((session) => session.exercises.some((exercise) => exercise.exerciseId === exerciseId && exercise.sets.some((set) => set.done && set.kind === 'trabajo')))
+  return logged?.date ?? null
 }
 
 function shortDate(iso: string): string {
@@ -227,7 +254,7 @@ function weeklyRows(sessions: { status: string; date: string; volumeByGroup: { g
   return Array.from({ length: 12 }, (_, index) => {
     const monday = addDays(start, index * 7)
     const sunday = addDays(monday, 6)
-    const row: Record<string, string | number> = { semana: monday.slice(5) }
+    const row: Record<string, string | number> = { semana: shortDate(monday) }
     for (const group of GROUPS) row[group] = 0
     for (const session of sessions) {
       if (session.date < monday || session.date > sunday) continue

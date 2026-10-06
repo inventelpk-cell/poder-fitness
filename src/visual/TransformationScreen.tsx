@@ -110,7 +110,7 @@ export function TransformationScreen({
         </p>
         {onContinue ? (
           <button ref={buttonRef} type="button" className="pf-tx__continue" onClick={onContinue}>
-            Continuar
+            Seguir
           </button>
         ) : null}
       </div>

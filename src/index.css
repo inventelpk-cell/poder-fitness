@@ -227,6 +227,11 @@ table.data th, table.data td { text-align: left; padding: 0.35rem 0.4rem; border
 }
 
 .rank-overlay { position: fixed; inset: 0; z-index: 40; background: var(--bg); }
+.rank-overlay .pf-tx__continue {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
 .toast {
   position: fixed;
   left: 50%;

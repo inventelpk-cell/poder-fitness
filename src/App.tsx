@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink, Navigate, Outlet, Route, Routes, useLocation } from 'react-router'
 import { useReducedMotion } from 'motion/react'
 import { rankForLevel, RANKS } from './domain/ranks'
 import { usePoder } from './state/store'
 import { asset } from './ui/asset'
 import { rankArtId } from './ui/rankArt'
+import { TransformationScreen } from './visual/TransformationScreen'
 import { Onboarding } from './screens/Onboarding'
 import { Home } from './screens/Home'
 import { Plan } from './screens/Plan'
@@ -30,45 +31,42 @@ const NAV = [
   { to: '/ajustes', label: 'Ajustes', end: false },
 ]
 
+function visualRank(id: string): string {
+  const art = rankArtId(id || 'chispa')
+  if (art === 'mito' || art === id) return art
+  return asset(`art/ranks/${art}.svg`)
+}
+
 function RankOverlay() {
   const poder = usePoder()
   const reduced = useReducedMotion()
   const reveal = poder.rankReveal ?? poder.replay
   const [ready, setReady] = useState(false)
-  const [emblemOk, setEmblemOk] = useState(true)
-  const buttonRef = useRef<HTMLButtonElement>(null)
   useEffect(() => {
-    setEmblemOk(true)
     if (!reveal) {
       setReady(false)
       return
     }
-    if (reduced) {
+    const calm = reduced === true || window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (calm) {
       setReady(true)
       return
     }
     const timer = window.setTimeout(() => setReady(true), 400)
     return () => window.clearTimeout(timer)
   }, [reveal, reduced])
-  useEffect(() => {
-    if (ready) buttonRef.current?.focus()
-  }, [ready])
   if (!reveal) return null
   const dest = RANKS.find((rank) => rank.id === reveal.to) ?? rankForLevel(poder.streaks.level)
   const continueRank = poder.rankReveal ? () => { void poder.dismissRank() } : poder.dismissReplay
   return (
     <div className="rank-overlay">
-      <section className="stack" role="dialog" aria-modal="true" aria-labelledby="rank-name" style={{ minHeight: '100dvh', display: 'grid', alignContent: 'center', justifyItems: 'center', padding: '1.5rem', textAlign: 'center' }}>
-        {emblemOk ? (
-          <img className="rank-mark" src={asset(`art/ranks/${rankArtId(dest.id)}.svg`)} alt="" style={{ width: 168, height: 168 }} onError={() => setEmblemOk(false)} />
-        ) : (
-          <div className="rank-mark fallback-shot">Rango</div>
-        )}
-        <p className="pf-kicker">Rango</p>
-        <h1 id="rank-name" className="screen-title">{dest.name}</h1>
-        <p>{dest.line}</p>
-        {ready ? <button ref={buttonRef} className="btn primary" type="button" onClick={continueRank}>Seguir</button> : null}
-      </section>
+      <TransformationScreen
+        rankName={dest.name}
+        rankTitle={dest.line}
+        fromRank={visualRank(reveal.from)}
+        toRank={visualRank(reveal.to)}
+        onContinue={ready ? continueRank : undefined}
+      />
     </div>
   )
 }
