@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" fill="none" role="img">
+  <title>Biblioteca vacía</title><desc>Tres fichas en calma y una chispa en la del centro.</desc>
+  <rect width="1200" height="750" fill="#07080D"/>
+  <circle cx="600" cy="375" r="210" stroke="#F4F1EA" stroke-opacity="0.05" stroke-width="1.5" stroke-dasharray="3 12"/>
+  <g fill="#0C0F16" stroke="#2A3346" stroke-width="2">
+    <rect x="330" y="230" width="150" height="290" rx="18"/>
+    <rect x="710" y="230" width="150" height="290" rx="18"/>
+  </g>
+  <rect x="515" y="190" width="170" height="360" rx="18" fill="#0C0F16" stroke="#3D4860" stroke-width="2"/>
+  <path fill="#FFC53D" d="M 600.00 350.00 L 601.98 358.02 L 610.00 360.00 L 601.98 361.98 L 600.00 370.00 L 598.02 361.98 L 590.00 360.00 L 598.02 358.02 Z"/>
+</svg>

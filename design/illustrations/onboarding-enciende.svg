@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" fill="none" role="img">
+  <title>Enciende</title><desc>Una barra y una columna de aura. Primera pantalla de bienvenida.</desc>
+  <rect width="1200" height="750" fill="#07080D"/>
+  <circle cx="600" cy="390" r="210" stroke="#F4F1EA" stroke-opacity="0.06" stroke-width="1.5"/>
+<circle cx="600" cy="390" r="300" stroke="#F4F1EA" stroke-opacity="0.06" stroke-width="1.5"/>
+<circle cx="600" cy="390" r="390" stroke="#F4F1EA" stroke-opacity="0.06" stroke-width="1.5"/>
+  <ellipse cx="600" cy="400" rx="150" ry="250" fill="url(#enciende-aura)"/>
+  <ellipse cx="520" cy="430" rx="70" ry="160" fill="#3B82FF" opacity="0.07"/>
+  <path d="M70 168 H250" stroke="#F4F1EA" stroke-opacity="0.08" stroke-width="1.5" stroke-linecap="round"/><path d="M950 184 H1130" stroke="#F4F1EA" stroke-opacity="0.08" stroke-width="1.5" stroke-linecap="round"/><path d="M70 230 H250" stroke="#F4F1EA" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"/><path d="M950 246 H1130" stroke="#F4F1EA" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"/><path d="M70 300 H250" stroke="#F4F1EA" stroke-opacity="0.18" stroke-width="1.5" stroke-linecap="round"/><path d="M950 316 H1130" stroke="#F4F1EA" stroke-opacity="0.18" stroke-width="1.5" stroke-linecap="round"/><path d="M70 390 H250" stroke="#F4F1EA" stroke-opacity="0.08" stroke-width="1.5" stroke-linecap="round"/><path d="M950 406 H1130" stroke="#F4F1EA" stroke-opacity="0.08" stroke-width="1.5" stroke-linecap="round"/><path d="M70 470 H250" stroke="#F4F1EA" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"/><path d="M950 486 H1130" stroke="#F4F1EA" stroke-opacity="0.13" stroke-width="1.5" stroke-linecap="round"/>
+  <path fill="#FFC53D" opacity="0.95" d="M 600.00 219.00 L 602.12 227.88 L 611.00 230.00 L 602.12 232.12 L 600.00 241.00 L 597.88 232.12 L 589.00 230.00 L 597.88 227.88 Z"/>
+<path fill="#FFF6D8" opacity="0.8" d="M 560.00 294.00 L 561.27 298.73 L 566.00 300.00 L 561.27 301.27 L 560.00 306.00 L 558.73 301.27 L 554.00 300.00 L 558.73 298.73 Z"/>
+<path fill="#FF6A1A" opacity="0.9" d="M 648.00 269.00 L 649.41 274.59 L 655.00 276.00 L 649.41 277.41 L 648.00 283.00 L 646.59 277.41 L 641.00 276.00 L 646.59 274.59 Z"/>
+<path fill="#FFC53D" opacity="0.55" d="M 600.00 155.00 L 601.06 158.94 L 605.00 160.00 L 601.06 161.06 L 600.00 165.00 L 598.94 161.06 L 595.00 160.00 L 598.94 158.94 Z"/>
+  <ellipse cx="600" cy="548" rx="170" ry="12" fill="#fff" opacity="0.05"/>
+  <path d="M300 478 H900" stroke="#F4F1EA" stroke-width="8" stroke-linecap="round"/>
+  <g fill="#07080D" stroke="#F4F1EA" stroke-width="6">
+    <circle cx="372" cy="478" r="54"/>
+    <circle cx="828" cy="478" r="54"/>
+  </g>
+  <g fill="none" stroke="#FFC53D" stroke-width="3">
+    <circle cx="372" cy="478" r="16"/>
+    <circle cx="828" cy="478" r="16"/>
+  </g>
+  <rect x="72" y="64" width="42" height="4" fill="#FF6A1A"/><path fill="#FFC53D" d="M 1118.00 668.00 L 1119.70 674.30 L 1126.00 676.00 L 1119.70 677.70 L 1118.00 684.00 L 1116.30 677.70 L 1110.00 676.00 L 1116.30 674.30 Z"/>
+  <defs>
+    <radialGradient id="enciende-aura" cx="600" cy="470" r="280" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF6A1A" stop-opacity="0.62"/>
+      <stop offset="0.5" stop-color="#FFC53D" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#FF6A1A" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

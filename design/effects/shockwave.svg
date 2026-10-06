@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none" role="img">
+  <title>Onda de impacto</title><desc>Tres anillos concéntricos para el golpe de una transformación.</desc>
+  <circle cx="200" cy="200" r="70" stroke="#FFC53D" stroke-width="3"/>
+  <circle cx="200" cy="200" r="112" stroke="#FFC53D" stroke-opacity="0.55" stroke-width="2"/>
+  <circle cx="200" cy="200" r="156" stroke="#F4F1EA" stroke-opacity="0.28" stroke-width="1.5"/>
+</svg>

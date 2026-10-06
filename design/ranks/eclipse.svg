@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img">
+  <title>Emblema Eclipse</title><desc>Emblema del rango Eclipse: un creciente dorado con corona de muescas.</desc>
+  <circle cx="32" cy="32" r="29.75" fill="#10131A"/>
+  <circle cx="32" cy="32" r="29.75" stroke="#FFC53D" stroke-width="1.5"/>
+  <circle cx="32" cy="32" r="25" stroke="#FFC53D" stroke-opacity="0.24"/>
+  <path d="M18.5 23.5a15.5 15.5 0 0 1 27 0" stroke="#fff" stroke-opacity="0.14" stroke-linecap="round"/>
+  <defs>
+    <mask id="eclipse-cut" maskUnits="userSpaceOnUse">
+      <rect width="64" height="64" fill="#fff"/>
+      <circle cx="38.2" cy="31.2" r="11.2" fill="#000"/>
+    </mask>
+  </defs>
+  <circle cx="31" cy="33" r="13.2" fill="#FFC53D" mask="url(#eclipse-cut)"/>
+  <line x1="32.00" y1="11.80" x2="32.00" y2="8.60" stroke="#FFC53D" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"/><line x1="42.10" y1="14.51" x2="43.70" y2="11.74" stroke="#FFC53D" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"/><line x1="49.49" y1="21.90" x2="52.26" y2="20.30" stroke="#FFC53D" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"/><line x1="52.20" y1="32.00" x2="55.40" y2="32.00" stroke="#FFC53D" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"/><line x1="49.49" y1="42.10" x2="52.26" y2="43.70" stroke="#FFC53D" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"/><line x1="42.10" y1="49.49" x2="43.70" y2="52.26" stroke="#FFC53D" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"/><line x1="32.00" y1="52.20" x2="32.00" y2="55.40" stroke="#FFC53D" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"/><line x1="21.90" y1="49.49" x2="20.30" y2="52.26" stroke="#FFC53D" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"/><line x1="14.51" y1="42.10" x2="11.74" y2="43.70" stroke="#FFC53D" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"/><line x1="11.80" y1="32.00" x2="8.60" y2="32.00" stroke="#FFC53D" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"/><line x1="14.51" y1="21.90" x2="11.74" y2="20.30" stroke="#FFC53D" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"/><line x1="21.90" y1="14.51" x2="20.30" y2="11.74" stroke="#FFC53D" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

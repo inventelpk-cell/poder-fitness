@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" fill="none" role="img">
+  <title>Reto en espera</title><desc>Una cumbre en penumbra, un portal azul y una brasa al pie.</desc>
+  <rect width="1200" height="750" fill="#07080D"/>
+  <circle cx="760" cy="250" r="70" stroke="#F4F1EA" stroke-opacity="0.05" stroke-width="1.5" stroke-dasharray="2 8"/>
+<circle cx="760" cy="250" r="120" stroke="#F4F1EA" stroke-opacity="0.05" stroke-width="1.5" stroke-dasharray="2 8"/>
+  <path d="M140 590 L420 320 L560 450 L760 210 L1080 590 Z" fill="#0E121A" stroke="#243044" stroke-width="2" stroke-linejoin="round"/>
+  <circle cx="760" cy="210" r="36" fill="none" stroke="#3B82FF" stroke-opacity="0.55" stroke-width="2"/>
+  <circle cx="760" cy="210" r="6" fill="#3B82FF" opacity="0.65"/>
+  <ellipse cx="600" cy="520" rx="28" ry="10" fill="#FF6A1A" opacity="0.18"/>
+  <path fill="#FFC53D" d="M600.00 505.00 L607.00 512.00 L600.00 519.00 L593.00 512.00 Z"/>
+</svg>

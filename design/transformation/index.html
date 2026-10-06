@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07080D" />
+  <title>Poder — Transformación</title>
+  <link rel="stylesheet" href="transformation.css" />
+  <style>
+    html, body { margin: 0; height: 100%; background: #07080d; }
+  </style>
+</head>
+<body>
+  <div class="pf-transform" id="root" data-rank="chispa" style="--aura:#9FD4FF;--aura2:#EAF6FF">
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="speed" aria-hidden="true"></div>
+    <div class="content">
+      <div class="emblem-wrap">
+        <div class="aura" aria-hidden="true"></div>
+        <div class="shock" aria-hidden="true"></div>
+        <div class="sparks" aria-hidden="true"></div>
+        <div class="emblem" id="emblem"></div>
+      </div>
+      <p class="kicker" id="kicker">Rango actual</p>
+      <h1 class="rank-name" id="rankName" aria-label="Chispa">CHISPA</h1>
+      <p class="flavor" id="flavor">Una chispa basta para empezar.</p>
+    </div>
+    <div class="frame" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="flash" aria-hidden="true"></div>
+    <form class="dock" id="dock" hidden>
+      <label>Desde <select id="fromSel" aria-label="Rango de origen"></select></label>
+      <label>Hacia <select id="toSel" aria-label="Rango de destino"></select></label>
+      <button type="button" id="replay">Repetir</button>
+    </form>
+  </div>
+  <script src="transformation.js"></script>
+</body>
+</html>
