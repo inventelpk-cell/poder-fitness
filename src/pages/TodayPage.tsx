@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactElement } from 'react';
 import { Link } from 'react-router';
 import { RankEmblem } from '../assets';
-import { exerciseThumb, imageSrc } from '../catalog/everkinetic';
+import { ExerciseThumb } from '../ui/ExerciseThumb';
 import { listHero, listPlans, listSessions, performedFrom, saveSession } from '../db/db';
 import { arcTitle } from '../domain/arc';
 import { localDateISO, mondayOf } from '../domain/dates';
@@ -115,11 +115,11 @@ export function TodayPage(): ReactElement {
           <ul className="thumb-row">
             {day.items.map((item) => {
               const exercise = exercises.find((entry) => entry.id === item.exerciseId);
-              const thumb = exerciseThumb(exercise?.imagenes);
+              const nombre = exercise?.nombre ?? item.exerciseId;
               return (
                 <li key={`${item.slot}-${item.exerciseId}`}>
-                  {thumb ? <img src={imageSrc(thumb)} alt="" width="72" height="72" /> : <span className="thumb-fallback" aria-hidden="true" />}
-                  <span>{exercise?.nombre ?? item.exerciseId}</span>
+                  <ExerciseThumb images={exercise?.imagenes} nombre={nombre} />
+                  <span>{nombre}</span>
                 </li>
               );
             })}

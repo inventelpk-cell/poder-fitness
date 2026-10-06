@@ -8,6 +8,7 @@ import { buildSession } from '../domain/session';
 import { readDraft, writeDraft, type BuilderDraft } from '../state/draft';
 import { useApp } from '../state/app-state';
 import { useWorkoutLauncher } from '../state/launch';
+import { ExerciseThumb } from '../ui/ExerciseThumb';
 
 export function BuilderPage(): ReactElement {
   const { id = 'nueva' } = useParams();
@@ -140,7 +141,10 @@ export function BuilderPage(): ReactElement {
           const exercise = exercises.find((entry) => entry.id === item.exerciseId);
           return (
             <li key={`${item.exerciseId}-${index}`} className="card">
-              <strong>{exercise?.nombre ?? item.exerciseId}</strong>
+              <div className="plan-exercise">
+                <ExerciseThumb images={exercise?.imagenes} nombre={exercise?.nombre ?? item.exerciseId} />
+                <strong>{exercise?.nombre ?? item.exerciseId}</strong>
+              </div>
               <label className="field"><span>Series</span><input inputMode="numeric" value={item.series} onChange={(event) => update(index, { series: Number(event.target.value) })} /></label>
               <label className="field"><span>Repeticiones mínimas</span><input inputMode="numeric" value={item.repMin} onChange={(event) => update(index, { repMin: Number(event.target.value) })} /></label>
               <label className="field"><span>Repeticiones máximas</span><input inputMode="numeric" value={item.repMax} onChange={(event) => update(index, { repMax: Number(event.target.value) })} /></label>

@@ -7,6 +7,7 @@ import { buildSession } from '../domain/session';
 import { useApp } from '../state/app-state';
 import { useWorkoutLauncher } from '../state/launch';
 import { Dialog } from '../ui/Dialog';
+import { ExerciseThumb } from '../ui/ExerciseThumb';
 
 export function PlanPage(): ReactElement {
   const { profile, plan, arc, exercises, routines, refresh } = useApp();
@@ -45,12 +46,19 @@ export function PlanPage(): ReactElement {
           <section className="card">
             <h2>{labelWeekday(day.weekday)} · {labelDayKind(day.kind)}</h2>
             <ol>
-              {day.items.map((item) => (
-                <li key={`${item.slot}-${item.exerciseId}`}>
-                  {exercises.find((entry) => entry.id === item.exerciseId)?.nombre ?? item.exerciseId}
-                  <span className="muted"> · {item.series} × {item.repMin}–{item.repMax}{item.medida === 'segundos' ? ' s' : ''} · {item.descansoSegundos} s</span>
-                </li>
-              ))}
+              {day.items.map((item) => {
+                const exercise = exercises.find((entry) => entry.id === item.exerciseId);
+                const nombre = exercise?.nombre ?? item.exerciseId;
+                return (
+                  <li key={`${item.slot}-${item.exerciseId}`} className="plan-exercise">
+                    <ExerciseThumb images={exercise?.imagenes} nombre={nombre} />
+                    <span>
+                      {nombre}
+                      <span className="muted"> · {item.series} × {item.repMin}–{item.repMax}{item.medida === 'segundos' ? ' s' : ''} · {item.descansoSegundos} s</span>
+                    </span>
+                  </li>
+                );
+              })}
             </ol>
             <div className="row">
               <button

@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { PatternDiagram } from '../assets';
 import { isReserveId } from '../catalog';
 import { imageCaption, imageSrc } from '../catalog/everkinetic';
+import { ExerciseThumb } from '../ui/ExerciseThumb';
 import { saveExercise } from '../db/db';
 import { labelEquipment, labelLevel, labelMuscle, labelPattern } from '../domain/labels';
 import { readDraft, writeDraft } from '../state/draft';
@@ -79,9 +80,9 @@ export function ExercisePage(): ReactElement {
             </figure>
           ))}
         </div>
-      ) : exercise.origen === 'everkinetic' ? (
-        <p className="muted">Este ejercicio no tiene dibujo en la base.</p>
-      ) : null}
+      ) : (
+        <ExerciseThumb images={exercise.imagenes} nombre={exercise.nombre} size="stage" labelled />
+      )}
       {exercise.pasos.length > 0 ? (
         <ol>
           {exercise.pasos.map((step) => (

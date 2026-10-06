@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState, type ReactElement } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
-import { PatternDiagram } from '../assets';
 import { playRestDone, playSetComplete, playTick } from '../audio/tones';
-import { exerciseThumb, imageSrc } from '../catalog/everkinetic';
 import {
   applySessionXp,
   getRoutine,
@@ -40,6 +38,8 @@ import { fromDisplay, toDisplay } from '../domain/units';
 import { proposeLoad } from '../domain/loads';
 import { useApp } from '../state/app-state';
 import { Dialog } from '../ui/Dialog';
+import { ExerciseThumb } from '../ui/ExerciseThumb';
+import { Switch } from '../ui/Switch';
 
 function previousLine(exercise: SessionExercise, performed: PerformedSet[], unit: 'kg' | 'lb'): string {
   const latest = priorHistory(performed, exercise.exerciseId)[0]?.sets.at(-1);
@@ -149,9 +149,10 @@ export function PlayerPage(): ReactElement {
   const locked = session.exercises.some((exercise) => exercise.series.some((item) => item.kind === 'trabajo' && item.completed));
   const cameraReady = nivelDePoder(profile.xpTotal) >= 13;
   const left = session.restEndsAt ? Math.max(0, Math.ceil((new Date(session.restEndsAt).getTime() - now) / 1000)) : 0;
+  const restTotal = Math.max(left, current?.descansoSegundos ?? 0, 1);
+  const restRatio = left / restTotal;
   const catalogExercise = exercises.find((exercise) => exercise.id === detailId);
   const currentArt = exercises.find((exercise) => exercise.id === current?.exerciseId);
-  const currentThumb = exerciseThumb(currentArt?.imagenes);
   const substitutes = current ? allowedSubstitutes(exercises, session, current, profile) : [];
 
   async function persist(next: WorkoutSession, previous: WorkoutSession): Promise<boolean> {
@@ -322,48 +323,49 @@ export function PlayerPage(): ReactElement {
         <button type="button" className="btn" onClick={askFinish}>Terminar</button>
       </header>
       <div className="camera-row">
-        <label className="switch">
-          <input
-            type="checkbox"
-            checked={session.camaraGravedad}
-            disabled={!cameraReady || locked}
-            onChange={(event) => {
-              const next = toggleCamera(session, event.target.checked);
-              void persist(next, session);
-            }}
-          />
-          <span>Cámara de gravedad</span>
-        </label>
+        <Switch
+          checked={session.camaraGravedad}
+          disabled={!cameraReady || locked}
+          label="Cámara de gravedad"
+          onChange={(checked) => {
+            const next = toggleCamera(session, checked);
+            void persist(next, session);
+          }}
+        />
         {session.weekInArc === 4 ? <small>Esta semana es templo. La cámara espera.</small> : null}
         {cameraReady ? null : <small>Se abre en el rango Llama.</small>}
       </div>
       {saveError ? <strong className="error">{saveError}</strong> : null}
       {session.restEndsAt ? (
         <section className="rest-bar" aria-label="Descanso">
-          <div>
+          <div className="rest-ring" style={{ ['--rest' as string]: String(restRatio) }} aria-hidden="true">
+            <span className="timer">{formatInt(left)}</span>
+          </div>
+          <div className="rest-copy">
             <p className="kicker">Descanso</p>
-            <p className="timer">{formatInt(left)}</p>
+            <div className="rest-track" aria-hidden="true">
+              <span style={{ width: `${Math.round(restRatio * 100)}%` }} />
+            </div>
+            <div className="row">
+              <button type="button" className="btn" onClick={() => void changeRest(15)}>+15 s</button>
+              <button type="button" className="btn" onClick={() => void changeRest(-15)}>−15 s</button>
+            </div>
           </div>
-          <div className="row">
-            <button type="button" className="btn" onClick={() => void changeRest(15)}>+15 s</button>
-            <button type="button" className="btn" onClick={() => void changeRest(-15)}>−15 s</button>
+          <div className="rest-tools">
+            <label className="rest-edit">
+              <span>Tiempo restante</span>
+              <input
+                inputMode="numeric"
+                value={left}
+                onChange={(event) => {
+                  const seconds = Number(event.target.value);
+                  if (Number.isNaN(seconds)) return;
+                  void persist(setRestSeconds(session, seconds), session);
+                }}
+              />
+            </label>
+            <Switch checked={saveRest} label="Guardar para este ejercicio" onChange={setSaveRest} />
           </div>
-          <label className="rest-edit">
-            <span>Tiempo restante</span>
-            <input
-              inputMode="numeric"
-              value={left}
-              onChange={(event) => {
-                const seconds = Number(event.target.value);
-                if (Number.isNaN(seconds)) return;
-                void persist(setRestSeconds(session, seconds), session);
-              }}
-            />
-          </label>
-          <label className="switch">
-            <input type="checkbox" checked={saveRest} onChange={(event) => setSaveRest(event.target.checked)} />
-            <span>Guardar para este ejercicio</span>
-          </label>
         </section>
       ) : null}
       {current ? (
@@ -371,11 +373,7 @@ export function PlayerPage(): ReactElement {
           <div className="player-stage">
             {profile.theme !== 'suave' ? <div className="speed-lines" aria-hidden="true" /> : null}
             <figure className="player-art">
-              {currentThumb ? (
-                <img src={imageSrc(currentThumb)} alt="" width="220" height="160" />
-              ) : current.patron ? (
-                <PatternDiagram patron={current.patron} />
-              ) : null}
+              <ExerciseThumb images={currentArt?.imagenes} nombre={current.nombre} size="stage" />
             </figure>
           </div>
           <h2>
@@ -445,10 +443,10 @@ export function PlayerPage(): ReactElement {
         <h2>Cola</h2>
         <ul className="plain">
           {session.exercises.filter((exercise) => exercise.estado === 'pendiente').map((exercise) => {
-            const art = exerciseThumb(exercises.find((item) => item.id === exercise.exerciseId)?.imagenes);
+            const art = exercises.find((item) => item.id === exercise.exerciseId);
             return (
               <li key={exercise.instanceId} className="queue-row">
-                {art ? <img src={imageSrc(art)} alt="" width="48" height="48" /> : <span className="thumb-fallback" aria-hidden="true" />}
+                <ExerciseThumb images={art?.imagenes} nombre={exercise.nombre} />
                 <strong>{exercise.nombre}</strong>
                 <button type="button" className="icon-btn" aria-label={`Subir ${exercise.nombre}`} onClick={() => void persist(moveExercise(session, exercise.instanceId, -1), session)}>
                   <span aria-hidden="true">↑</span>
@@ -483,8 +481,9 @@ export function PlayerPage(): ReactElement {
           <ul className="plain">
             {substitutes.map((exercise) => (
               <li key={exercise.id}>
-                <button type="button" className="btn" onClick={() => void onSubstitute(exercise.id)}>
-                  {exercise.nombre}{exercise.patron ? ` · ${labelPattern(exercise.patron)}` : ''}
+                <button type="button" className="btn substitute-btn" onClick={() => void onSubstitute(exercise.id)}>
+                  <ExerciseThumb images={exercise.imagenes} nombre={exercise.nombre} />
+                  <span>{exercise.nombre}{exercise.patron ? ` · ${labelPattern(exercise.patron)}` : ''}</span>
                 </button>
               </li>
             ))}
