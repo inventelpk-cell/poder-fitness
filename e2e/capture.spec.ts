@@ -118,7 +118,7 @@ test('capturas de la app en marcha', async ({ page }) => {
   await expect(page.getByText('Antonio')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Empezar entreno' })).toBeVisible();
   for (const name of ['Sentadilla', 'Zancada', 'Curl femoral deslizante']) {
-    await expect(page.locator('.thumb-row li', { hasText: name }).locator('.exercise-thumb')).toHaveCount(1);
+    await expect(page.locator('.session-list li', { hasText: name }).locator('.exercise-thumb')).toHaveCount(1);
   }
   await expect(page.locator('.thumb-fallback')).toHaveCount(0);
   const startBox = await page.getByRole('button', { name: 'Empezar entreno' }).boundingBox();
@@ -126,7 +126,7 @@ test('capturas de la app en marcha', async ({ page }) => {
   const tabBox = await page.locator('.tabbar').boundingBox();
   expect(startBox && tabBox && startBox.y + startBox.height <= tabBox.y + 1).toBeTruthy();
   expect(heroBox && tabBox && heroBox.y + heroBox.height <= tabBox.y + 1).toBeTruthy();
-  const hoyArt = await page.locator('.thumb-row li').evaluateAll((nodes) =>
+  const hoyArt = await page.locator('.session-list li').evaluateAll((nodes) =>
     nodes.map((li) => ({
       name: (li.querySelector(':scope > span')?.textContent ?? '').trim(),
       src: li.querySelector('img')?.getAttribute('src') ?? '',
@@ -152,26 +152,23 @@ test('capturas de la app en marcha', async ({ page }) => {
     await page.getByRole('button', { name: 'Seguir el entreno a medias' }).click();
   }
   for (let attempt = 0; attempt < 8; attempt += 1) {
-    const src = await page.locator('.player-art img').getAttribute('src');
     const resting = await page.getByRole('region', { name: 'Descanso' }).isVisible();
-    if (src?.includes('/ejercicios/') && resting) break;
+    if (resting) break;
     await page.locator('.set-line.is-current input').last().fill('8');
     await page.getByRole('button', { name: 'Completar serie' }).click();
     await expect(page.getByRole('region', { name: 'Descanso' })).toBeVisible();
   }
-  const stageSrc = await page.locator('.player-art img').getAttribute('src');
-  const stageName = (await page.locator('.player-now h2').innerText()).trim();
-  const sameOnHoy = hoyArt.find((item) => item.name === stageName);
-  expect(stageSrc).toContain('/ejercicios/');
-  expect(stageSrc).not.toContain('logo-symbol');
-  expect(sameOnHoy?.src).toBe(stageSrc);
+  const stageName = (await page.locator('.player-title h1').innerText()).trim();
+  expect(hoyArt.some((item) => item.name === stageName)).toBeTruthy();
+  await expect(page.locator('.player-hero img')).toBeVisible();
   await expect(page.locator('.rest-ring')).toBeVisible();
+  await page.getByText('Más opciones').click();
   await expect(page.locator('.switch-ui').first()).toBeVisible();
   await expect(page.locator('.set-line.is-current input').last()).toBeEnabled();
   await expect(page.locator('.thumb-fallback')).toHaveCount(0);
-  const artBox = await page.locator('.player-art').boundingBox();
+  const avatarBox = await page.locator('.player-hero img').boundingBox();
   const ringBox = await page.locator('.rest-ring').boundingBox();
-  expect(artBox && ringBox && Math.abs(artBox.y - ringBox.y) < 80).toBeTruthy();
+  expect(avatarBox && ringBox && ringBox.y >= avatarBox.y).toBeTruthy();
   await shot(page, 'reproductor-movil', false);
   await page.goto('/reto');
   await shot(page, 'reto-movil');

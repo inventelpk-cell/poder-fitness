@@ -53,10 +53,12 @@ test('capturas del avatar manga', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/onboarding');
   await expect(page.getByText('Paso 1 de 7')).toBeVisible();
-  await expect(page.getByRole('radio', { name: 'Hombre' }).locator('img')).toHaveAttribute('src', /\/avatar\/male\/chispa\.png$/);
-  await expect(page.getByRole('radio', { name: 'Mujer' }).locator('img')).toHaveAttribute('src', /\/avatar\/female\/chispa\.png$/);
-  await page.locator('.avatar-choice img').nth(0).evaluate((img: HTMLImageElement) => img.decode());
-  await page.locator('.avatar-choice img').nth(1).evaluate((img: HTMLImageElement) => img.decode());
+  await expect(page.locator('.rank-card img').first()).toHaveAttribute('src', /\/avatar\/male\/chispa\.png$/);
+  await page.getByRole('radio', { name: 'Mujer' }).click();
+  await expect(page.locator('.rank-card img').first()).toHaveAttribute('src', /\/avatar\/female\/chispa\.png$/);
+  await page.getByRole('radio', { name: 'Hombre' }).click();
+  await page.locator('.rank-card img').nth(0).evaluate((img: HTMLImageElement) => img.decode());
+  await page.locator('.rank-card img').nth(1).evaluate((img: HTMLImageElement) => img.decode());
   await shot(page, 'onboarding');
 
   await onboard(page);
@@ -66,7 +68,7 @@ test('capturas del avatar manga', async ({ page }) => {
     ['Zancada', 'zancada.png'],
     ['Curl femoral deslizante', 'curl-femoral-deslizante.png'],
   ] as const) {
-    await expect(page.locator('.thumb-row li', { hasText: name }).locator('img')).toHaveAttribute('src', new RegExp(`${file}$`));
+    await expect(page.locator('.session-list li', { hasText: name }).locator('img')).toHaveAttribute('src', new RegExp(`${file}$`));
   }
   await shot(page, 'hoy');
 

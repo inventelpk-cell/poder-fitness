@@ -1,8 +1,6 @@
 import { useMemo, useState, type ReactElement } from 'react';
 import { Link } from 'react-router';
 import { emptyFilters, filterExercises, nameKey, type CatalogFilters } from '../catalog';
-import { rankForXp } from '../domain/ranks';
-import { Avatar } from '../ui/Avatar';
 import { ExerciseThumb } from '../ui/ExerciseThumb';
 import { EQUIPMENT, LEVELS, MUSCLES, PATTERNS, type Equipment, type Exercise, type Level, type Muscle, type Pattern } from '../catalog/types';
 import { saveExercise } from '../db/db';
@@ -12,7 +10,7 @@ import { useApp } from '../state/app-state';
 import { Dialog } from '../ui/Dialog';
 
 export function LibraryPage(): ReactElement {
-  const { exercises, profile, refresh } = useApp();
+  const { exercises, refresh } = useApp();
   const [filters, setFilters] = useState<CatalogFilters>(emptyFilters());
   const [creating, setCreating] = useState(false);
   const visible = useMemo(() => filterExercises(exercises, filters), [exercises, filters]);
@@ -27,12 +25,9 @@ export function LibraryPage(): ReactElement {
 
   return (
     <main className="screen">
-      <header className="page-hero">
-        {profile ? <Avatar gender={profile.avatar} rank={rankForXp(profile.xpTotal).id} pose="idle" /> : <span />}
-        <div className="split">
-          <h1>Biblioteca</h1>
-          <button type="button" className="btn" onClick={() => setCreating(true)}>Crear ejercicio</button>
-        </div>
+      <header className="lib-head">
+        <h1>Biblioteca</h1>
+        <button type="button" className="text-link" onClick={() => setCreating(true)}>Crear ejercicio</button>
       </header>
       <label className="field">
         <span>Buscar ejercicio</span>

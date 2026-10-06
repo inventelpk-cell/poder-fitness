@@ -13,6 +13,7 @@ test('capturas del paquete premium', async ({ page }) => {
   await expect(page.getByText('Paso 1 de 7')).toBeVisible();
   await shot(page, 'onboarding');
 
+  await page.getByRole('radio', { name: 'Mujer' }).click();
   await page.getByLabel('Nombre').fill('Antonio');
   await page.getByRole('button', { name: 'Continuar' }).click();
   await expect(page.getByRole('heading', { name: 'Tu entrenador' })).toBeVisible();

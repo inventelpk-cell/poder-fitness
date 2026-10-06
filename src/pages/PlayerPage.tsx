@@ -54,17 +54,6 @@ function previousLine(exercise: SessionExercise, performed: PerformedSet[], unit
   return `Anterior: ${formatWeightKg(latest.pesoKg, unit)} × ${latest.reps ?? 0}`;
 }
 
-function previousCell(exercise: SessionExercise, performed: PerformedSet[], unit: 'kg' | 'lb'): string {
-  const latest = priorHistory(performed, exercise.exerciseId)[0]?.sets.at(-1);
-  if (!latest) return '—';
-  if (latest.pesoKg <= 0) {
-    if (exercise.medida === 'segundos') return `${latest.segundos ?? 0}s`;
-    return String(latest.reps ?? 0);
-  }
-  const shown = formatWeightKg(latest.pesoKg, unit).replace(` ${unit}`, '');
-  return `${shown}×${latest.reps ?? 0}`;
-}
-
 export function PlayerPage(): ReactElement {
   const { id = '' } = useParams();
   const navigate = useNavigate();
@@ -152,15 +141,12 @@ export function PlayerPage(): ReactElement {
 
   const current = activeExercise(session);
   const set = current ? currentSet(current) : null;
-  const visible = session.exercises.filter((exercise) => exercise.estado !== 'sustituido');
-  const position = Math.max(1, visible.findIndex((exercise) => exercise.instanceId === current?.instanceId) + 1);
   const locked = session.exercises.some((exercise) => exercise.series.some((item) => item.kind === 'trabajo' && item.completed));
   const cameraReady = nivelDePoder(profile.xpTotal) >= 13;
   const left = session.restEndsAt ? Math.max(0, Math.ceil((new Date(session.restEndsAt).getTime() - now) / 1000)) : 0;
   const restTotal = Math.max(left, current?.descansoSegundos ?? 0, 1);
   const restRatio = left / restTotal;
   const catalogExercise = exercises.find((exercise) => exercise.id === detailId);
-  const currentArt = exercises.find((exercise) => exercise.id === current?.exerciseId);
   const substitutes = current ? allowedSubstitutes(exercises, session, current, profile) : [];
 
   async function persist(next: WorkoutSession, previous: WorkoutSession): Promise<boolean> {
@@ -332,30 +318,34 @@ export function PlayerPage(): ReactElement {
     else void endWorkout();
   }
 
+  const workSets = current?.series.filter((item) => item.kind === 'trabajo') ?? [];
+  const serieTotal = Math.max(1, workSets.length);
+  const serieIndex = workSets.findIndex((item) => item.id === set?.id);
+  const serieNumero = serieIndex >= 0 ? serieIndex + 1 : 1;
+
+  function bump(field: 'reps' | 'pesoKg' | 'segundos', delta: number): void {
+    if (!current || !set || !profile) return;
+    if (field === 'pesoKg') {
+      const shown = set.pesoKg === null ? 0 : toDisplay(set.pesoKg, profile.unit);
+      const next = Math.max(0, Math.round((shown + delta) * 10) / 10);
+      editSet(current, set, 'pesoKg', String(next));
+      return;
+    }
+    const base = field === 'reps' ? (set.reps ?? 0) : (set.segundos ?? 0);
+    editSet(current, set, field, String(Math.max(0, base + delta)));
+  }
+
   return (
-    <main className={`player ${impact ? 'impact pf-impact is-hit' : ''}`}>
+    <main className={`player player-fit ${impact ? 'impact pf-impact is-hit' : ''}`}>
       <p className="sr" aria-live="polite">{liveText}</p>
       <CoachBubble event={coachEvent} tick={coachTick} />
-      <header className="player-head">
+      <header className="player-title">
         <div>
-          <p className="kicker">{session.nombre}</p>
-          <h1>Ejercicio {position} de {visible.length}</h1>
+          <h1>{current?.nombre ?? session.nombre}</h1>
+          {current && set ? <p className="kicker">Serie {serieNumero} de {serieTotal}</p> : null}
         </div>
-        <button type="button" className="btn" onClick={askFinish}>Terminar</button>
+        <button type="button" className="text-link" onClick={askFinish}>Terminar</button>
       </header>
-      <div className="camera-row">
-        <Switch
-          checked={session.camaraGravedad}
-          disabled={!cameraReady || locked}
-          label="Cámara de gravedad"
-          onChange={(checked) => {
-            const next = toggleCamera(session, checked);
-            void persist(next, session);
-          }}
-        />
-        {session.weekInArc === 4 ? <small>Esta semana es templo. La cámara espera.</small> : null}
-        {cameraReady ? null : <small>Se abre en el rango Llama.</small>}
-      </div>
       {saveError ? <strong className="error">{saveError}</strong> : null}
       {current ? (
         <section className="player-now">
@@ -364,42 +354,67 @@ export function PlayerPage(): ReactElement {
             {impact ? <p className="zas" aria-hidden="true">¡ZAS!</p> : null}
           </div>
           {impact ? <p className="narracion">¡Tu poder aumenta!</p> : null}
-          <div className="player-live">
-            <div className="player-stage">
-              {profile.theme !== 'suave' ? <div className="speed-lines" aria-hidden="true" /> : null}
-              <figure className="player-art">
-                <ExerciseThumb
-                  images={current.imagenes && current.imagenes.length > 0 ? current.imagenes : currentArt?.imagenes}
-                  nombre={current.nombre}
-                  exerciseId={current.exerciseId}
-                  size="stage"
-                />
-              </figure>
+          {session.restEndsAt ? (
+            <div className="rest-inline" role="region" aria-label="Descanso">
+              <div className="rest-ring" style={{ ['--rest' as string]: String(restRatio) }} aria-hidden="true">
+                <span className="timer">{formatInt(left)}</span>
+              </div>
+              <div className="rest-copy">
+                <p className="kicker">Descanso</p>
+                <div className="rest-track" aria-hidden="true">
+                  <span style={{ width: `${Math.round(restRatio * 100)}%` }} />
+                </div>
+                <div className="row">
+                  <button type="button" className="btn" onClick={() => void changeRest(15)}>+15 s</button>
+                  <button type="button" className="btn" onClick={() => void changeRest(-15)}>−15 s</button>
+                </div>
+              </div>
             </div>
-            <div className="player-live-copy">
-              {session.restEndsAt ? (
-                <div className="rest-inline" role="region" aria-label="Descanso">
-                  <div className="rest-ring" style={{ ['--rest' as string]: String(restRatio) }} aria-hidden="true">
-                    <span className="timer">{formatInt(left)}</span>
-                  </div>
-                  <div className="rest-copy">
-                    <p className="kicker">Descanso</p>
-                    <div className="rest-track" aria-hidden="true">
-                      <span style={{ width: `${Math.round(restRatio * 100)}%` }} />
-                    </div>
-                    <div className="row">
-                      <button type="button" className="btn" onClick={() => void changeRest(15)}>+15 s</button>
-                      <button type="button" className="btn" onClick={() => void changeRest(-15)}>−15 s</button>
-                    </div>
+          ) : null}
+          <div className="set-progress" aria-hidden="true">
+            {current.series.map((item) => (
+              <i key={item.id} className={item.completed ? 'is-done' : item.id === set?.id ? 'is-now' : ''} />
+            ))}
+          </div>
+          {set ? (
+            <ol className="set-list">
+              <li className="set-line is-current big-set">
+                <div className="stepper-block kg">
+                  <span>{profile.unit}</span>
+                  <div className="stepper">
+                    <button type="button" onClick={() => bump('pesoKg', -profile.increment)} aria-label="Menos peso">
+                      −
+                    </button>
+                    <input
+                      inputMode="decimal"
+                      aria-label={`Peso (${profile.unit})`}
+                      value={set.pesoKg === null ? '' : String(Math.round(toDisplay(set.pesoKg, profile.unit) * 1000) / 1000)}
+                      onChange={(event) => editSet(current, set, 'pesoKg', event.target.value)}
+                    />
+                    <button type="button" onClick={() => bump('pesoKg', profile.increment)} aria-label="Más peso">
+                      +
+                    </button>
                   </div>
                 </div>
-              ) : null}
-              <h2>
-                <button type="button" className="text-link" onClick={() => setDetailId(current.exerciseId)}>{current.nombre}</button>
-              </h2>
-            </div>
-          </div>
-          {current.nota ? <p>{current.nota}</p> : null}
+                <div className="stepper-block reps">
+                  <span>{current.medida === 'segundos' ? 'Segundos' : 'Reps'}</span>
+                  <div className="stepper">
+                    <button type="button" onClick={() => bump(current.medida === 'segundos' ? 'segundos' : 'reps', -1)} aria-label={current.medida === 'segundos' ? 'Bajar segundos' : 'Bajar'}>
+                      −
+                    </button>
+                    {current.medida === 'segundos' ? (
+                      <input aria-label="Segundos" inputMode="numeric" value={set.segundos ?? ''} onChange={(event) => editSet(current, set, 'segundos', event.target.value)} />
+                    ) : (
+                      <input aria-label="Repeticiones" inputMode="numeric" value={set.reps ?? ''} onChange={(event) => editSet(current, set, 'reps', event.target.value)} />
+                    )}
+                    <button type="button" onClick={() => bump(current.medida === 'segundos' ? 'segundos' : 'reps', 1)} aria-label={current.medida === 'segundos' ? 'Subir segundos' : 'Subir'}>
+                      +
+                    </button>
+                  </div>
+                </div>
+              </li>
+            </ol>
+          ) : null}
           <p className="muted">{previousLine(current, performed, profile.unit)}</p>
           {current.propuesta === 'sube' ? <p>Sube</p> : null}
           {current.propuesta === 'baja' ? <p>Baja</p> : null}
@@ -408,48 +423,6 @@ export function PlayerPage(): ReactElement {
               Mantener
             </button>
           ) : null}
-          <div className="set-head" aria-hidden="true">
-            <span />
-            <span>Anterior</span>
-            <span>{profile.unit}</span>
-            <span>{current.medida === 'segundos' ? 's' : 'Reps'}</span>
-            <span />
-          </div>
-          <ol className="set-list">
-            {current.series.map((item, index) => (
-              <li key={item.id} className={`set-line ${item.id === set?.id ? 'is-current' : ''} ${item.completed ? 'is-done' : ''}`}>
-                <span className="set-index">{item.kind === 'calentamiento' ? 'C' : index + 1}</span>
-                <span className="set-prev">{previousCell(current, performed, profile.unit)}</span>
-                <label>
-                  <span className="sr">Peso ({profile.unit})</span>
-                  <input
-                    inputMode="decimal"
-                    aria-label={`Peso (${profile.unit})`}
-                    value={item.pesoKg === null ? '' : String(Math.round(toDisplay(item.pesoKg, profile.unit) * 1000) / 1000)}
-                    onChange={(event) => editSet(current, item, 'pesoKg', event.target.value)}
-                  />
-                </label>
-                {current.medida === 'segundos' ? (
-                  <label>
-                    <span className="sr">Segundos</span>
-                    <input aria-label="Segundos" inputMode="numeric" value={item.segundos ?? ''} onChange={(event) => editSet(current, item, 'segundos', event.target.value)} />
-                  </label>
-                ) : (
-                  <label>
-                    <span className="sr">Repeticiones</span>
-                    <input aria-label="Repeticiones" inputMode="numeric" value={item.reps ?? ''} onChange={(event) => editSet(current, item, 'reps', event.target.value)} />
-                  </label>
-                )}
-                {item.id === set?.id ? (
-                  <button type="button" className="check-btn" aria-label="Completar serie" onClick={() => void onComplete()}>
-                    <span aria-hidden="true">✓</span>
-                  </button>
-                ) : (
-                  <span className="set-state">{item.completed ? 'Hecha' : ''}</span>
-                )}
-              </li>
-            ))}
-          </ol>
           {session.restEndsAt ? (
             <div className="rest-tools">
               <label className="rest-edit">
@@ -468,35 +441,43 @@ export function PlayerPage(): ReactElement {
             </div>
           ) : null}
           {error ? <strong className="error">{error}</strong> : null}
-          <div className="row">
+          <button type="button" className="btn btn-primary" onClick={() => void onComplete()}>Completar serie</button>
+          <button type="button" className="btn" onClick={() => void onSkip()}>Saltar</button>
+          <details className="player-more">
+            <summary>Más opciones</summary>
+            <div className="camera-row">
+              <Switch
+                checked={session.camaraGravedad}
+                disabled={!cameraReady || locked}
+                label="Cámara de gravedad"
+                onChange={(checked) => {
+                  const next = toggleCamera(session, checked);
+                  void persist(next, session);
+                }}
+              />
+              {session.weekInArc === 4 ? <small>Esta semana es templo. La cámara espera.</small> : null}
+              {cameraReady ? null : <small>Se abre en el rango Llama.</small>}
+            </div>
+            <button type="button" className="btn" onClick={() => setDetailId(current.exerciseId)}>Ver ficha</button>
             <button type="button" className="btn" onClick={() => setSubstituteOpen(true)}>Sustituir ejercicio</button>
-            <button type="button" className="btn btn-danger" onClick={() => void onSkip()}>Saltar ejercicio</button>
-          </div>
+            <ul className="plain">
+              {session.exercises.filter((exercise) => exercise.estado === 'pendiente').map((exercise) => (
+                <li key={exercise.instanceId} className="queue-row">
+                  <strong>{exercise.nombre}</strong>
+                  <button type="button" className="icon-btn" aria-label={`Subir ${exercise.nombre}`} onClick={() => void persist(moveExercise(session, exercise.instanceId, -1), session)}>
+                    <span aria-hidden="true">↑</span>
+                  </button>
+                  <button type="button" className="icon-btn" aria-label={`Bajar ${exercise.nombre}`} onClick={() => void persist(moveExercise(session, exercise.instanceId, 1), session)}>
+                    <span aria-hidden="true">↓</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </details>
         </section>
       ) : (
         <p>No queda ningún ejercicio pendiente.</p>
       )}
-      <section className="queue">
-        <h2>Cola</h2>
-        <ul className="plain">
-          {session.exercises.filter((exercise) => exercise.estado === 'pendiente').map((exercise) => {
-            const art = exercises.find((item) => item.id === exercise.exerciseId);
-            const images = exercise.imagenes && exercise.imagenes.length > 0 ? exercise.imagenes : art?.imagenes;
-            return (
-              <li key={exercise.instanceId} className="queue-row">
-                <ExerciseThumb images={images} nombre={exercise.nombre} exerciseId={exercise.exerciseId} />
-                <strong>{exercise.nombre}</strong>
-                <button type="button" className="icon-btn" aria-label={`Subir ${exercise.nombre}`} onClick={() => void persist(moveExercise(session, exercise.instanceId, -1), session)}>
-                  <span aria-hidden="true">↑</span>
-                </button>
-                <button type="button" className="icon-btn" aria-label={`Bajar ${exercise.nombre}`} onClick={() => void persist(moveExercise(session, exercise.instanceId, 1), session)}>
-                  <span aria-hidden="true">↓</span>
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
       <p className="muted shortcuts">Atajos: Ctrl o Cmd + Enter completa la serie. Escape no termina el entreno.</p>
       {finishAsk ? (
         <Dialog title="Terminar entreno" onClose={() => setFinishAsk(false)}>

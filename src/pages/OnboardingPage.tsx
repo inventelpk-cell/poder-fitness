@@ -4,8 +4,11 @@ import { EQUIPMENT, type Equipment, type Goal, type Level } from '../catalog/typ
 import { COACHES, coachPortrait, type CoachId, type DarioTone } from '../domain/coach';
 import { createProfile } from '../db/db';
 import { defaultWeekdays } from '../domain/dates';
-import { HEALTH_LINE, LEVEL_HELP, WEEKDAY_SHORT, labelEquipment, labelGoal, labelLevel, labelWeekday } from '../domain/labels';
+import { HEALTH_LINE, LEVEL_HELP, WEEKDAY_SHORT, labelEquipment, labelGoal, labelLevel, labelRank, labelWeekday } from '../domain/labels';
 import type { AvatarGender, Profile } from '../domain/model';
+import type { RankId } from '../catalog/types';
+
+const FACE_RANKS = ['chispa', 'llama', 'nova'] as const satisfies readonly RankId[];
 import { useApp } from '../state/app-state';
 import { Avatar } from '../ui/Avatar';
 
@@ -112,24 +115,33 @@ export function OnboardingPage(): ReactElement {
         ))}
       </ol>
       {step === 1 ? (
-        <div className="avatar-choice" role="radiogroup" aria-label="Avatar">
+        <div className="gender-row" role="radiogroup" aria-label="Avatar">
           {(['hombre', 'mujer'] as const).map((option) => (
             <button
               key={option}
               type="button"
               role="radio"
               aria-checked={avatar === option}
-              className={avatar === option ? 'choice is-on' : 'choice'}
+              className={avatar === option ? 'chip is-on' : 'chip'}
               onClick={() => setAvatar(option)}
             >
-              <Avatar gender={option} rank="chispa" />
-              <strong>{option === 'hombre' ? 'Hombre' : 'Mujer'}</strong>
+              {option === 'hombre' ? 'Hombre' : 'Mujer'}
             </button>
           ))}
         </div>
       ) : null}
       {step > 2 ? <Avatar gender={avatar} rank="chispa" className="onboard-avatar" /> : null}
       <h1>{STEP_TITLES[step - 1]}</h1>
+      {step === 1 ? (
+        <div className="rank-trio" aria-hidden="true">
+          {FACE_RANKS.map((rank) => (
+            <figure key={rank} className="rank-card">
+              <Avatar gender={avatar} rank={rank} />
+              <figcaption>{labelRank(rank)}</figcaption>
+            </figure>
+          ))}
+        </div>
+      ) : null}
       {step === 1 ? (
         <label className="field">
           <span>Nombre</span>
@@ -156,8 +168,8 @@ export function OnboardingPage(): ReactElement {
           ))}
         </div>
       ) : null}
-      {step === 2 && coach === 'dario' ? (
-        <div className="row" role="radiogroup" aria-label="Tono de Darío">
+      {step === 2 ? (
+        <div className="row tone-row" role="radiogroup" aria-label="Tono de Darío">
           {(['suave', 'brusco'] as const).map((tone) => (
             <button
               key={tone}

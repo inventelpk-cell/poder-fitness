@@ -4,7 +4,6 @@ import { unlockAudio, playRankRise } from '../audio/tones';
 import { labelRank } from '../domain/labels';
 import { useApp } from '../state/app-state';
 import { Avatar } from './Avatar';
-import { CoachBubble } from './CoachBubble';
 
 type Phase = 'desde' | 'salto' | 'destino';
 
@@ -81,8 +80,6 @@ export function Transformacion({
         <Avatar gender={gender} rank={rank} pose={phase === 'salto' ? 'transformacion' : undefined} className="transform-avatar" />
       </div>
       <div className="transform-caption">
-        <CoachBubble event="rango" />
-        <p className={`rank-pill pf-aura--${hacia}`}>{nombre}</p>
         <div className="transform-follow" hidden={!ready}>
           <h2 id="transform-title" tabIndex={-1} ref={title}>
             Rango {nombre}

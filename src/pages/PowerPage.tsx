@@ -20,18 +20,15 @@ export function PowerPage(): ReactElement {
   const missing = ACHIEVEMENTS.filter((item) => !owned.has(item.id));
 
   return (
-    <main className="screen">
-      <header className="page-hero">
-        <Avatar gender={profile.avatar} rank={rank.id} />
-        <div>
-          <p className="kicker">Nivel de poder</p>
-          <h1>
-            Nivel {level} · {labelRank(rank.id)}
-          </h1>
-          <p className="num">{formatInt(profile.xpTotal)} XP{level === 100 ? ', nivel 100' : ''}</p>
-          <div className="bar" aria-hidden="true"><span style={{ width: `${next === null ? 100 : Math.min(100, ((profile.xpTotal - floor) / span) * 100)}%` }} /></div>
-        </div>
-      </header>
+    <main className="screen power-screen">
+      <p className="kicker">Nivel de poder</p>
+      <Avatar gender={profile.avatar} rank={rank.id} className="power-avatar" />
+      <h1>Nivel {level}</h1>
+      <p className="rank-name">{labelRank(rank.id)}</p>
+      <section className="card power-card">
+        <p className="num">{formatInt(profile.xpTotal)} XP{level === 100 ? ', nivel 100' : ''}</p>
+        <div className="bar" aria-hidden="true"><span style={{ width: `${next === null ? 100 : Math.min(100, ((profile.xpTotal - floor) / span) * 100)}%` }} /></div>
+      </section>
       <h2>Medallas</h2>
       <div className="medal-grid">
         {won.map((item) => (
