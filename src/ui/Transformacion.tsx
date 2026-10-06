@@ -1,7 +1,15 @@
 import { useEffect, useState, useRef, type ReactElement } from 'react';
 import type { RankId } from '../catalog/types';
+import { unlockAudio, playRankRise } from '../audio/tones';
 import { labelRank } from '../domain/labels';
-import '../../design/transformation/transformation.css';
+import { useApp } from '../state/app-state';
+import { Avatar } from './Avatar';
+
+type Phase = 'desde' | 'salto' | 'destino';
+
+function prefersReducedMotion(): boolean {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
 
 export function Transformacion({
   desde,
@@ -12,35 +20,42 @@ export function Transformacion({
   hacia: RankId;
   onDone: () => void;
 }): ReactElement {
-  const scene = useRef<HTMLDivElement>(null);
+  const { profile } = useApp();
   const title = useRef<HTMLHeadingElement>(null);
-  const [ready, setReady] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
+  const reduced = prefersReducedMotion();
+  const [phase, setPhase] = useState<Phase>(reduced ? 'destino' : 'desde');
+  const [ready, setReady] = useState(reduced);
   const nombre = labelRank(hacia);
+  const gender = profile?.avatar ?? 'hombre';
+  const rank = phase === 'desde' ? desde : hacia;
 
   useEffect(() => {
-    const nodo = scene.current;
-    const api = window.PoderTransformacion;
-    if (!nodo || !api) return;
-    const control = api.iniciar(nodo, {
-      desde,
-      hacia,
-      auto: true,
-      controles: false,
-      teclas: false,
-      alTerminar() {
-        setReady(true);
-        title.current?.focus();
-      },
-    });
-    return () => control.destruir();
-  }, [desde, hacia]);
+    unlockAudio();
+    playRankRise(profile?.sound ?? false, reduced);
+    if (reduced) {
+      title.current?.focus();
+      return;
+    }
+    const salto = window.setTimeout(() => setPhase('salto'), 520);
+    const destino = window.setTimeout(() => setPhase('destino'), 1100);
+    const done = window.setTimeout(() => {
+      setReady(true);
+      title.current?.focus();
+    }, 1500);
+    return () => {
+      window.clearTimeout(salto);
+      window.clearTimeout(destino);
+      window.clearTimeout(done);
+    };
+  }, [profile?.sound, reduced]);
 
   useEffect(() => {
-    const root = scene.current;
-    if (!root) return;
+    const nodo = root.current;
+    if (!nodo) return;
     function onKey(event: KeyboardEvent): void {
       if (event.key !== 'Tab') return;
-      const items = [...root!.querySelectorAll<HTMLElement>('button, [href], [tabindex]:not([tabindex="-1"])')].filter(
+      const items = [...nodo!.querySelectorAll<HTMLElement>('button, [href], [tabindex]:not([tabindex="-1"])')].filter(
         (element) => !element.hasAttribute('disabled') && element.tabIndex !== -1 && !element.hidden && element.offsetParent !== null,
       );
       const first = items[0];
@@ -54,51 +69,34 @@ export function Transformacion({
         first.focus();
       }
     }
-    root.addEventListener('keydown', onKey);
-    return () => root.removeEventListener('keydown', onKey);
+    nodo.addEventListener('keydown', onKey);
+    return () => nodo.removeEventListener('keydown', onKey);
   }, []);
 
   return (
-    <div className="transform-screen" role="dialog" aria-modal="true" aria-labelledby="transform-title">
-      <div ref={scene} className="pf-transform" data-rank={desde}>
-        <div className="vignette" aria-hidden="true" />
-        <div className="speed" aria-hidden="true" />
-        <div className="content">
-          <div className="emblem-wrap">
-            <div className="aura" aria-hidden="true" />
-            <div className="shock" aria-hidden="true" />
-            <div className="sparks" aria-hidden="true" />
-            <div className="emblem" />
-          </div>
-          <p className="kicker">Rango actual</p>
-          <h1 className="rank-name" id="rankName">
-            {nombre}
-          </h1>
-          <p className="flavor" />
-          <div className={ready ? 'transform-follow is-ready' : 'transform-follow'}>
-            <h2 id="transform-title" tabIndex={-1} ref={title}>
-              Rango {nombre}
-            </h2>
-            <p>Tu nivel de poder entra en {nombre}.</p>
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={(event) => {
-                event.stopPropagation();
-                onDone();
-              }}
-            >
-              Seguir
-            </button>
-          </div>
+    <div className="transform-screen" role="dialog" aria-modal="true" aria-labelledby="transform-title" ref={root}>
+      <div className={`manga-transform is-${phase} pf-aura pf-aura--${rank}`} data-rank={rank}>
+        {phase === 'salto' ? <div className="manga-flash" aria-hidden="true" /> : null}
+        <Avatar gender={gender} rank={rank} pose={phase === 'salto' ? 'transformacion' : undefined} className="transform-avatar" />
+      </div>
+      <div className="transform-caption">
+        <p className={`rank-pill pf-aura--${hacia}`}>{nombre}</p>
+        <div className="transform-follow" hidden={!ready}>
+          <h2 id="transform-title" tabIndex={-1} ref={title}>
+            Rango {nombre}
+          </h2>
+          <p>Tu nivel de poder entra en {nombre}.</p>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={(event) => {
+              event.stopPropagation();
+              onDone();
+            }}
+          >
+            Seguir
+          </button>
         </div>
-        <div className="frame" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
-        <div className="flash" aria-hidden="true" />
       </div>
     </div>
   );

@@ -5,7 +5,9 @@ import { addDays, localDateISO, mondayOf } from '../domain/dates';
 import { formatDecimal, formatInt, formatWeightKg } from '../domain/format';
 import { oneRmEstimado, formatOneRm } from '../domain/one-rm';
 import type { HeroLog, WorkoutSession } from '../domain/model';
+import { rankForXp } from '../domain/ranks';
 import { volumeOf } from '../domain/session';
+import { Avatar } from '../ui/Avatar';
 import { fromDisplay, toDisplay } from '../domain/units';
 import { useApp } from '../state/app-state';
 
@@ -43,7 +45,10 @@ export function CalendarPage(): ReactElement {
   return (
     <main className="screen">
       <HistoryNav />
-      <h1>Historial</h1>
+      <header className="page-hero">
+        {profile ? <Avatar gender={profile.avatar} rank={rankForXp(profile.xpTotal).id} pose="idle" /> : <span />}
+        <h1>Historial</h1>
+      </header>
       <div className="row">
         <button type="button" className="btn" onClick={() => setCursor(shiftMonth(cursor, -1))}>Mes anterior</button>
         <p>{MONTHS[(month ?? 1) - 1]} {year}</p>
@@ -79,7 +84,7 @@ export function CalendarPage(): ReactElement {
       </section>
       {sessions.filter((session) => session.status === 'completada').length === 0 ? (
         <div className="empty-card">
-          <img src="/design/illustrations/empty-historial.svg" alt="" width="180" height="140" />
+          {profile ? <Avatar gender={profile.avatar} rank={rankForXp(profile.xpTotal).id} pose="idle" className="onboard-avatar" /> : null}
           <p>Cuando cierres un entreno, aparecerá aquí.</p>
         </div>
       ) : null}
@@ -98,10 +103,13 @@ export function VolumePage(): ReactElement {
   return (
     <main className="screen">
       <HistoryNav />
-      <h1>Volumen</h1>
+      <header className="page-hero">
+        <Avatar gender={profile.avatar} rank={rankForXp(profile.xpTotal).id} pose="cargando" />
+        <h1>Volumen</h1>
+      </header>
       {empty ? (
         <div className="empty-card">
-          <img src="/design/illustrations/empty-historial.svg" alt="" width="220" height="140" />
+          <Avatar gender={profile.avatar} rank={rankForXp(profile.xpTotal).id} pose="idle" className="onboard-avatar" />
           <p>Cuando cierres un entreno, aparecerá aquí.</p>
         </div>
       ) : null}
@@ -141,7 +149,10 @@ export function RecordsPage(): ReactElement {
   return (
     <main className="screen">
       <HistoryNav />
-      <h1>Récords</h1>
+      <header className="page-hero">
+        <Avatar gender={profile.avatar} rank={rankForXp(profile.xpTotal).id} pose="victoria" />
+        <h1>Récords</h1>
+      </header>
       {rows.length === 0 ? <p>Cuando cierres un entreno, aparecerá aquí.</p> : null}
       <ul className="plain">
         {rows.map((row) => (
@@ -185,7 +196,10 @@ export function WeightPage(): ReactElement {
   return (
     <main className="screen">
       <HistoryNav />
-      <h1>Peso corporal</h1>
+      <header className="page-hero">
+        <Avatar gender={profile.avatar} rank={rankForXp(profile.xpTotal).id} pose="idle" />
+        <h1>Peso corporal</h1>
+      </header>
       <label className="field"><span>Peso ({profile.unit})</span><input inputMode="decimal" value={value} onChange={(event) => setValue(event.target.value)} /></label>
       <label className="field"><span>Nota</span><input maxLength={80} value={note} onChange={(event) => setNote(event.target.value)} /></label>
       {error ? <strong className="error">{error}</strong> : null}

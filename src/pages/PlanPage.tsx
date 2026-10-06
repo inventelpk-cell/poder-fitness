@@ -3,9 +3,11 @@ import { Link } from 'react-router';
 import { listSessions, performedFrom, regenerateActivePlan, saveSession } from '../db/db';
 import { arcTitle } from '../domain/arc';
 import { labelArcWeek, labelDayKind, labelWeekday } from '../domain/labels';
+import { rankForXp } from '../domain/ranks';
 import { buildSession } from '../domain/session';
 import { useApp } from '../state/app-state';
 import { useWorkoutLauncher } from '../state/launch';
+import { Avatar } from '../ui/Avatar';
 import { Dialog } from '../ui/Dialog';
 import { ExerciseThumb } from '../ui/ExerciseThumb';
 
@@ -20,10 +22,15 @@ export function PlanPage(): ReactElement {
   return (
     <main className="screen">
       {dialog}
-      <p className="kicker">{arcTitle(arc.number)}</p>
-      <h1>
-        Semana {arc.weekInArc} · {labelArcWeek(arc.weekInArc)}
-      </h1>
+      <header className="page-hero">
+        <Avatar gender={profile.avatar} rank={rankForXp(profile.xpTotal).id} pose="idle" />
+        <div>
+          <p className="kicker">{arcTitle(arc.number)}</p>
+          <h1>
+            Semana {arc.weekInArc} · {labelArcWeek(arc.weekInArc)}
+          </h1>
+        </div>
+      </header>
       {arc.weekInArc === 4 ? <p>Semana templo: menos carga, el poder se asienta.</p> : null}
       {arc.repeatNotice ? <p>Repites esta semana del arco para asentar el poder.</p> : null}
       <div className="row">
@@ -51,7 +58,7 @@ export function PlanPage(): ReactElement {
                 const nombre = exercise?.nombre ?? item.exerciseId;
                 return (
                   <li key={`${item.slot}-${item.exerciseId}`} className="plan-exercise">
-                    <ExerciseThumb images={exercise?.imagenes} nombre={nombre} />
+                    <ExerciseThumb images={exercise?.imagenes} nombre={nombre} exerciseId={item.exerciseId} />
                     <span>
                       {nombre}
                       <span className="muted"> · {item.series} × {item.repMin}–{item.repMax}{item.medida === 'segundos' ? ' s' : ''} · {item.descansoSegundos} s</span>

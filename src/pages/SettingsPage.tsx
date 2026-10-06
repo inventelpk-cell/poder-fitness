@@ -12,8 +12,10 @@ import {
 } from '../db/db';
 import { localDateISO } from '../domain/dates';
 import { HEALTH_LINE, labelEquipment, labelGoal, labelLevel } from '../domain/labels';
-import type { Profile, ThemeIntensity } from '../domain/model';
+import type { AvatarGender, Profile, ThemeIntensity } from '../domain/model';
+import { rankForXp } from '../domain/ranks';
 import { useApp } from '../state/app-state';
+import { Avatar } from '../ui/Avatar';
 import { Dialog } from '../ui/Dialog';
 
 const THEMES: ThemeIntensity[] = ['suave', 'media', 'plena'];
@@ -71,6 +73,24 @@ export function SettingsPage(): ReactElement {
   return (
     <main className="screen">
       <h1>Ajustes</h1>
+      <section className="card">
+        <h2>Avatar</h2>
+        <div className="avatar-choice" role="radiogroup" aria-label="Avatar">
+          {(['hombre', 'mujer'] as const satisfies readonly AvatarGender[]).map((option) => (
+            <button
+              key={option}
+              type="button"
+              role="radio"
+              aria-checked={profile.avatar === option}
+              className={profile.avatar === option ? 'choice is-on' : 'choice'}
+              onClick={() => void saveSimple({ ...profile, avatar: option })}
+            >
+              <Avatar gender={option} rank={rankForXp(profile.xpTotal).id} />
+              <strong>{option === 'hombre' ? 'Hombre' : 'Mujer'}</strong>
+            </button>
+          ))}
+        </div>
+      </section>
       <section className="card">
         <h2>Unidad</h2>
         <div className="row">
@@ -184,7 +204,8 @@ export function SettingsPage(): ReactElement {
         <p>https://github.com/everkinetic/data</p>
         <p>Licencia: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
         <p>https://creativecommons.org/licenses/by-sa/4.0/deed.es</p>
-        <p>Poder Fitness tradujo al español los nombres, los resúmenes, las instrucciones y los consejos, unificó el vocabulario de músculos y equipo, y empaquetó las ilustraciones para uso offline. Las ilustraciones no se han modificado.</p>
+        <p>Poder Fitness tradujo al español los nombres, los resúmenes, las instrucciones y los consejos, unificó el vocabulario de músculos y equipo, y empaquetó las ilustraciones para uso offline. Los archivos SVG de origen no se han editado. En pantalla, esas figuras llevan un tinte: inversión, más contraste y un velo de color. Esa presentación es una modificación visual. Una exportación de esa vista es una obra derivada y sigue en CC BY-SA 4.0.</p>
+        <p>Sentadilla, Zancada y Curl femoral deslizante no son de Everkinetic. Si hay un dibujo original, se usa ese archivo. Si no, el hueco lo cubre el avatar.</p>
         <p>Esta base es una obra derivada y se mantiene bajo CC BY-SA 4.0.</p>
         <button type="button" className="btn" onClick={() => setShowLicense((value) => !value)}>
           {showLicense ? 'Ocultar licencia' : 'Ver la licencia completa'}

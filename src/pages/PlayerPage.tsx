@@ -15,7 +15,7 @@ import {
 import { formatInt, formatWeightKg } from '../domain/format';
 import { labelPattern } from '../domain/labels';
 import type { SessionExercise, SessionSet, WorkoutSession } from '../domain/model';
-import { nivelDePoder } from '../domain/ranks';
+import { nivelDePoder, rankForXp } from '../domain/ranks';
 import {
   activeExercise,
   allowedSubstitutes,
@@ -37,6 +37,7 @@ import {
 import { fromDisplay, toDisplay } from '../domain/units';
 import { proposeLoad } from '../domain/loads';
 import { useApp } from '../state/app-state';
+import { Avatar } from '../ui/Avatar';
 import { Dialog } from '../ui/Dialog';
 import { ExerciseThumb } from '../ui/ExerciseThumb';
 import { Switch } from '../ui/Switch';
@@ -180,8 +181,11 @@ export function PlayerPage(): ReactElement {
       return;
     }
     setError('');
-    setImpact(true);
-    window.setTimeout(() => setImpact(false), 220);
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduced) {
+      setImpact(true);
+      window.setTimeout(() => setImpact(false), 1200);
+    }
     playSetComplete(profile.sound);
     announced.current = null;
     const saved = await persist(result.session, live);
@@ -338,6 +342,11 @@ export function PlayerPage(): ReactElement {
       {saveError ? <strong className="error">{saveError}</strong> : null}
       {current ? (
         <section className="player-now">
+          <div className="player-hero">
+            <Avatar gender={profile.avatar} rank={rankForXp(profile.xpTotal).id} pose="entrenando" />
+            {impact ? <p className="zas" aria-hidden="true">¡ZAS!</p> : null}
+          </div>
+          {impact ? <p className="narracion">¡Tu poder aumenta!</p> : null}
           <div className="player-live">
             <div className="player-stage">
               {profile.theme !== 'suave' ? <div className="speed-lines" aria-hidden="true" /> : null}
@@ -345,6 +354,7 @@ export function PlayerPage(): ReactElement {
                 <ExerciseThumb
                   images={current.imagenes && current.imagenes.length > 0 ? current.imagenes : currentArt?.imagenes}
                   nombre={current.nombre}
+                  exerciseId={current.exerciseId}
                   size="stage"
                 />
               </figure>
@@ -457,7 +467,7 @@ export function PlayerPage(): ReactElement {
             const images = exercise.imagenes && exercise.imagenes.length > 0 ? exercise.imagenes : art?.imagenes;
             return (
               <li key={exercise.instanceId} className="queue-row">
-                <ExerciseThumb images={images} nombre={exercise.nombre} />
+                <ExerciseThumb images={images} nombre={exercise.nombre} exerciseId={exercise.exerciseId} />
                 <strong>{exercise.nombre}</strong>
                 <button type="button" className="icon-btn" aria-label={`Subir ${exercise.nombre}`} onClick={() => void persist(moveExercise(session, exercise.instanceId, -1), session)}>
                   <span aria-hidden="true">↑</span>
@@ -493,7 +503,7 @@ export function PlayerPage(): ReactElement {
             {substitutes.map((exercise) => (
               <li key={exercise.id}>
                 <button type="button" className="btn substitute-btn" onClick={() => void onSubstitute(exercise.id)}>
-                  <ExerciseThumb images={exercise.imagenes} nombre={exercise.nombre} />
+                  <ExerciseThumb images={exercise.imagenes} nombre={exercise.nombre} exerciseId={exercise.id} />
                   <span>{exercise.nombre}{exercise.patron ? ` · ${labelPattern(exercise.patron)}` : ''}</span>
                 </button>
               </li>

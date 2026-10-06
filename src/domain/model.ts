@@ -4,6 +4,7 @@ import type { Unit } from './units';
 import type { SessionXpParts } from './xp';
 
 export type ThemeIntensity = 'suave' | 'media' | 'plena';
+export type AvatarGender = 'hombre' | 'mujer';
 
 export interface Profile {
   name: string;
@@ -16,6 +17,7 @@ export interface Profile {
   increment: number;
   theme: ThemeIntensity;
   sound: boolean;
+  avatar: AvatarGender;
   xpTotal: number;
   ranksSeen: RankId[];
   createdAt: string;

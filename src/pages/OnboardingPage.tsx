@@ -4,15 +4,9 @@ import { EQUIPMENT, type Equipment, type Goal, type Level } from '../catalog/typ
 import { createProfile } from '../db/db';
 import { defaultWeekdays } from '../domain/dates';
 import { HEALTH_LINE, LEVEL_HELP, WEEKDAY_SHORT, labelEquipment, labelGoal, labelLevel, labelWeekday } from '../domain/labels';
-import type { Profile } from '../domain/model';
+import type { AvatarGender, Profile } from '../domain/model';
 import { useApp } from '../state/app-state';
-
-function onboardingArt(step: number): string {
-  if (step <= 2) return '/design/illustrations/onboarding-enciende.svg';
-  if (step === 3) return '/design/illustrations/onboarding-rangos.svg';
-  if (step === 5) return '/design/illustrations/onboarding-racha.svg';
-  return '/design/illustrations/onboarding-listo.svg';
-}
+import { Avatar } from '../ui/Avatar';
 
 const GOALS: Goal[] = ['fuerza', 'hipertrofia', 'resistencia', 'grasa'];
 const LEVELS: Level[] = ['principiante', 'intermedio', 'avanzado'];
@@ -32,6 +26,7 @@ export function OnboardingPage(): ReactElement {
   const [days, setDays] = useState<number[]>(defaultWeekdays(3));
   const [touched, setTouched] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [avatar, setAvatar] = useState<AvatarGender>('hombre');
 
   function toggleEquipment(id: Equipment): void {
     setEquipError('');
@@ -70,6 +65,7 @@ export function OnboardingPage(): ReactElement {
       increment: 2.5,
       theme: 'media',
       sound: true,
+      avatar,
       xpTotal: 0,
       ranksSeen: [],
       createdAt: new Date().toISOString(),
@@ -109,7 +105,25 @@ export function OnboardingPage(): ReactElement {
           <li key={title} className={index + 1 === step ? 'is-on' : index + 1 < step ? 'is-done' : ''} />
         ))}
       </ol>
-      <img className="onboard-art" src={onboardingArt(step)} alt="" width="280" height="180" />
+      {step === 1 ? (
+        <div className="avatar-choice" role="radiogroup" aria-label="Avatar">
+          {(['hombre', 'mujer'] as const).map((option) => (
+            <button
+              key={option}
+              type="button"
+              role="radio"
+              aria-checked={avatar === option}
+              className={avatar === option ? 'choice is-on' : 'choice'}
+              onClick={() => setAvatar(option)}
+            >
+              <Avatar gender={option} rank="chispa" />
+              <strong>{option === 'hombre' ? 'Hombre' : 'Mujer'}</strong>
+            </button>
+          ))}
+        </div>
+      ) : (
+        <Avatar gender={avatar} rank="chispa" pose={step === 6 ? 'victoria' : 'idle'} className="onboard-avatar" />
+      )}
       <h1>{STEP_TITLES[step - 1]}</h1>
       {step === 1 ? (
         <label className="field">
@@ -181,7 +195,7 @@ export function OnboardingPage(): ReactElement {
       ) : null}
       {step === 6 && level && goal ? (
         <section className="card">
-          <p><strong>{name.trim()}</strong></p>
+          <p><strong>{name.trim()}</strong> · {avatar === 'mujer' ? 'Mujer' : 'Hombre'}</p>
           <p>{labelLevel(level)}</p>
           <p>{labelGoal(goal)}</p>
           <p>{equipment.map((item) => (item === 'peso-corporal' ? 'Solo peso corporal' : labelEquipment(item))).join(', ')}</p>

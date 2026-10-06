@@ -10,6 +10,7 @@ import '../design/effects/tokens.css';
 import '../design/effects/aura.css';
 import { App } from './app/App';
 import './styles/global.css';
+import './styles/manga.css';
 
 registerSW({ immediate: true });
 

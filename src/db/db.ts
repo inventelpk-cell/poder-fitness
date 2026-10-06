@@ -2,7 +2,7 @@ import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
 import { bundledExercises, type Exercise } from '../catalog';
 import { unlockedIds, type AchievementFacts } from '../domain/achievements';
 import { mondayOf, localDateISO, addDays } from '../domain/dates';
-import type { Arc, BackupFile, BodyWeight, HeroLog, Plan, PlanDay, Profile, Routine, StoredAchievement, WorkoutSession } from '../domain/model';
+import type { Arc, AvatarGender, BackupFile, BodyWeight, HeroLog, Plan, PlanDay, Profile, Routine, StoredAchievement, WorkoutSession } from '../domain/model';
 import { uid } from '../domain/model';
 import { generateWeek, type SlotPin } from '../domain/plan';
 import { rankForXp } from '../domain/ranks';
@@ -66,10 +66,19 @@ export async function ensureSeed(): Promise<void> {
   await tx.done;
 }
 
+function avatarOf(value: unknown): AvatarGender {
+  return value === 'mujer' ? 'mujer' : 'hombre';
+}
+
+export function normalizeProfile(profile: Profile): Profile {
+  const avatar = avatarOf(profile.avatar);
+  return profile.avatar === avatar ? profile : { ...profile, avatar };
+}
+
 export async function getProfile(): Promise<Profile | null> {
   const found = await (await db()).get('profile', 'singleton');
   if (!found) return null;
-  return found;
+  return normalizeProfile(found);
 }
 
 export async function saveProfile(profile: Profile): Promise<void> {
@@ -518,7 +527,7 @@ export async function replaceWithBackup(file: BackupFile): Promise<void> {
   const names = ['profile', 'exercises', 'routines', 'arcs', 'plans', 'sessions', 'heroLogs', 'bodyWeights', 'achievements'] as const;
   const tx = database.transaction([...names], 'readwrite');
   for (const name of names) await tx.objectStore(name).clear();
-  if (file.profile) tx.objectStore('profile').put(file.profile, 'singleton');
+  if (file.profile) tx.objectStore('profile').put(normalizeProfile(file.profile), 'singleton');
   for (const exercise of file.exercises) tx.objectStore('exercises').put(exercise);
   for (const routine of file.routines) tx.objectStore('routines').put(routine);
   for (const arc of file.arcs) tx.objectStore('arcs').put(arc);

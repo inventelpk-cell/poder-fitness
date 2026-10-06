@@ -1,6 +1,8 @@
 import { useMemo, useState, type ReactElement } from 'react';
 import { Link } from 'react-router';
 import { emptyFilters, filterExercises, nameKey, type CatalogFilters } from '../catalog';
+import { rankForXp } from '../domain/ranks';
+import { Avatar } from '../ui/Avatar';
 import { ExerciseThumb } from '../ui/ExerciseThumb';
 import { EQUIPMENT, LEVELS, MUSCLES, PATTERNS, type Equipment, type Exercise, type Level, type Muscle, type Pattern } from '../catalog/types';
 import { saveExercise } from '../db/db';
@@ -10,7 +12,7 @@ import { useApp } from '../state/app-state';
 import { Dialog } from '../ui/Dialog';
 
 export function LibraryPage(): ReactElement {
-  const { exercises, refresh } = useApp();
+  const { exercises, profile, refresh } = useApp();
   const [filters, setFilters] = useState<CatalogFilters>(emptyFilters());
   const [creating, setCreating] = useState(false);
   const visible = useMemo(() => filterExercises(exercises, filters), [exercises, filters]);
@@ -25,10 +27,13 @@ export function LibraryPage(): ReactElement {
 
   return (
     <main className="screen">
-      <div className="split">
-        <h1>Biblioteca</h1>
-        <button type="button" className="btn" onClick={() => setCreating(true)}>Crear ejercicio</button>
-      </div>
+      <header className="page-hero">
+        {profile ? <Avatar gender={profile.avatar} rank={rankForXp(profile.xpTotal).id} pose="idle" /> : <span />}
+        <div className="split">
+          <h1>Biblioteca</h1>
+          <button type="button" className="btn" onClick={() => setCreating(true)}>Crear ejercicio</button>
+        </div>
+      </header>
       <label className="field">
         <span>Buscar ejercicio</span>
         <input value={filters.query} onChange={(event) => setFilters({ ...filters, query: event.target.value })} />
@@ -49,7 +54,7 @@ export function LibraryPage(): ReactElement {
           {visible.map((exercise) => (
             <li key={exercise.id}>
               <Link className="exercise-row" to={`/biblioteca/${exercise.id}`}>
-                <ExerciseThumb images={exercise.imagenes} nombre={exercise.nombre} />
+                <ExerciseThumb images={exercise.imagenes} nombre={exercise.nombre} exerciseId={exercise.id} />
                 <span className="exercise-copy">
                   <strong>{exercise.nombre}</strong>
                   <span>{exerciseMeta(exercise)}</span>

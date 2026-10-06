@@ -10,6 +10,7 @@ import { nivelDePoder, nextLevelXp, rankForXp, ranksCrossed, xpParaAlcanzarNivel
 import { volumeOf } from '../domain/session';
 import { breakdownLine } from '../domain/xp';
 import { useApp } from '../state/app-state';
+import { Avatar } from '../ui/Avatar';
 import { Transformacion } from '../ui/Transformacion';
 
 export function SummaryPage(): ReactElement {
@@ -58,8 +59,9 @@ export function SummaryPage(): ReactElement {
   const rank = rankForXp(profile.xpTotal);
 
   return (
-    <main className="screen narrow">
-      <p className="kicker">{labelRank(rank.id)}</p>
+    <main className="screen narrow victory-hero">
+      <Avatar gender={profile.avatar} rank={rank.id} pose="victoria" />
+      <p className={`rank-pill pf-aura--${rank.id}`}>{labelRank(rank.id)}</p>
       <h1>{session.nombre}</h1>
       <p>{minutes} min</p>
       <p>Series de trabajo: {session.exercises.reduce((sum, exercise) => sum + exercise.series.filter((set) => set.kind === 'trabajo' && set.completed).length, 0)}</p>

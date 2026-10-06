@@ -1,6 +1,8 @@
 import type { ReactElement } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router';
+import { rankForXp } from '../domain/ranks';
 import { useApp } from '../state/app-state';
+import { Avatar } from './Avatar';
 
 const LINKS = [
   { to: '/', label: 'Hoy', end: true, wide: false },
@@ -14,11 +16,12 @@ const LINKS = [
 
 export function Shell(): ReactElement {
   const { pathname } = useLocation();
-  const { notice, setNotice } = useApp();
+  const { notice, setNotice, profile } = useApp();
   return (
     <div className="shell">
       <aside className="sidebar">
         <img className="wordmark-img" src="/design/brand/logo-horizontal.svg" alt="Poder Fitness" />
+        {profile ? <Avatar gender={profile.avatar} rank={rankForXp(profile.xpTotal).id} className="sidebar-avatar" /> : null}
         <nav aria-label="Secciones">
           {LINKS.map((link) => (
             <NavLink key={link.to} to={link.to} end={link.end} className={({ isActive }) => (isActive ? 'nav-link is-active' : 'nav-link')}>

@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react';
-import { AchievementArt, RankEmblem } from '../assets';
+import { AchievementArt } from '../assets';
+import { Avatar } from '../ui/Avatar';
 import { ACHIEVEMENTS } from '../domain/achievements';
 import { formatInt } from '../domain/format';
 import { labelRank } from '../domain/labels';
@@ -20,10 +21,8 @@ export function PowerPage(): ReactElement {
 
   return (
     <main className="screen">
-      <header className="hero-head">
-        <div className={`aura-wrap pf-aura pf-aura--${rank.id}`}>
-          <RankEmblem id={rank.id} />
-        </div>
+      <header className="page-hero">
+        <Avatar gender={profile.avatar} rank={rank.id} />
         <div>
           <p className="kicker">Nivel de poder</p>
           <h1>

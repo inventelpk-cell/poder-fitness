@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 import { Link } from 'react-router';
-import { RankEmblem } from '../assets';
 import { HEALTH_LINE, labelEquipment, labelGoal, labelLevel, labelRank, labelWeekday } from '../domain/labels';
+import { Avatar } from '../ui/Avatar';
 import { nivelDePoder, rankForXp } from '../domain/ranks';
 import { useApp } from '../state/app-state';
 
@@ -11,10 +11,8 @@ export function YouPage(): ReactElement {
   const rank = rankForXp(profile.xpTotal);
   return (
     <main className="screen">
-      <header className="hero-head">
-        <div className={`aura-wrap pf-aura pf-aura--${rank.id}`}>
-          <RankEmblem id={rank.id} size={88} />
-        </div>
+      <header className="page-hero">
+        <Avatar gender={profile.avatar} rank={rank.id} pose="idle" />
         <div>
           <h1>{profile.name}</h1>
           <p>

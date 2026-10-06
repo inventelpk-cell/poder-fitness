@@ -5,7 +5,9 @@ import { localDateISO } from '../domain/dates';
 import { formatDecimal, formatInt } from '../domain/format';
 import { HERO_GOALS, clampHero, heroQuota, xpDelReto } from '../domain/hero';
 import type { HeroLog } from '../domain/model';
+import { rankForXp } from '../domain/ranks';
 import { useApp } from '../state/app-state';
+import { Avatar } from '../ui/Avatar';
 import { HeroRings } from '../ui/Rings';
 
 export function HeroPage(): ReactElement {
@@ -55,11 +57,13 @@ export function HeroPage(): ReactElement {
 
   return (
     <main className="screen">
-      <div className="split">
-        <h1>Reto del héroe</h1>
-        <Link className="btn" to="/reto/historial">Historial</Link>
-      </div>
-      <img className="hero-art" src="/design/illustrations/empty-reto.svg" alt="" width="280" height="160" />
+      <header className="page-hero">
+        <Avatar gender={profile.avatar} rank={rankForXp(profile.xpTotal).id} pose="entrenando" />
+        <div>
+          <h1>Reto del héroe</h1>
+          <Link className="btn" to="/reto/historial">Historial</Link>
+        </div>
+      </header>
       <HeroRings flexiones={flexiones} abdominales={abdominales} sentadillas={sentadillas} km={km} />
       <HeroField label="Flexiones" value={flexiones} max={999} goal={HERO_GOALS.flexiones} quota={quota.flexiones} onChange={setFlexiones} />
       <HeroField label="Abdominales" value={abdominales} max={999} goal={HERO_GOALS.abdominales} quota={quota.abdominales} onChange={setAbdominales} />
@@ -67,9 +71,12 @@ export function HeroPage(): ReactElement {
       <label className="field">
         <span>Kilómetros</span>
         <input inputMode="decimal" value={km} onChange={(event) => setKm(Number(event.target.value.replace(',', '.')) || 0)} />
-        <div className="mini-bar" aria-hidden="true">
-          <span style={{ width: `${Math.min(100, (km / HERO_GOALS.km) * 100)}%` }} />
-          <i className="quota-mark" style={{ left: `${(quota.km / HERO_GOALS.km) * 100}%` }} />
+        <div className="split">
+          <div className="mini-bar" aria-hidden="true">
+            <span style={{ width: `${Math.min(100, (km / HERO_GOALS.km) * 100)}%` }} />
+            <i className="quota-mark" style={{ left: `${(quota.km / HERO_GOALS.km) * 100}%` }} />
+          </div>
+          {km >= HERO_GOALS.km ? <span className="seal">Hecho</span> : null}
         </div>
       </label>
       <p>El reto completo es una meta alta. La cuota sugerida respeta tu nivel. Parar antes no baja tu poder.</p>
@@ -113,9 +120,12 @@ function HeroField({
     <label className="field">
       <span>{label}</span>
       <input inputMode="numeric" value={value} onChange={(event) => onChange(Math.max(0, Math.min(max, Math.round(Number(event.target.value) || 0))))} />
-      <div className="mini-bar" aria-hidden="true">
-        <span style={{ width: `${Math.min(100, (value / goal) * 100)}%` }} />
-        <i className="quota-mark" style={{ left: `${(quota / goal) * 100}%` }} />
+      <div className="split">
+        <div className="mini-bar" aria-hidden="true">
+          <span style={{ width: `${Math.min(100, (value / goal) * 100)}%` }} />
+          <i className="quota-mark" style={{ left: `${(quota / goal) * 100}%` }} />
+        </div>
+        {value >= goal ? <span className="seal">Hecho</span> : null}
       </div>
     </label>
   );
@@ -124,7 +134,7 @@ function HeroField({
 export function HeroHistoryPage(): ReactElement {
   const [logs, setLogs] = useState<HeroLog[]>([]);
   const [editing, setEditing] = useState<HeroLog | null>(null);
-  const { refresh } = useApp();
+  const { profile, refresh } = useApp();
 
   useEffect(() => { void listHero().then(setLogs); }, []);
 
@@ -139,11 +149,16 @@ export function HeroHistoryPage(): ReactElement {
 
   return (
     <main className="screen">
-      <Link to="/reto">Reto del héroe</Link>
-      <h1>Historial del reto</h1>
+      <header className="page-hero">
+        {profile ? <Avatar gender={profile.avatar} rank={rankForXp(profile.xpTotal).id} pose="idle" /> : <span />}
+        <div>
+          <Link to="/reto">Reto del héroe</Link>
+          <h1>Historial del reto</h1>
+        </div>
+      </header>
       {logs.length === 0 ? (
         <div className="empty-card">
-          <img src="/design/illustrations/empty-reto.svg" alt="" width="180" height="140" />
+          {profile ? <Avatar gender={profile.avatar} rank={rankForXp(profile.xpTotal).id} pose="idle" className="onboard-avatar" /> : null}
           <p>Cuando anotes un día, aparecerá aquí.</p>
         </div>
       ) : null}

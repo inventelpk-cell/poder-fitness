@@ -6,13 +6,15 @@ import { imageCaption, imageSrc } from '../catalog/everkinetic';
 import { ExerciseThumb } from '../ui/ExerciseThumb';
 import { saveExercise } from '../db/db';
 import { labelEquipment, labelLevel, labelMuscle, labelPattern } from '../domain/labels';
+import { rankForXp } from '../domain/ranks';
+import { Avatar } from '../ui/Avatar';
 import { readDraft, writeDraft } from '../state/draft';
 import { useApp } from '../state/app-state';
 
 export function ExercisePage(): ReactElement {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { exercises, refresh } = useApp();
+  const { exercises, profile, refresh } = useApp();
   const exercise = exercises.find((item) => item.id === id);
   if (!exercise) {
     return (
@@ -57,7 +59,10 @@ export function ExercisePage(): ReactElement {
   return (
     <main className="screen narrow">
       <Link to="/biblioteca">Biblioteca</Link>
-      <h1>{exercise.nombre}</h1>
+      <header className="page-hero">
+        {profile ? <Avatar gender={profile.avatar} rank={rankForXp(profile.xpTotal).id} pose="entrenando" /> : <span />}
+        <h1>{exercise.nombre}</h1>
+      </header>
       <p>
         {muscles}
         {gear ? ` · ${gear}` : ''}
@@ -75,13 +80,15 @@ export function ExercisePage(): ReactElement {
         <div className="photo-row">
           {images.map((path, index) => (
             <figure key={path}>
-              <img src={imageSrc(path)} alt={`${exercise.nombre}, ${imageCaption(path, index)}`} />
+              <span className="pf-ek pf-ek--hueso">
+                <img src={imageSrc(path)} alt={`${exercise.nombre}, ${imageCaption(path, index)}`} />
+              </span>
               <figcaption>{imageCaption(path, index)}</figcaption>
             </figure>
           ))}
         </div>
       ) : (
-        <ExerciseThumb images={exercise.imagenes} nombre={exercise.nombre} size="stage" labelled />
+        <ExerciseThumb images={exercise.imagenes} nombre={exercise.nombre} exerciseId={exercise.id} size="stage" labelled />
       )}
       {exercise.pasos.length > 0 ? (
         <ol>

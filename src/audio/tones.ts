@@ -43,3 +43,21 @@ export function playRestDone(enabled: boolean): void {
   tone('sine', 523, start, 0.08, gain);
   tone('sine', 784, start + 0.08, 0.08, gain);
 }
+
+export function playRankRise(enabled: boolean, reducedMotion: boolean): void {
+  if (!ctx || !enabled || reducedMotion) return;
+  const start = ctx.currentTime;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'sawtooth';
+  osc.frequency.setValueAtTime(90, start);
+  osc.frequency.exponentialRampToValueAtTime(480, start + 0.7);
+  gain.gain.setValueAtTime(0.035, start);
+  gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.85);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start(start);
+  osc.stop(start + 0.9);
+  tone('square', 196, start + 0.72, 0.07, 0.05);
+  tone('sine', 740, start + 0.8, 0.22, 0.045);
+}

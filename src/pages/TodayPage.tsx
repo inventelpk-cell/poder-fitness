@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactElement } from 'react';
 import { Link } from 'react-router';
-import { RankEmblem } from '../assets';
 import { ExerciseThumb } from '../ui/ExerciseThumb';
+import { Avatar } from '../ui/Avatar';
 import { listHero, listPlans, listSessions, performedFrom, saveSession } from '../db/db';
 import { arcTitle } from '../domain/arc';
 import { localDateISO, mondayOf } from '../domain/dates';
@@ -54,12 +54,10 @@ export function TodayPage(): ReactElement {
     <main className="screen dashboard">
       {dialog}
       <header className="power-board">
-        <div className={`aura-wrap pf-aura pf-aura--${rank.id}`}>
-          <RankEmblem id={rank.id} size={148} />
-        </div>
+        <Avatar gender={profile.avatar} rank={rank.id} />
         <div className="power-copy">
           <p className="kicker">{profile.name}</p>
-          <p className="rank-kicker">{labelRank(rank.id)}</p>
+          <p className={`rank-pill pf-aura--${rank.id}`}>{labelRank(rank.id)}</p>
           <p className="power-figure">
             <span className="power-level">{level}</span>
             <span className="power-xp">{formatInt(profile.xpTotal)} XP{level === 100 ? ', nivel 100' : ''}</span>
@@ -118,7 +116,7 @@ export function TodayPage(): ReactElement {
               const nombre = exercise?.nombre ?? item.exerciseId;
               return (
                 <li key={`${item.slot}-${item.exerciseId}`}>
-                  <ExerciseThumb images={exercise?.imagenes} nombre={nombre} />
+                  <ExerciseThumb images={exercise?.imagenes} nombre={nombre} exerciseId={item.exerciseId} />
                   <span>{nombre}</span>
                 </li>
               );
