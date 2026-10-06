@@ -9,17 +9,15 @@ const HOLE_IDS: Record<string, string> = {
   'curl-femoral-deslizante': 'curl-femoral-deslizante',
 };
 
-const FEMALE_POSES = new Set<AvatarPose>(['idle', 'entrenando', 'victoria', 'cargando']);
-
 export function avatarSrc(gender: AvatarGender, rank: RankId): string {
   const folder = gender === 'mujer' ? 'female' : 'male';
-  return `/design/manga/avatar/${folder}/${rank}.png`;
+  return `/design/premium/avatar/${folder}/${rank}.png`;
 }
 
 export function poseSrc(gender: AvatarGender, pose: AvatarPose): string | null {
-  if (gender === 'mujer' && !FEMALE_POSES.has(pose)) return null;
-  const folder = gender === 'mujer' ? 'female' : 'male';
-  return `/design/manga/avatar/${folder}/poses/${pose}.png`;
+  void gender;
+  void pose;
+  return null;
 }
 
 export function originalExerciseSrc(exerciseId: string | undefined): string | null {

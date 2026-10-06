@@ -11,6 +11,7 @@ import { volumeOf } from '../domain/session';
 import { breakdownLine } from '../domain/xp';
 import { useApp } from '../state/app-state';
 import { Avatar } from '../ui/Avatar';
+import { CoachBubble } from '../ui/CoachBubble';
 import { Transformacion } from '../ui/Transformacion';
 
 export function SummaryPage(): ReactElement {
@@ -61,6 +62,7 @@ export function SummaryPage(): ReactElement {
   return (
     <main className="screen narrow victory-hero">
       <Avatar gender={profile.avatar} rank={rank.id} pose="victoria" />
+      {session.recordNames.length > 0 ? <CoachBubble event="record" /> : null}
       <p className={`rank-pill pf-aura--${rank.id}`}>{labelRank(rank.id)}</p>
       <h1>{session.nombre}</h1>
       <p>{minutes} min</p>

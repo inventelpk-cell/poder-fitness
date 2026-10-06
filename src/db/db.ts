@@ -2,6 +2,7 @@ import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
 import { bundledExercises, type Exercise } from '../catalog';
 import { unlockedIds, type AchievementFacts } from '../domain/achievements';
 import { mondayOf, localDateISO, addDays } from '../domain/dates';
+import { COACH_IDS, type CoachId, type DarioTone } from '../domain/coach';
 import type { Arc, AvatarGender, BackupFile, BodyWeight, HeroLog, Plan, PlanDay, Profile, Routine, StoredAchievement, WorkoutSession } from '../domain/model';
 import { uid } from '../domain/model';
 import { generateWeek, type SlotPin } from '../domain/plan';
@@ -70,9 +71,20 @@ function avatarOf(value: unknown): AvatarGender {
   return value === 'mujer' ? 'mujer' : 'hombre';
 }
 
+function coachOf(value: unknown): CoachId {
+  return COACH_IDS.includes(value as CoachId) ? (value as CoachId) : 'lino';
+}
+
+function toneOf(value: unknown): DarioTone {
+  return value === 'brusco' ? 'brusco' : 'suave';
+}
+
 export function normalizeProfile(profile: Profile): Profile {
   const avatar = avatarOf(profile.avatar);
-  return profile.avatar === avatar ? profile : { ...profile, avatar };
+  const coach = coachOf(profile.coach);
+  const darioTone = toneOf(profile.darioTone);
+  if (profile.avatar === avatar && profile.coach === coach && profile.darioTone === darioTone) return profile;
+  return { ...profile, avatar, coach, darioTone };
 }
 
 export async function getProfile(): Promise<Profile | null> {
@@ -82,7 +94,7 @@ export async function getProfile(): Promise<Profile | null> {
 }
 
 export async function saveProfile(profile: Profile): Promise<void> {
-  await (await db()).put('profile', profile, 'singleton');
+  await (await db()).put('profile', normalizeProfile(profile), 'singleton');
 }
 
 async function putPlan(plan: Plan): Promise<void> {
@@ -101,6 +113,7 @@ function withIds(days: ReturnType<typeof generateWeek>): PlanDay[] {
 }
 
 export async function createProfile(profile: Profile): Promise<void> {
+  const stored = normalizeProfile(profile);
   const database = await db();
   const weekStart = mondayOf(localDateISO());
   const arc: Arc = {
@@ -132,7 +145,7 @@ export async function createProfile(profile: Profile): Promise<void> {
     ),
   };
   const tx = database.transaction(['profile', 'arcs', 'plans'], 'readwrite');
-  tx.objectStore('profile').put(profile, 'singleton');
+  tx.objectStore('profile').put(stored, 'singleton');
   tx.objectStore('arcs').put(arc);
   tx.objectStore('plans').put(plan);
   await tx.done;

@@ -1,19 +1,19 @@
 /* Poder Fitness — tokens. Valores canónicos del sistema visual. */
 :root {
-  --pf-bg: #07080D;
-  --pf-bg-elevated: #10131A;
-  --pf-surface: #171C28;
-  --pf-surface-2: #212838;
-  --pf-line: #2C3548;
-  --pf-line-strong: #3D4860;
+  --pf-bg: #07090F;
+  --pf-bg-elevated: #12151C;
+  --pf-surface: #12151C;
+  --pf-surface-2: #1A1E28;
+  --pf-line: #2A3142;
+  --pf-line-strong: #2A3142;
   --pf-text: #F4F1EA;
-  --pf-text-dim: #9AA3B5;
-  --pf-text-faint: #6B7488;
-  --pf-orange: #FF6A1A;
+  --pf-text-dim: #B7B1A8;
+  --pf-text-faint: #B7B1A8;
+  --pf-orange: #E25A2A;
   --pf-orange-deep: #E24E00;
   --pf-orange-soft: #FF8A3D;
-  --pf-gold: #FFC53D;
-  --pf-gold-soft: #FFE3A3;
+  --pf-gold: #E25A2A;
+  --pf-gold-soft: #FFC7A3;
   --pf-blue: #3B82FF;
   --pf-blue-deep: #1D4ED8;
   --pf-cyan: #5CE1FF;
@@ -34,11 +34,11 @@
   --pf-radius-lg: 24px;
   --pf-radius-xl: 32px;
   --pf-radius-pill: 999px;
-  --pf-shadow-lift: 0 16px 40px rgba(0, 0, 0, 0.45);
-  --pf-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  --pf-glow-orange: 0 0 32px rgba(255, 106, 26, 0.38);
-  --pf-glow-blue: 0 0 32px rgba(59, 130, 255, 0.32);
-  --pf-glow-gold: 0 0 28px rgba(255, 197, 61, 0.34);
+  --pf-shadow-lift: none;
+  --pf-shadow-inset: none;
+  --pf-glow-orange: none;
+  --pf-glow-blue: none;
+  --pf-glow-gold: none;
   --pf-dur-instant: 80ms;
   --pf-dur-fast: 160ms;
   --pf-dur-base: 240ms;
@@ -47,7 +47,7 @@
   --pf-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --pf-ease-impact: cubic-bezier(0.2, 0.9, 0.2, 1);
   --pf-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --pf-font-display: "Archivo Black", "Arial Black", Impact, sans-serif;
-  --pf-font-sans: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
-  --pf-font-mono: "JetBrains Mono", "SFMono-Regular", ui-monospace, monospace;
+  --pf-font-display: "Inter", "Segoe UI", sans-serif;
+  --pf-font-sans: "Inter", "Segoe UI", sans-serif;
+  --pf-font-mono: "Inter", "Segoe UI", sans-serif;
 }

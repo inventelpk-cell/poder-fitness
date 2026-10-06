@@ -3,8 +3,11 @@ import type { PlanExerciseItem } from './plan';
 import type { Unit } from './units';
 import type { SessionXpParts } from './xp';
 
+import type { CoachId, DarioTone } from './coach';
+
 export type ThemeIntensity = 'suave' | 'media' | 'plena';
 export type AvatarGender = 'hombre' | 'mujer';
+export type { CoachId, DarioTone };
 
 export interface Profile {
   name: string;
@@ -18,6 +21,8 @@ export interface Profile {
   theme: ThemeIntensity;
   sound: boolean;
   avatar: AvatarGender;
+  coach: CoachId;
+  darioTone: DarioTone;
   xpTotal: number;
   ranksSeen: RankId[];
   createdAt: string;

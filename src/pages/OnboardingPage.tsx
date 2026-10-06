@@ -1,6 +1,7 @@
 import { useState, type ReactElement } from 'react';
 import { useNavigate } from 'react-router';
 import { EQUIPMENT, type Equipment, type Goal, type Level } from '../catalog/types';
+import { COACHES, coachPortrait, type CoachId, type DarioTone } from '../domain/coach';
 import { createProfile } from '../db/db';
 import { defaultWeekdays } from '../domain/dates';
 import { HEALTH_LINE, LEVEL_HELP, WEEKDAY_SHORT, labelEquipment, labelGoal, labelLevel, labelWeekday } from '../domain/labels';
@@ -10,7 +11,7 @@ import { Avatar } from '../ui/Avatar';
 
 const GOALS: Goal[] = ['fuerza', 'hipertrofia', 'resistencia', 'grasa'];
 const LEVELS: Level[] = ['principiante', 'intermedio', 'avanzado'];
-const STEP_TITLES = ['Tu nombre', 'Tu nivel', 'Tu objetivo', 'Tu equipo', 'Tus días', 'Tu punto de partida'] as const;
+const STEP_TITLES = ['Tu nombre', 'Tu entrenador', 'Tu nivel', 'Tu objetivo', 'Tu equipo', 'Tus días', 'Tu punto de partida'] as const;
 
 export function OnboardingPage(): ReactElement {
   const navigate = useNavigate();
@@ -27,6 +28,8 @@ export function OnboardingPage(): ReactElement {
   const [touched, setTouched] = useState(false);
   const [busy, setBusy] = useState(false);
   const [avatar, setAvatar] = useState<AvatarGender>('hombre');
+  const [coach, setCoach] = useState<CoachId>('lino');
+  const [darioTone, setDarioTone] = useState<DarioTone>('suave');
 
   function toggleEquipment(id: Equipment): void {
     setEquipError('');
@@ -40,8 +43,8 @@ export function OnboardingPage(): ReactElement {
     });
   }
 
-  function changeCount(next: number): void {
-    const value = Math.max(1, Math.min(7, next));
+  function changeCount(nextCount: number): void {
+    const value = Math.max(1, Math.min(7, nextCount));
     setCount(value);
     if (!touched) setDays(defaultWeekdays(value));
   }
@@ -66,6 +69,8 @@ export function OnboardingPage(): ReactElement {
       theme: 'media',
       sound: true,
       avatar,
+      coach,
+      darioTone,
       xpTotal: 0,
       ranksSeen: [],
       createdAt: new Date().toISOString(),
@@ -84,22 +89,23 @@ export function OnboardingPage(): ReactElement {
       }
       setNameError('');
     }
-    if (step === 2 && !level) return;
-    if (step === 3 && !goal) return;
-    if (step === 4 && equipment.length === 0) {
+    if (step === 3 && !level) return;
+    if (step === 4 && !goal) return;
+    if (step === 5 && equipment.length === 0) {
       setEquipError('Elige un equipo.');
       return;
     }
-    if (step === 5 && days.length !== count) return;
-    setStep((value) => Math.min(6, value + 1));
+    if (step === 6 && days.length !== count) return;
+    setStep((value) => Math.min(7, value + 1));
   }
 
   const daysOk = days.length === count;
+  const coachName = COACHES.find((item) => item.id === coach)?.name ?? 'Lino Vega';
 
   return (
     <main className="screen onboard">
       <img className="wordmark-img" src="/design/brand/logo-horizontal.svg" alt="Poder Fitness" />
-      <p className="kicker">Paso {step} de 6</p>
+      <p className="kicker">Paso {step} de 7</p>
       <ol className="step-rail" aria-hidden="true">
         {STEP_TITLES.map((title, index) => (
           <li key={title} className={index + 1 === step ? 'is-on' : index + 1 < step ? 'is-done' : ''} />
@@ -121,9 +127,8 @@ export function OnboardingPage(): ReactElement {
             </button>
           ))}
         </div>
-      ) : (
-        <Avatar gender={avatar} rank="chispa" pose={step === 6 ? 'victoria' : 'idle'} className="onboard-avatar" />
-      )}
+      ) : null}
+      {step > 2 ? <Avatar gender={avatar} rank="chispa" className="onboard-avatar" /> : null}
       <h1>{STEP_TITLES[step - 1]}</h1>
       {step === 1 ? (
         <label className="field">
@@ -134,6 +139,40 @@ export function OnboardingPage(): ReactElement {
         </label>
       ) : null}
       {step === 2 ? (
+        <div className="coach-choice" role="radiogroup" aria-label="Entrenador">
+          {COACHES.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              role="radio"
+              aria-checked={coach === item.id}
+              className={coach === item.id ? 'choice is-on' : 'choice'}
+              onClick={() => setCoach(item.id)}
+            >
+              <img src={coachPortrait(item.id)} alt="" width={64} height={64} />
+              <strong>{item.name}</strong>
+              <span>{item.blurb}</span>
+            </button>
+          ))}
+        </div>
+      ) : null}
+      {step === 2 && coach === 'dario' ? (
+        <div className="row" role="radiogroup" aria-label="Tono de Darío">
+          {(['suave', 'brusco'] as const).map((tone) => (
+            <button
+              key={tone}
+              type="button"
+              role="radio"
+              aria-checked={darioTone === tone}
+              className={darioTone === tone ? 'chip is-on' : 'chip'}
+              onClick={() => setDarioTone(tone)}
+            >
+              {tone === 'suave' ? 'Suave' : 'Brusco'}
+            </button>
+          ))}
+        </div>
+      ) : null}
+      {step === 3 ? (
         <div className="choice-grid" role="radiogroup" aria-label="Nivel">
           {LEVELS.map((item) => (
             <button key={item} type="button" role="radio" aria-checked={level === item} className={level === item ? 'choice is-on' : 'choice'} onClick={() => setLevel(item)}>
@@ -143,7 +182,7 @@ export function OnboardingPage(): ReactElement {
           ))}
         </div>
       ) : null}
-      {step === 3 ? (
+      {step === 4 ? (
         <div className="choice-grid" role="radiogroup" aria-label="Objetivo">
           {GOALS.map((item) => (
             <button key={item} type="button" role="radio" aria-checked={goal === item} className={goal === item ? 'choice is-on' : 'choice'} onClick={() => setGoal(item)}>
@@ -152,7 +191,7 @@ export function OnboardingPage(): ReactElement {
           ))}
         </div>
       ) : null}
-      {step === 4 ? (
+      {step === 5 ? (
         <div className="chips" role="group" aria-label="Equipo">
           {EQUIPMENT.map((item) => (
             <button
@@ -168,7 +207,7 @@ export function OnboardingPage(): ReactElement {
           {equipError ? <strong className="error">{equipError}</strong> : null}
         </div>
       ) : null}
-      {step === 5 ? (
+      {step === 6 ? (
         <div>
           <div className="stepper">
             <button type="button" onClick={() => changeCount(count - 1)} aria-label="Menos días">
@@ -193,9 +232,10 @@ export function OnboardingPage(): ReactElement {
           {!daysOk ? <strong className="error">Elige {count} días.</strong> : null}
         </div>
       ) : null}
-      {step === 6 && level && goal ? (
+      {step === 7 && level && goal ? (
         <section className="card">
           <p><strong>{name.trim()}</strong> · {avatar === 'mujer' ? 'Mujer' : 'Hombre'}</p>
+          <p>{coachName}{coach === 'dario' ? ` · ${darioTone === 'brusco' ? 'Brusco' : 'Suave'}` : ''}</p>
           <p>{labelLevel(level)}</p>
           <p>{labelGoal(goal)}</p>
           <p>{equipment.map((item) => (item === 'peso-corporal' ? 'Solo peso corporal' : labelEquipment(item))).join(', ')}</p>
@@ -209,8 +249,8 @@ export function OnboardingPage(): ReactElement {
             Atrás
           </button>
         ) : null}
-        {step < 6 ? (
-          <button type="button" className="btn btn-primary" onClick={next} disabled={(step === 2 && !level) || (step === 3 && !goal) || (step === 5 && !daysOk)}>
+        {step < 7 ? (
+          <button type="button" className="btn btn-primary" onClick={next} disabled={(step === 3 && !level) || (step === 4 && !goal) || (step === 6 && !daysOk)}>
             Continuar
           </button>
         ) : (

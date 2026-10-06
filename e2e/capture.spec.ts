@@ -6,17 +6,19 @@ async function onboard(page: Page): Promise<void> {
   await page.goto('/');
   await page.getByLabel('Nombre').fill('Antonio');
   await page.getByRole('button', { name: 'Continuar' }).click();
+  await page.getByRole('heading', { name: 'Tu entrenador' }).waitFor();
+  await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('radio', { name: /Principiante/ }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('radio', { name: 'Hipertrofia' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('button', { name: 'Solo peso corporal' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
-  await expect(page.getByText('Paso 5 de 6')).toBeVisible();
+  await expect(page.getByText('Paso 6 de 7')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Tus días' })).toBeVisible();
   await page.getByRole('button', { name: 'Más días' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
-  await expect(page.getByText('Paso 6 de 6')).toBeVisible();
+  await expect(page.getByText('Paso 7 de 7')).toBeVisible();
   await page.getByRole('button', { name: 'Empezar' }).click();
   await expect(page.getByText('Chispa')).toBeVisible();
 }
@@ -54,13 +56,13 @@ test('capturas de la app en marcha', async ({ page }) => {
   test.setTimeout(180_000);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/onboarding');
-  await expect(page.getByText('Paso 1 de 6')).toBeVisible();
+  await expect(page.getByText('Paso 1 de 7')).toBeVisible();
   await shot(page, 'onboarding-movil');
 
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/onboarding');
   await expect(page.getByRole('heading', { name: 'Tu nombre' })).toBeVisible();
-  await expect(page.getByText('Paso 1 de 6')).toBeVisible();
+  await expect(page.getByText('Paso 1 de 7')).toBeVisible();
   await shot(page, 'onboarding');
   await onboard(page);
   await shot(page, 'hoy');

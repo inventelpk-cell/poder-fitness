@@ -6,6 +6,8 @@ async function onboard(page: Page): Promise<void> {
   await page.goto('/');
   await page.getByLabel('Nombre').fill('Antonio');
   await page.getByRole('button', { name: 'Continuar' }).click();
+  await page.getByRole('heading', { name: 'Tu entrenador' }).waitFor();
+  await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('radio', { name: /Principiante/ }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('radio', { name: 'Hipertrofia' }).click();
@@ -50,7 +52,7 @@ test('capturas del avatar manga', async ({ page }) => {
   test.setTimeout(180_000);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/onboarding');
-  await expect(page.getByText('Paso 1 de 6')).toBeVisible();
+  await expect(page.getByText('Paso 1 de 7')).toBeVisible();
   await expect(page.getByRole('radio', { name: 'Hombre' }).locator('img')).toHaveAttribute('src', /\/avatar\/male\/chispa\.png$/);
   await expect(page.getByRole('radio', { name: 'Mujer' }).locator('img')).toHaveAttribute('src', /\/avatar\/female\/chispa\.png$/);
   await page.locator('.avatar-choice img').nth(0).evaluate((img: HTMLImageElement) => img.decode());

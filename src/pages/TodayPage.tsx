@@ -13,6 +13,7 @@ import { heroStreak, weekStreak } from '../domain/streaks';
 import type { Plan, WorkoutSession } from '../domain/model';
 import { useApp } from '../state/app-state';
 import { useWorkoutLauncher } from '../state/launch';
+import { CoachBubble } from '../ui/CoachBubble';
 import { HeroRings } from '../ui/Rings';
 
 export function TodayPage(): ReactElement {
@@ -70,6 +71,7 @@ export function TodayPage(): ReactElement {
           </p>
         </div>
       </header>
+      <CoachBubble event={hero.lost || streak.restart || arc.repeatNotice ? 'racha' : 'empezar'} />
       {arc.repeatNotice || streak.restart ? <p className="banner">Esta semana se empieza de nuevo.</p> : null}
       {arc.repeatNotice ? <p className="muted">Repites esta semana del arco para asentar el poder.</p> : null}
       <section className="card week-card">

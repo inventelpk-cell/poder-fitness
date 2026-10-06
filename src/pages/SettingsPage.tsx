@@ -12,6 +12,7 @@ import {
 } from '../db/db';
 import { localDateISO } from '../domain/dates';
 import { HEALTH_LINE, labelEquipment, labelGoal, labelLevel } from '../domain/labels';
+import { COACHES, coachPortrait, type CoachId, type DarioTone } from '../domain/coach';
 import type { AvatarGender, Profile, ThemeIntensity } from '../domain/model';
 import { rankForXp } from '../domain/ranks';
 import { useApp } from '../state/app-state';
@@ -90,6 +91,41 @@ export function SettingsPage(): ReactElement {
             </button>
           ))}
         </div>
+      </section>
+      <section className="card">
+        <h2>Entrenador</h2>
+        <div className="coach-choice" role="radiogroup" aria-label="Entrenador">
+          {COACHES.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              role="radio"
+              aria-checked={profile.coach === item.id}
+              className={profile.coach === item.id ? 'choice is-on' : 'choice'}
+              onClick={() => void saveSimple({ ...profile, coach: item.id satisfies CoachId })}
+            >
+              <img src={coachPortrait(item.id)} alt="" width={64} height={64} />
+              <strong>{item.name}</strong>
+              <span>{item.blurb}</span>
+            </button>
+          ))}
+        </div>
+        {profile.coach === 'dario' ? (
+          <div className="row" role="radiogroup" aria-label="Tono de Darío">
+            {(['suave', 'brusco'] as const satisfies readonly DarioTone[]).map((tone) => (
+              <button
+                key={tone}
+                type="button"
+                role="radio"
+                aria-checked={profile.darioTone === tone}
+                className={profile.darioTone === tone ? 'chip is-on' : 'chip'}
+                onClick={() => void saveSimple({ ...profile, darioTone: tone })}
+              >
+                {tone === 'suave' ? 'Suave' : 'Brusco'}
+              </button>
+            ))}
+          </div>
+        ) : null}
       </section>
       <section className="card">
         <h2>Unidad</h2>

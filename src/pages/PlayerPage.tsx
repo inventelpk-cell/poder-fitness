@@ -37,7 +37,9 @@ import {
 import { fromDisplay, toDisplay } from '../domain/units';
 import { proposeLoad } from '../domain/loads';
 import { useApp } from '../state/app-state';
+import type { CoachEvent } from '../domain/coach';
 import { Avatar } from '../ui/Avatar';
+import { CoachBubble } from '../ui/CoachBubble';
 import { Dialog } from '../ui/Dialog';
 import { ExerciseThumb } from '../ui/ExerciseThumb';
 import { Switch } from '../ui/Switch';
@@ -73,6 +75,9 @@ export function PlayerPage(): ReactElement {
   const [error, setError] = useState('');
   const [saveError, setSaveError] = useState('');
   const [impact, setImpact] = useState(false);
+  const [coachEvent, setCoachEvent] = useState<CoachEvent>('empezar');
+  const [coachTick, setCoachTick] = useState(0);
+  const mitadSaid = useRef<string | null>(null);
   const [finishAsk, setFinishAsk] = useState(false);
   const [substituteOpen, setSubstituteOpen] = useState(false);
   const [pinChange, setPinChange] = useState(false);
@@ -119,6 +124,8 @@ export function PlayerPage(): ReactElement {
         if (mark === 0) {
           playRestDone(profile.sound);
           setLiveText('Descanso terminado');
+          setCoachEvent('descanso');
+          setCoachTick((value) => value + 1);
           const cleared = { ...current, restEndsAt: null, restAnnounced: 0 };
           setSession(cleared);
           void saveSession(cleared);
@@ -187,6 +194,8 @@ export function PlayerPage(): ReactElement {
       window.setTimeout(() => setImpact(false), 1200);
     }
     playSetComplete(profile.sound);
+    setCoachEvent('serie');
+    setCoachTick((value) => value + 1);
     announced.current = null;
     const saved = await persist(result.session, live);
     if (!saved) setImpact(false);
@@ -197,6 +206,11 @@ export function PlayerPage(): ReactElement {
     if (!live || !profile) return;
     const value = raw.trim() === '' ? null : Number(raw.replace(',', '.'));
     if (value !== null && Number.isNaN(value)) return;
+    if (mitadSaid.current !== item.id && raw.trim() !== '') {
+      mitadSaid.current = item.id;
+      setCoachEvent('mitad');
+      setCoachTick((tick) => tick + 1);
+    }
     const patch =
       field === 'pesoKg'
         ? { pesoKg: value === null ? null : fromDisplay(value, profile.unit) }
@@ -259,6 +273,8 @@ export function PlayerPage(): ReactElement {
     const live = sessionRef.current;
     if (!live || !current) return;
     const result = skipExercise(live, current.instanceId);
+    setCoachEvent('salto');
+    setCoachTick((value) => value + 1);
     await persist(result.session, live);
     if (result.needsFinish) setFinishAsk(true);
   }
@@ -319,6 +335,7 @@ export function PlayerPage(): ReactElement {
   return (
     <main className={`player ${impact ? 'impact pf-impact is-hit' : ''}`}>
       <p className="sr" aria-live="polite">{liveText}</p>
+      <CoachBubble event={coachEvent} tick={coachTick} />
       <header className="player-head">
         <div>
           <p className="kicker">{session.nombre}</p>
