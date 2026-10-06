@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 440" role="img" aria-labelledby="t d">
+  <title id="t">Elige tu arco</title>
+  <desc id="d">Tres emblemas sobre un camino ascendente, del primer destello a la cima.</desc>
+  
+  <defs><pattern id="g2" width="31.1769" height="54.0000" patternUnits="userSpaceOnUse">
+      <path d="M 15.59 0.00 L 31.18 9.00 L 31.18 27.00 L 15.59 36.00 L -0.00 27.00 L 0.00 9.00 Z M 0.00 27.00 L 15.59 36.00 L 15.59 54.00 L 0.00 63.00 L -15.59 54.00 L -15.59 36.00 Z M 0.00 -27.00 L 15.59 -18.00 L 15.59 -0.00 L 0.00 9.00 L -15.59 -0.00 L -15.59 -18.00 Z" fill="none" stroke="#2A3346" stroke-width="1.25" stroke-linejoin="round"/>
+    </pattern></defs>
+  <rect width="360" height="440" fill="#090B10"/>
+  <rect width="360" height="440" fill="url(#g2)" opacity="0.4"/>
+  <path d="M78 312 Q 120 270 180 206 T 282 108" fill="none" stroke="#3C4558" stroke-width="8" stroke-linecap="round"/>
+  <path d="M78 312 Q 120 270 180 206 T 282 108" fill="none" stroke="#FF6A1A" stroke-width="3" stroke-dasharray="10 12" stroke-linecap="round"/>
+  <g>
+      <polygon points="78.0,270.0 114.4,291.0 114.4,333.0 78.0,354.0 41.6,333.0 41.6,291.0" fill="#090B10" stroke="#8E97AB" stroke-width="4"/>
+      <polygon points="78.0,282.0 104.0,297.0 104.0,327.0 78.0,342.0 52.0,327.0 52.0,297.0" fill="#141821" stroke="#8E97AB" stroke-width="1.5" opacity="0.8"/>
+    </g><g>
+      <polygon points="180.0,164.0 216.4,185.0 216.4,227.0 180.0,248.0 143.6,227.0 143.6,185.0" fill="#090B10" stroke="#FF6A1A" stroke-width="4"/>
+      <polygon points="180.0,176.0 206.0,191.0 206.0,221.0 180.0,236.0 154.0,221.0 154.0,191.0" fill="#141821" stroke="#FF6A1A" stroke-width="1.5" opacity="0.8"/>
+    </g><g>
+      <polygon points="282.0,66.0 318.4,87.0 318.4,129.0 282.0,150.0 245.6,129.0 245.6,87.0" fill="#090B10" stroke="#FFC43A" stroke-width="4"/>
+      <polygon points="282.0,78.0 308.0,93.0 308.0,123.0 282.0,138.0 256.0,123.0 256.0,93.0" fill="#141821" stroke="#FFC43A" stroke-width="1.5" opacity="0.8"/>
+    </g><polygon points="78.0,301.0 85.0,312.0 78.0,323.0 71.0,312.0" fill="#FF6A1A"/><polyline points="158.0,222.0 180.0,188.0 202.0,222.0" fill="none" stroke="#FFC43A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" opacity="1"/><line x1="282.0" y1="94.0" x2="282.0" y2="84.0" stroke="#FF6A1A" stroke-width="3" stroke-linecap="round"/><line x1="290.7" y1="99.0" x2="299.3" y2="94.0" stroke="#3B82FF" stroke-width="3" stroke-linecap="round"/><line x1="290.7" y1="109.0" x2="299.3" y2="114.0" stroke="#FF6A1A" stroke-width="3" stroke-linecap="round"/><line x1="282.0" y1="114.0" x2="282.0" y2="124.0" stroke="#3B82FF" stroke-width="3" stroke-linecap="round"/><line x1="273.3" y1="109.0" x2="264.7" y2="114.0" stroke="#FF6A1A" stroke-width="3" stroke-linecap="round"/><line x1="273.3" y1="99.0" x2="264.7" y2="94.0" stroke="#3B82FF" stroke-width="3" stroke-linecap="round"/><polygon points="282.0,96.0 288.9,100.0 288.9,108.0 282.0,112.0 275.1,108.0 275.1,100.0" fill="#FFF6E4"/>
+  <g fill="none" stroke="#8E97AB" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" opacity="0.55">
+    <path d="M16 52 V16 H52"/>
+    <path d="M308 16 H344 V52"/>
+    <path d="M16 388 V424 H52"/>
+    <path d="M308 424 H344 V388"/>
+  </g>
+</svg>

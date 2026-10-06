@@ -1,0 +1,945 @@
+[
+  {
+    "id": "Barbell_Full_Squat",
+    "nombre": "Sentadilla con barra",
+    "pasos": [
+      "Apoya la barra sobre la espalda alta y da un paso atrás.",
+      "Baja hasta que el muslo pase la horizontal si tu movilidad lo permite.",
+      "Sube empujando el suelo, con las rodillas siguiendo la punta de los pies."
+    ],
+    "roles": [
+      "sentadilla"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "barra"
+    ],
+    "muscleGroup": "piernas"
+  },
+  {
+    "id": "Goblet_Squat",
+    "nombre": "Sentadilla en copa",
+    "pasos": [
+      "Sujeta una mancuerna contra el pecho.",
+      "Siéntate entre las caderas, talones quietos.",
+      "Ponte de pie sin echar el tronco hacia atrás."
+    ],
+    "roles": [
+      "sentadilla"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "mancuernas"
+    ],
+    "muscleGroup": "piernas"
+  },
+  {
+    "id": "Dumbbell_Squat",
+    "nombre": "Sentadilla con mancuernas",
+    "pasos": [
+      "Mancuernas a los lados.",
+      "Baja con el pecho abierto.",
+      "Sube hasta extender caderas y rodillas."
+    ],
+    "roles": [
+      "sentadilla"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "mancuernas"
+    ],
+    "muscleGroup": "piernas"
+  },
+  {
+    "id": "Leg_Press",
+    "nombre": "Prensa de piernas",
+    "pasos": [
+      "Pies a la anchura de la cadera en la plataforma.",
+      "Baja sin despegar la zona lumbar del respaldo.",
+      "Empuja sin bloquear las rodillas con un golpe."
+    ],
+    "roles": [
+      "sentadilla"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "maquinas"
+    ],
+    "muscleGroup": "piernas"
+  },
+  {
+    "id": "Bodyweight_Squat",
+    "nombre": "Sentadilla",
+    "pasos": [
+      "Pies firmes, brazos al frente si te ayudan a equilibrar.",
+      "Baja y sube con el mismo ritmo.",
+      "Las rodillas no se cierran hacia dentro."
+    ],
+    "roles": [
+      "sentadilla"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "cuerpo"
+    ],
+    "muscleGroup": "piernas"
+  },
+  {
+    "id": "Barbell_Deadlift",
+    "nombre": "Peso muerto",
+    "pasos": [
+      "La barra sobre el medio del pie, cadera atrás, espalda neutra.",
+      "Empuja el suelo y lleva la barra pegada a las piernas.",
+      "Al bajar, la barra vuelve por el mismo camino."
+    ],
+    "roles": [
+      "bisagra"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "barra"
+    ],
+    "muscleGroup": "espalda"
+  },
+  {
+    "id": "Romanian_Deadlift",
+    "nombre": "Peso muerto rumano",
+    "pasos": [
+      "Rodillas casi quietas, cadera atrás, barra cerca del muslo.",
+      "Baja hasta notar el isquio, sin redondear la espalda.",
+      "Vuelve a extender la cadera."
+    ],
+    "roles": [
+      "bisagra"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "barra"
+    ],
+    "muscleGroup": "piernas"
+  },
+  {
+    "id": "Stiff-Legged_Dumbbell_Deadlift",
+    "nombre": "Peso muerto con mancuernas",
+    "pasos": [
+      "Igual que el rumano, mancuernas junto a las piernas.",
+      "La espalda se mantiene neutra.",
+      "Cierras de pie, glúteos activos."
+    ],
+    "roles": [
+      "bisagra"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "mancuernas"
+    ],
+    "muscleGroup": "piernas"
+  },
+  {
+    "id": "One-Arm_Kettlebell_Swings",
+    "nombre": "Balanceo con kettlebell",
+    "pasos": [
+      "El impulso sale de la cadera, no del hombro.",
+      "El brazo acompaña hasta la altura del pecho.",
+      "Dejas caer la kettlebell hacia atrás entre las piernas con la espalda neutra."
+    ],
+    "roles": [
+      "bisagra"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "kettlebell"
+    ],
+    "muscleGroup": "piernas"
+  },
+  {
+    "id": "Single_Leg_Glute_Bridge",
+    "nombre": "Puente a una pierna",
+    "pasos": [
+      "Tumbado, un pie apoyado, la otra pierna estirada.",
+      "Sube la cadera hasta alinear hombro, cadera y rodilla.",
+      "Baja sin perder el contacto del hombro con el suelo."
+    ],
+    "roles": [
+      "bisagra",
+      "gluteo"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "cuerpo"
+    ],
+    "muscleGroup": "gluteos"
+  },
+  {
+    "id": "Barbell_Bench_Press_-_Medium_Grip",
+    "nombre": "Press de banca",
+    "pasos": [
+      "Escápulas juntas, pies en el suelo.",
+      "Baja la barra al pecho medio.",
+      "Empuja hacia arriba con una leve diagonal hacia la cara."
+    ],
+    "roles": [
+      "empuje_horizontal"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "barra",
+      "banco"
+    ],
+    "muscleGroup": "pecho"
+  },
+  {
+    "id": "Dumbbell_Bench_Press",
+    "nombre": "Press de banca con mancuernas",
+    "pasos": [
+      "Las mancuernas bajan a los lados del pecho.",
+      "Empujas hasta dejar los brazos extendidos sobre los hombros.",
+      "No chocas las mancuernas a propósito."
+    ],
+    "roles": [
+      "empuje_horizontal"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "mancuernas",
+      "banco"
+    ],
+    "muscleGroup": "pecho"
+  },
+  {
+    "id": "Pushups",
+    "nombre": "Flexión",
+    "pasos": [
+      "Manos bajo los hombros, cuerpo en una línea.",
+      "El pecho se acerca al suelo.",
+      "Empujas hasta arriba sin perder la línea."
+    ],
+    "roles": [
+      "empuje_horizontal"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "cuerpo"
+    ],
+    "muscleGroup": "pecho"
+  },
+  {
+    "id": "Decline_Push-Up",
+    "nombre": "Flexión con pies altos",
+    "pasos": [
+      "Pies en un escalón, manos en el suelo.",
+      "El mismo recorrido de la flexión.",
+      "Cuanto más alto el pie, más peso recibe el torso."
+    ],
+    "roles": [
+      "empuje_horizontal"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "cuerpo"
+    ],
+    "muscleGroup": "pecho"
+  },
+  {
+    "id": "Incline_Push-Up",
+    "nombre": "Flexión con manos altas",
+    "pasos": [
+      "Manos en un banco o un escalón.",
+      "Cuerpo en línea.",
+      "Baja y sube el pecho hacia el apoyo."
+    ],
+    "roles": [
+      "empuje_horizontal"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "cuerpo"
+    ],
+    "muscleGroup": "pecho"
+  },
+  {
+    "id": "Bent_Over_Barbell_Row",
+    "nombre": "Remo con barra",
+    "pasos": [
+      "Tronco cerca de la horizontal, barra hacia el ombligo.",
+      "Aprietas la espalda al llegar.",
+      "Bajas la barra sin soltar la tensión."
+    ],
+    "roles": [
+      "tiron_horizontal"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "barra"
+    ],
+    "muscleGroup": "espalda"
+  },
+  {
+    "id": "Bent_Over_Two-Dumbbell_Row",
+    "nombre": "Remo con mancuernas",
+    "pasos": [
+      "Una mano y una rodilla en el banco, o las dos mancuernas con el tronco inclinado.",
+      "Llevas la mancuerna hacia la cadera.",
+      "Bajas despacio."
+    ],
+    "roles": [
+      "tiron_horizontal"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "mancuernas"
+    ],
+    "muscleGroup": "espalda"
+  },
+  {
+    "id": "Seated_Cable_Rows",
+    "nombre": "Remo en polea",
+    "pasos": [
+      "Sentado, pecho abierto, tiras del agarre hacia el abdomen.",
+      "Los hombros no suben a las orejas.",
+      "Vuelves sin dejar caer la pila de pesos."
+    ],
+    "roles": [
+      "tiron_horizontal"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "poleas"
+    ],
+    "muscleGroup": "espalda"
+  },
+  {
+    "id": "Inverted_Row",
+    "nombre": "Remo invertido",
+    "pasos": [
+      "Cuerpo bajo una mesa firme o una barra baja, talones apoyados.",
+      "Tiras del pecho hacia el apoyo.",
+      "Bajas hasta estirar los brazos."
+    ],
+    "roles": [
+      "tiron_horizontal"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "cuerpo"
+    ],
+    "muscleGroup": "espalda"
+  },
+  {
+    "id": "Standing_Military_Press",
+    "nombre": "Press militar",
+    "pasos": [
+      "Barra desde la parte alta del pecho, abdominal firme.",
+      "Empujas en vertical sin arquear de más la lumbar.",
+      "Bajas a la clavícula con control."
+    ],
+    "roles": [
+      "empuje_vertical"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "barra"
+    ],
+    "muscleGroup": "hombros"
+  },
+  {
+    "id": "Dumbbell_Shoulder_Press",
+    "nombre": "Press de hombros con mancuernas",
+    "pasos": [
+      "De pie, mancuernas a la altura de las orejas.",
+      "Empujas hasta arriba.",
+      "Bajas hasta que el codo quede cerca de noventa grados."
+    ],
+    "roles": [
+      "empuje_vertical"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "mancuernas"
+    ],
+    "muscleGroup": "hombros"
+  },
+  {
+    "id": "Seated_Dumbbell_Press",
+    "nombre": "Press de hombros sentado",
+    "pasos": [
+      "Espalda contra el banco, pies en el suelo.",
+      "El mismo recorrido.",
+      "No separas la espalda del banco para ayudar."
+    ],
+    "roles": [
+      "empuje_vertical"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "mancuernas",
+      "banco"
+    ],
+    "muscleGroup": "hombros"
+  },
+  {
+    "id": "Pullups",
+    "nombre": "Dominada",
+    "pasos": [
+      "Agarre prono, cuerpo estable.",
+      "Tiras hasta que la barbilla supere la barra.",
+      "Bajas hasta casi estirar los brazos."
+    ],
+    "roles": [
+      "tiron_vertical"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "dominadas"
+    ],
+    "muscleGroup": "espalda"
+  },
+  {
+    "id": "Chin-Up",
+    "nombre": "Dominada supina",
+    "pasos": [
+      "Agarre supino, a la anchura de los hombros.",
+      "Tiras con los codos hacia el suelo.",
+      "Bajas del todo, sin un tirón al final."
+    ],
+    "roles": [
+      "tiron_vertical"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "dominadas"
+    ],
+    "muscleGroup": "espalda"
+  },
+  {
+    "id": "Close-Grip_Front_Lat_Pulldown",
+    "nombre": "Jalón al pecho",
+    "pasos": [
+      "Agarre a la anchura de los hombros, tiras hacia la parte alta del pecho.",
+      "El tronco se echa atrás solo un poco.",
+      "Subes sin encoger los hombros."
+    ],
+    "roles": [
+      "tiron_vertical"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "poleas"
+    ],
+    "muscleGroup": "espalda"
+  },
+  {
+    "id": "Barbell_Hip_Thrust",
+    "nombre": "Empuje de cadera",
+    "pasos": [
+      "Espalda alta en el banco, barra sobre la cadera protegida.",
+      "Empujas la cadera hasta extenderla.",
+      "Bajas sin rebotar en el suelo."
+    ],
+    "roles": [
+      "gluteo"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "barra",
+      "banco"
+    ],
+    "muscleGroup": "gluteos"
+  },
+  {
+    "id": "Glute_Kickback",
+    "nombre": "Patada de glúteo",
+    "pasos": [
+      "A cuatro patas, extiendes la cadera con la rodilla flexionada.",
+      "El movimiento es corto y atrás, no hacia el techo con la lumbar.",
+      "Vuelves sin perder el apoyo de las manos."
+    ],
+    "roles": [
+      "gluteo"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "cuerpo"
+    ],
+    "muscleGroup": "gluteos"
+  },
+  {
+    "id": "Dumbbell_Lunges",
+    "nombre": "Zancada con mancuernas",
+    "pasos": [
+      "Das un paso largo, la rodilla de atrás se acerca al suelo.",
+      "El tronco sigue erguido.",
+      "Empujas para volver."
+    ],
+    "roles": [
+      "unilateral"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "mancuernas"
+    ],
+    "muscleGroup": "piernas"
+  },
+  {
+    "id": "Bodyweight_Walking_Lunge",
+    "nombre": "Zancada",
+    "pasos": [
+      "El mismo paso, manos en la cadera si quieres.",
+      "Cada repetición es un paso.",
+      "El pie de delante no se despega de talón."
+    ],
+    "roles": [
+      "unilateral"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "cuerpo"
+    ],
+    "muscleGroup": "piernas"
+  },
+  {
+    "id": "Leg_Extensions",
+    "nombre": "Extensión de piernas",
+    "pasos": [
+      "Ajustas el rodillo sobre los tobillos.",
+      "Extiendes las rodillas sin levantar el muslo del asiento.",
+      "Bajas sin soltar el peso."
+    ],
+    "roles": [
+      "unilateral"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "maquinas"
+    ],
+    "muscleGroup": "piernas"
+  },
+  {
+    "id": "Lying_Leg_Curls",
+    "nombre": "Curl femoral tumbado",
+    "pasos": [
+      "Rodillo sobre los talones.",
+      "Flexionas las rodillas llevando los talones hacia el glúteo.",
+      "Bajas lento."
+    ],
+    "roles": [
+      "unilateral"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "maquinas"
+    ],
+    "muscleGroup": "piernas"
+  },
+  {
+    "id": "Dumbbell_Flyes",
+    "nombre": "Apertura con mancuernas",
+    "pasos": [
+      "En el banco, ligera flexión de codos fija.",
+      "Abres hasta notar el pecho.",
+      "Cierras sin chocar las mancuernas."
+    ],
+    "roles": [
+      "accesorio_empuje"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "mancuernas",
+      "banco"
+    ],
+    "muscleGroup": "pecho"
+  },
+  {
+    "id": "Bench_Dips",
+    "nombre": "Fondo en banco",
+    "pasos": [
+      "Manos en el borde, pies delante.",
+      "Bajas los codos hacia atrás.",
+      "Subes sin encoger los hombros."
+    ],
+    "roles": [
+      "accesorio_empuje"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "cuerpo"
+    ],
+    "muscleGroup": "brazos"
+  },
+  {
+    "id": "Triceps_Pushdown",
+    "nombre": "Extensión de tríceps en polea",
+    "pasos": [
+      "Codos quietos al lado del tronco.",
+      "Extiendes hacia abajo.",
+      "Vuelves hasta unos noventa grados."
+    ],
+    "roles": [
+      "accesorio_empuje"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "poleas"
+    ],
+    "muscleGroup": "brazos"
+  },
+  {
+    "id": "Push-Ups_-_Close_Triceps_Position",
+    "nombre": "Flexión cerrada",
+    "pasos": [
+      "Manos más juntas que en la flexión, codos cerca del cuerpo.",
+      "Bajas el cuerpo en bloque.",
+      "Empujas hasta arriba."
+    ],
+    "roles": [
+      "accesorio_empuje"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "cuerpo"
+    ],
+    "muscleGroup": "brazos"
+  },
+  {
+    "id": "Dumbbell_One-Arm_Triceps_Extension",
+    "nombre": "Extensión de tríceps con mancuerna",
+    "pasos": [
+      "Un brazo arriba, codo apuntando al techo.",
+      "Bajas la mancuerna por detrás de la cabeza.",
+      "Extiendes sin mover el codo de sitio."
+    ],
+    "roles": [
+      "accesorio_empuje"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "mancuernas"
+    ],
+    "muscleGroup": "brazos"
+  },
+  {
+    "id": "Face_Pull",
+    "nombre": "Tirón a la cara",
+    "pasos": [
+      "Polea alta, cuerda hacia la cara, codos altos.",
+      "Separas las manos al llegar.",
+      "Vuelves sin perder la postura del pecho."
+    ],
+    "roles": [
+      "accesorio_tiron"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "poleas"
+    ],
+    "muscleGroup": "hombros"
+  },
+  {
+    "id": "Band_Pull_Apart",
+    "nombre": "Apertura con banda",
+    "pasos": [
+      "Banda al frente, brazos estirados.",
+      "Abres hasta que las manos queden a los lados.",
+      "Vuelves sin que la banda te arrastre."
+    ],
+    "roles": [
+      "accesorio_tiron"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "bandas"
+    ],
+    "muscleGroup": "hombros"
+  },
+  {
+    "id": "Hammer_Curls",
+    "nombre": "Curl martillo",
+    "pasos": [
+      "Mancuernas con el pulgar hacia arriba.",
+      "Flexionas el codo.",
+      "Bajas del todo."
+    ],
+    "roles": [
+      "accesorio_tiron"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "mancuernas"
+    ],
+    "muscleGroup": "brazos"
+  },
+  {
+    "id": "Barbell_Curl",
+    "nombre": "Curl con barra",
+    "pasos": [
+      "Codos quietos, barra hacia los hombros.",
+      "No te echas atrás para pasar el punto difícil.",
+      "Bajas controlando."
+    ],
+    "roles": [
+      "accesorio_tiron"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "barra"
+    ],
+    "muscleGroup": "brazos"
+  },
+  {
+    "id": "Side_Lateral_Raise",
+    "nombre": "Elevación lateral",
+    "pasos": [
+      "Mancuernas a los lados, un poco de flexión en el codo.",
+      "Subes hasta la altura del hombro.",
+      "Bajas sin balancear el tronco."
+    ],
+    "roles": [
+      "hombro"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "mancuernas"
+    ],
+    "muscleGroup": "hombros"
+  },
+  {
+    "id": "Lateral_Raise_-_With_Bands",
+    "nombre": "Elevación lateral con banda",
+    "pasos": [
+      "Un pie sobre la banda.",
+      "El mismo recorrido lateral.",
+      "La muñeca se queda neutra."
+    ],
+    "roles": [
+      "hombro"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "bandas"
+    ],
+    "muscleGroup": "hombros"
+  },
+  {
+    "id": "Rocking_Standing_Calf_Raise",
+    "nombre": "Gemelo de pie con barra",
+    "pasos": [
+      "Barra sobre la espalda, pies en un escalón si lo tienes.",
+      "Subes a la punta.",
+      "Bajas el talón por debajo del escalón si hay recorrido."
+    ],
+    "roles": [
+      "pantorrilla"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "barra"
+    ],
+    "muscleGroup": "pantorrillas"
+  },
+  {
+    "id": "Calf_Raise_On_A_Dumbbell",
+    "nombre": "Gemelo con mancuerna",
+    "pasos": [
+      "Una mancuerna en una mano y la otra en un apoyo.",
+      "Subes y bajas un pie cada vez.",
+      "El movimiento es de tobillo, no de rodilla."
+    ],
+    "roles": [
+      "pantorrilla"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "mancuernas"
+    ],
+    "muscleGroup": "pantorrillas"
+  },
+  {
+    "id": "Seated_Calf_Raise",
+    "nombre": "Gemelo sentado",
+    "pasos": [
+      "Rodillas bajo las almohadillas.",
+      "Empujas con la punta del pie.",
+      "Bajas hasta estirar el gemelo."
+    ],
+    "roles": [
+      "pantorrilla"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "maquinas"
+    ],
+    "muscleGroup": "pantorrillas"
+  },
+  {
+    "id": "Calf_Raises_-_With_Bands",
+    "nombre": "Gemelo con banda",
+    "pasos": [
+      "La banda pisa bajo el antepié y la sujetas con las manos.",
+      "Empujas la punta.",
+      "Vuelves despacio."
+    ],
+    "roles": [
+      "pantorrilla"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "bandas"
+    ],
+    "muscleGroup": "pantorrillas"
+  },
+  {
+    "id": "Plank",
+    "nombre": "Plancha",
+    "pasos": [
+      "Antebrazos bajo los hombros, cuerpo en línea desde la cabeza a los talones.",
+      "Aprietas abdomen y glúteo.",
+      "Respiras sin dejar caer la cadera. El tiempo manda, no las repeticiones."
+    ],
+    "roles": [
+      "core"
+    ],
+    "compound": false,
+    "logging": "tiempo",
+    "equipo": [
+      "cuerpo"
+    ],
+    "muscleGroup": "core"
+  },
+  {
+    "id": "Reverse_Crunch",
+    "nombre": "Encogimiento inverso",
+    "pasos": [
+      "Tumbado, rodillas flexionadas.",
+      "Llevas las rodillas hacia el pecho despegando la cadera.",
+      "Bajas sin arquear la lumbar de un golpe."
+    ],
+    "roles": [
+      "core"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "cuerpo"
+    ],
+    "muscleGroup": "core"
+  },
+  {
+    "id": "Sit-Up",
+    "nombre": "Abdominal",
+    "pasos": [
+      "Tumbado, pies firmes.",
+      "Subes la caja torácica hacia la pelvis.",
+      "Bajas un vértebra a vértebra, sin tirar del cuello con las manos."
+    ],
+    "roles": [
+      "core"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "cuerpo"
+    ],
+    "muscleGroup": "core"
+  },
+  {
+    "id": "Cable_Crunch",
+    "nombre": "Encogimiento en polea",
+    "pasos": [
+      "De rodillas, la cuerda junto a la cara.",
+      "Flexionas el tronco hacia abajo.",
+      "Vuelves sin sentarte sobre los talones."
+    ],
+    "roles": [
+      "core"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "poleas"
+    ],
+    "muscleGroup": "core"
+  },
+  {
+    "id": "Air_Bike",
+    "nombre": "Bicicleta en el suelo",
+    "pasos": [
+      "Espalda en el suelo, un codo busca la rodilla contraria mientras la otra pierna se estira.",
+      "Alternas sin tirar del cuello.",
+      "Cada lado es una repetición."
+    ],
+    "roles": [
+      "core",
+      "finisher"
+    ],
+    "compound": false,
+    "logging": "reps_peso",
+    "equipo": [
+      "cuerpo"
+    ],
+    "muscleGroup": "core"
+  },
+  {
+    "id": "Mountain_Climbers",
+    "nombre": "Escalador",
+    "pasos": [
+      "En posición de flexión, llevas una rodilla hacia el pecho y cambias.",
+      "La cadera no sube en balancín.",
+      "El ritmo es el que puedas sostener con la espalda neutra."
+    ],
+    "roles": [
+      "finisher"
+    ],
+    "compound": true,
+    "logging": "reps_peso",
+    "equipo": [
+      "cuerpo"
+    ],
+    "muscleGroup": "core"
+  }
+]

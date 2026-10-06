@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="t d">
+  <title id="t">Impulso · Impulsor</title>
+  <desc id="d">El movimiento gana velocidad propia.</desc>
+  
+  <circle cx="64" cy="64" r="44" fill="#FF6A1A" opacity="0.20"/>
+  <polygon points="64.0,10.0 110.8,37.0 110.8,91.0 64.0,118.0 17.2,91.0 17.2,37.0" fill="#090B10" stroke="#FF6A1A" stroke-width="4" stroke-linejoin="round"/>
+  <polygon points="64.0,20.0 102.1,42.0 102.1,86.0 64.0,108.0 25.9,86.0 25.9,42.0" fill="#141821" stroke="#3B82FF" stroke-width="2.25" stroke-linejoin="round" opacity="0.95"/>
+  <path d="M 104.29 105.72 A 58.00 58.00 0 0 1 23.71 105.72" fill="none" stroke="#FFC43A" stroke-width="3.5" stroke-linecap="round"/>
+  <polyline points="40.0,74.0 64.0,56.0 88.0,74.0" fill="none" stroke="#3B82FF" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" opacity="0.95"/>
+  <polyline points="44.0,58.0 64.0,42.0 84.0,58.0" fill="none" stroke="#FF6A1A" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+</svg>

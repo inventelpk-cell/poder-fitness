@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="t d">
+  <title id="t">Noche de hierro</title>
+  <desc id="d">Sesión nocturna sostenida con calma y peso.</desc>
+  
+  <circle cx="64" cy="64" r="58" fill="#090B10" stroke="#3B82FF" stroke-width="4"/>
+  <circle cx="64" cy="64" r="47" fill="#141821" stroke="#9EC0FF" stroke-width="1.75" opacity="0.9"/>
+  <circle cx="56" cy="58" r="18" fill="#9EC0FF"/>
+  <circle cx="68" cy="52" r="14" fill="#141821"/>
+  <rect x="34" y="88" width="60" height="8" rx="2" fill="#FFC43A"/>
+</svg>

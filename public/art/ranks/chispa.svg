@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="t d">
+  <title id="t">Chispa · Novato</title>
+  <desc id="d">Primer destello. El arco acaba de encenderse.</desc>
+  
+  <circle cx="64" cy="64" r="36" fill="#FF6A1A" opacity="0.00"/>
+  <polygon points="64.0,10.0 110.8,37.0 110.8,91.0 64.0,118.0 17.2,91.0 17.2,37.0" fill="#090B10" stroke="#3C4558" stroke-width="4" stroke-linejoin="round"/>
+  <polygon points="64.0,20.0 102.1,42.0 102.1,86.0 64.0,108.0 25.9,86.0 25.9,42.0" fill="#141821" stroke="#8E97AB" stroke-width="2.25" stroke-linejoin="round" opacity="0.95"/>
+  <path d="M 79.99 119.75 A 58.00 58.00 0 0 1 48.01 119.75" fill="none" stroke="#FF6A1A" stroke-width="3.5" stroke-linecap="round"/>
+  <polygon points="64.0,50.0 72.0,62.0 64.0,74.0 56.0,62.0" fill="#FF6A1A"/>
+</svg>

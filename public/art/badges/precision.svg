@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="t d">
+  <title id="t">Precisión</title>
+  <desc id="d">La técnica del plan cumplida sin dispersarse.</desc>
+  
+  <circle cx="64" cy="64" r="58" fill="#090B10" stroke="#FF6A1A" stroke-width="4"/>
+  <circle cx="64" cy="64" r="47" fill="#141821" stroke="#FFC43A" stroke-width="1.75" opacity="0.9"/>
+  <circle cx="64" cy="64" r="20" fill="none" stroke="#FF6A1A" stroke-width="4"/>
+  <circle cx="64" cy="64" r="10" fill="none" stroke="#FFC43A" stroke-width="3.5"/>
+  <polygon points="64.0,59.0 67.5,64.0 64.0,69.0 60.5,64.0" fill="#FFF6E4"/>
+</svg>

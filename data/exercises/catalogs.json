@@ -1,0 +1,194 @@
+{
+  "musculos": [
+    {
+      "id": "abdominales",
+      "nombre": "Abdominales"
+    },
+    {
+      "id": "abductores",
+      "nombre": "Abductores"
+    },
+    {
+      "id": "aductores",
+      "nombre": "Aductores"
+    },
+    {
+      "id": "biceps",
+      "nombre": "Bíceps"
+    },
+    {
+      "id": "gemelos",
+      "nombre": "Gemelos"
+    },
+    {
+      "id": "pecho",
+      "nombre": "Pecho"
+    },
+    {
+      "id": "antebrazos",
+      "nombre": "Antebrazos"
+    },
+    {
+      "id": "gluteos",
+      "nombre": "Glúteos"
+    },
+    {
+      "id": "isquiotibiales",
+      "nombre": "Isquiotibiales"
+    },
+    {
+      "id": "dorsales",
+      "nombre": "Dorsales"
+    },
+    {
+      "id": "lumbares",
+      "nombre": "Lumbares"
+    },
+    {
+      "id": "espalda-media",
+      "nombre": "Espalda media"
+    },
+    {
+      "id": "cuello",
+      "nombre": "Cuello"
+    },
+    {
+      "id": "cuadriceps",
+      "nombre": "Cuádriceps"
+    },
+    {
+      "id": "hombros",
+      "nombre": "Hombros"
+    },
+    {
+      "id": "trapecios",
+      "nombre": "Trapecios"
+    },
+    {
+      "id": "triceps",
+      "nombre": "Tríceps"
+    }
+  ],
+  "equipo": [
+    {
+      "id": "balon-medicinal",
+      "nombre": "Balón medicinal"
+    },
+    {
+      "id": "mancuernas",
+      "nombre": "Mancuernas"
+    },
+    {
+      "id": "peso-corporal",
+      "nombre": "Peso corporal"
+    },
+    {
+      "id": "bandas",
+      "nombre": "Bandas elásticas"
+    },
+    {
+      "id": "pesas-rusas",
+      "nombre": "Pesas rusas"
+    },
+    {
+      "id": "rodillo",
+      "nombre": "Rodillo de espuma"
+    },
+    {
+      "id": "polea",
+      "nombre": "Polea"
+    },
+    {
+      "id": "maquina",
+      "nombre": "Máquina"
+    },
+    {
+      "id": "barra",
+      "nombre": "Barra"
+    },
+    {
+      "id": "pelota",
+      "nombre": "Pelota de ejercicio"
+    },
+    {
+      "id": "barra-z",
+      "nombre": "Barra Z"
+    },
+    {
+      "id": "otro",
+      "nombre": "Otro"
+    },
+    {
+      "id": "sin-especificar",
+      "nombre": "Sin especificar"
+    }
+  ],
+  "categorias": [
+    {
+      "id": "fuerza",
+      "nombre": "Fuerza"
+    },
+    {
+      "id": "estiramiento",
+      "nombre": "Estiramiento"
+    },
+    {
+      "id": "cardio",
+      "nombre": "Cardio"
+    },
+    {
+      "id": "pliometria",
+      "nombre": "Pliometría"
+    },
+    {
+      "id": "powerlifting",
+      "nombre": "Powerlifting"
+    },
+    {
+      "id": "halterofilia",
+      "nombre": "Halterofilia"
+    },
+    {
+      "id": "strongman",
+      "nombre": "Strongman"
+    }
+  ],
+  "niveles": [
+    {
+      "id": "principiante",
+      "nombre": "Principiante"
+    },
+    {
+      "id": "intermedio",
+      "nombre": "Intermedio"
+    },
+    {
+      "id": "avanzado",
+      "nombre": "Avanzado"
+    }
+  ],
+  "fuerza": [
+    {
+      "id": "empuje",
+      "nombre": "Empuje"
+    },
+    {
+      "id": "traccion",
+      "nombre": "Tracción"
+    },
+    {
+      "id": "estatico",
+      "nombre": "Estático"
+    }
+  ],
+  "mecanica": [
+    {
+      "id": "compuesto",
+      "nombre": "Compuesto"
+    },
+    {
+      "id": "aislamiento",
+      "nombre": "Aislamiento"
+    }
+  ]
+}
