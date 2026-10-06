@@ -13,10 +13,9 @@ const MUSCLE_ROW: { id: string; label: string; muscles: Muscle[] }[] = [
   { id: 'pecho', label: 'Pecho', muscles: ['pecho'] },
   { id: 'espalda', label: 'Espalda', muscles: ['espalda'] },
   { id: 'pierna', label: 'Pierna', muscles: ['cuadriceps', 'gluteos', 'isquiotibiales', 'gemelos'] },
-  { id: 'hombros', label: 'Hombros', muscles: ['hombros'] },
-  { id: 'biceps', label: 'Bíceps', muscles: ['biceps'] },
-  { id: 'triceps', label: 'Tríceps', muscles: ['triceps'] },
-  { id: 'abdomen', label: 'Abdomen', muscles: ['abdomen'] },
+  { id: 'hombro', label: 'Hombro', muscles: ['hombros'] },
+  { id: 'brazos', label: 'Brazos', muscles: ['biceps', 'triceps'] },
+  { id: 'core', label: 'Core', muscles: ['abdomen'] },
   { id: 'completo', label: 'Completo', muscles: ['cuerpo-completo'] },
 ];
 
@@ -40,19 +39,26 @@ export function LibraryPage(): ReactElement {
     <main className="screen">
       <header className="lib-head">
         <h1>Biblioteca</h1>
-        <button type="button" className="text-link" onClick={() => setCreating(true)}>Crear ejercicio</button>
+        <button type="button" className="lib-icon lib-add" aria-label="Crear ejercicio" onClick={() => setCreating(true)}>
+          <span aria-hidden="true">+</span>
+        </button>
       </header>
-      <label className="search-field">
-        <span className="sr">Buscar ejercicio</span>
-        <SearchIcon />
-        <input
-          placeholder="Buscar"
-          value={filters.query}
-          onChange={(event) => setFilters({ ...filters, query: event.target.value })}
-        />
-      </label>
-      <div className="lib-filters">
-        <div className="muscle-row" role="radiogroup" aria-label="Músculo">
+      <div className="lib-search">
+        <label className="search-field">
+          <span className="sr">Buscar ejercicio</span>
+          <SearchIcon />
+          <input
+            placeholder="Buscar"
+            value={filters.query}
+            onChange={(event) => setFilters({ ...filters, query: event.target.value })}
+          />
+        </label>
+        <button type="button" className="lib-icon" aria-label="Filtros" onClick={() => setFiltersOpen(true)}>
+          <FilterIcon />
+          {hiddenCount > 0 ? <span className="lib-icon-count">{hiddenCount}</span> : null}
+        </button>
+      </div>
+      <div className="muscle-row" role="radiogroup" aria-label="Músculo">
           {MUSCLE_ROW.map((group) => {
             const on = group.muscles.length === 0
               ? filters.musculos.length === 0
@@ -70,10 +76,6 @@ export function LibraryPage(): ReactElement {
               </button>
             );
           })}
-        </div>
-        <button type="button" className="btn btn-filter" onClick={() => setFiltersOpen(true)}>
-          Filtros{hiddenCount > 0 ? ` · ${hiddenCount}` : ''}
-        </button>
       </div>
       {visible.length === 0 ? (
         <div className="card empty-card">
@@ -112,6 +114,14 @@ export function LibraryPage(): ReactElement {
 
 function sameList(current: readonly string[], next: readonly string[]): boolean {
   return current.length === next.length && next.every((item) => current.includes(item));
+}
+
+function FilterIcon(): ReactElement {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 6h16M7 12h10M10 18h4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
 }
 
 function SearchIcon(): ReactElement {
