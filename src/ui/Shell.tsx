@@ -5,7 +5,7 @@ import { rankForXp } from '../domain/ranks';
 import { useApp } from '../state/app-state';
 import { Avatar } from './Avatar';
 
-type TabId = 'hoy' | 'plan' | 'historial' | 'tu';
+type TabId = 'hoy' | 'plan' | 'biblioteca' | 'historial' | 'tu';
 
 function TabGlyph({ id }: { id: TabId }): ReactElement {
   const common = {
@@ -34,6 +34,14 @@ function TabGlyph({ id }: { id: TabId }): ReactElement {
           <path d="M8 3.5v3M16 3.5v3M4 10h16" />
         </svg>
       );
+    case 'biblioteca':
+      return (
+        <svg {...common}>
+          <path d="M5 4.5h10.5v15H5z" />
+          <path d="M15.5 7H19v12.5H9" />
+          <path d="M8 8.5h5M8 12h5" />
+        </svg>
+      );
     case 'historial':
       return (
         <svg {...common}>
@@ -59,6 +67,8 @@ function tabId(to: string): TabId {
       return 'hoy';
     case '/plan':
       return 'plan';
+    case '/biblioteca':
+      return 'biblioteca';
     case '/historial':
       return 'historial';
     case '/tu':
@@ -71,7 +81,7 @@ function tabId(to: string): TabId {
 const LINKS = [
   { to: '/', label: 'Hoy', end: true, wide: false },
   { to: '/plan', label: 'Plan', end: false, wide: false },
-  { to: '/biblioteca', label: 'Biblioteca', end: false, wide: true },
+  { to: '/biblioteca', label: 'Biblioteca', end: false, wide: false },
   { to: '/historial', label: 'Historial', end: false, wide: false },
   { to: '/reto', label: 'Reto', end: false, wide: true },
   { to: '/poder', label: 'Poder', end: false, wide: true },
@@ -113,8 +123,10 @@ export function Shell(): ReactElement {
               : link.to === '/historial'
                 ? pathname.startsWith('/historial')
                 : link.to === '/plan'
-                  ? pathname.startsWith('/plan') || pathname.startsWith('/biblioteca')
-                  : pathname === '/';
+                  ? pathname.startsWith('/plan')
+                  : link.to === '/biblioteca'
+                    ? pathname.startsWith('/biblioteca')
+                    : pathname === '/';
           return (
             <NavLink key={link.to} to={link.to} end={link.end} className={active ? 'tab is-active' : 'tab'} aria-current={active ? 'page' : undefined}>
               <TabGlyph id={tabId(link.to)} />

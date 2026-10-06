@@ -3,7 +3,6 @@ import type { RankId } from '../catalog/types';
 import { unlockAudio, playRankRise } from '../audio/tones';
 import { labelRank } from '../domain/labels';
 import { useApp } from '../state/app-state';
-import { KiStage } from './KiStage';
 import { transformAvatarSrc } from './manga-art';
 
 type Phase = 'desde' | 'salto' | 'destino';
@@ -75,14 +74,11 @@ export function Transformacion({
   }, []);
 
   return (
-    <div className="transform-screen" role="dialog" aria-modal="true" aria-labelledby="transform-title" ref={root}>
-      <div className={`manga-transform is-${phase}`} data-rank={rank}>
-        <KiStage rank={rank} />
-        {phase === 'salto' ? <div className="manga-flash" aria-hidden="true" /> : null}
-        <div className="transform-avatar">
-          <img src={transformAvatarSrc(gender, rank)} alt="" />
-        </div>
+    <div className={`transform-screen is-${phase}`} role="dialog" aria-modal="true" aria-labelledby="transform-title" ref={root}>
+      <div className="transform-avatar">
+        <img className="transform-plate" src={transformAvatarSrc(gender, rank)} alt="" />
       </div>
+      {phase === 'salto' ? <div className="manga-flash" aria-hidden="true" /> : null}
       <div className="transform-caption">
         <div className="transform-follow" hidden={!ready}>
           <p className="transform-eyebrow">Subida de rango</p>

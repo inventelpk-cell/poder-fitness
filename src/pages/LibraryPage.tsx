@@ -36,7 +36,7 @@ export function LibraryPage(): ReactElement {
   }
 
   return (
-    <main className="screen">
+    <main className="screen library">
       <header className="lib-head">
         <h1>Biblioteca</h1>
         <button type="button" className="lib-icon lib-add" aria-label="Crear ejercicio" onClick={() => setCreating(true)}>

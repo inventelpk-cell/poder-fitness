@@ -16,7 +16,7 @@ export function avatarSrc(gender: AvatarGender, rank: RankId): string {
 
 export function transformAvatarSrc(gender: AvatarGender, rank: RankId): string {
   const folder = gender === 'mujer' ? 'female' : 'male';
-  return `/design/premium/avatar-transform/${folder}/${rank}.png`;
+  return `/design/premium/transform-plate/${folder}/${rank}.png`;
 }
 
 export function poseSrc(gender: AvatarGender, pose: AvatarPose): string | null {
