@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none" role="img">
+  <title>Textura de energía</title>
+  <desc>Trama de manga marcada sobre un gradiente del color de rango al oro eléctrico.</desc>
+  <defs>
+    <linearGradient id="energy" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5CE1FF"/>
+      <stop offset="0.78" stop-color="#5CE1FF"/>
+      <stop offset="1" stop-color="#FFE14A"/>
+    </linearGradient>
+    <pattern id="tone" width="5" height="5" patternUnits="userSpaceOnUse">
+      <circle cx="1.3" cy="1.3" r="1.2" fill="#05060A"/>
+    </pattern>
+  </defs>
+  <rect width="240" height="48" fill="url(#energy)"/>
+  <rect width="240" height="48" fill="url(#tone)" opacity="0.85"/>
+  <rect width="240" height="10" fill="#fff" opacity="0.28"/>
+</svg>

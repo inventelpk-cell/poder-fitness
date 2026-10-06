@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img">
+  <title>Anillo de carga</title>
+  <desc>Anillo de descanso. Trazo de 8 px. El arco empieza arriba. El centro queda libre para la cifra.</desc>
+  <circle cx="60" cy="60" r="52" fill="none" stroke="#171C28" stroke-width="8"/>
+  <circle cx="60" cy="60" r="52" fill="none" stroke="#5CE1FF" stroke-width="8" stroke-linecap="butt"
+    stroke-dasharray="220 327" transform="rotate(-90 60 60)"/>
+  <circle cx="60" cy="60" r="52" fill="none" stroke="#FFE14A" stroke-width="8" stroke-linecap="butt"
+    stroke-dasharray="36 327" stroke-dashoffset="-184" transform="rotate(-90 60 60)"/>
+</svg>

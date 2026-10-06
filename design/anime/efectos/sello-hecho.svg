@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 84" fill="none" role="img">
+  <title>Sello Hecho</title>
+  <desc>Sello Hecho, girado, con borde grueso del color de rango.</desc>
+  <g transform="rotate(-8 90 42)">
+    <rect x="8" y="14" width="164" height="56" fill="#07080D" stroke="#5CE1FF" stroke-width="4"/>
+    <text x="90" y="52" text-anchor="middle" fill="#5CE1FF" font-family="Bebas Neue, sans-serif" font-size="36" letter-spacing="2">HECHO</text>
+  </g>
+</svg>

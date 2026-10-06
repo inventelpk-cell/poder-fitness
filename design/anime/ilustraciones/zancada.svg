@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" role="img">
+  <title>Zancada</title>
+  <desc>Ilustración original de zancada, línea clara sobre negro.</desc>
+  <defs>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="tone" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.6" fill="#05060A"/>
+    </pattern></defs>
+  <rect width="800" height="640" fill="#07080D"/>
+  <g opacity="0.45" stroke="#3DF0FF" stroke-width="3"><line x1="40" y1="0" x2="-80" y2="640"/><line x1="58" y1="0" x2="-62" y2="640"/><line x1="76" y1="0" x2="-44" y2="640"/><line x1="94" y1="0" x2="-26" y2="640"/><line x1="112" y1="0" x2="-8" y2="640"/><line x1="130" y1="0" x2="10" y2="640"/><line x1="148" y1="0" x2="28" y2="640"/><line x1="166" y1="0" x2="46" y2="640"/></g>
+  <rect x="0" y="540" width="800" height="100" fill="url(#tone)" opacity="0.55"/>
+  <line x1="60" y1="548" x2="740" y2="548" stroke="#F4F1EA" stroke-opacity="0.35" stroke-width="3"/>
+  
+  <g fill="none" stroke="#F4F1EA" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+    <circle cx="390" cy="118" r="34"/>
+    <path d="M390 152 L404 300"/>
+    <path d="M404 300 C450 360 500 420 528 470"/>
+    <path d="M528 470 C534 510 500 546 456 548"/>
+    <path d="M430 548 H560"/>
+    <path d="M404 300 C350 360 300 420 286 468"/>
+    <path d="M286 468 C280 500 310 534 360 540"/>
+    <path d="M330 546 H430"/>
+    <path d="M378 190 L330 230"/>
+    <path d="M400 196 L448 230"/>
+  </g>
+  <g fill="none" stroke="#FF5A12" stroke-width="5" stroke-linecap="round" opacity="0.95">
+    <path d="M560 470 H640"/>
+    <path d="M610 444 L640 470 L610 496"/>
+  </g>
+  <circle cx="528" cy="470" r="8" fill="#FFE14A"/>
+
+</svg>

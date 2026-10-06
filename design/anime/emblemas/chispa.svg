@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none" role="img">
+  <title>Emblema Chispa</title>
+  <desc>Emblema del rango Chispa: estrella pequeña, un corte en el anillo y aura cian pálida.</desc>
+  <defs>
+    <filter id="chispa-blur" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="5"/></filter><pattern id="chispa-tone" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1.4" cy="1.4" r="1.25" fill="#05060A"/></pattern>
+  </defs>
+  <circle cx="80" cy="80" r="52" fill="#9FD4FF" opacity="0.62" filter="url(#chispa-blur)"/>
+  
+  <circle cx="80" cy="80" r="58" fill="#07080D"/>
+  <circle cx="80" cy="80" r="58" fill="url(#chispa-tone)" opacity="0.55"/>
+  <circle cx="80" cy="80" r="68" fill="none" stroke="#9FD4FF" stroke-width="5" stroke-dasharray="405.3 22.0" transform="rotate(-50 80 80)"/>
+  <circle cx="80" cy="80" r="58" fill="none" stroke="#F4F1EA" stroke-opacity="0.28" stroke-width="1.5"/>
+  
+  
+        <polygon points="80.00,62.00 84.24,75.76 98.00,80.00 84.24,84.24 80.00,98.00 75.76,84.24 62.00,80.00 75.76,75.76" fill="#EAF6FF"/>
+        <polygon points="112.00,39.00 113.70,44.30 119.00,46.00 113.70,47.70 112.00,53.00 110.30,47.70 105.00,46.00 110.30,44.30" fill="#9FD4FF"/>
+        <polygon points="48.00,103.00 49.27,106.73 53.00,108.00 49.27,109.27 48.00,113.00 46.73,109.27 43.00,108.00 46.73,106.73" fill="#9FD4FF" opacity="0.85"/>
+</svg>

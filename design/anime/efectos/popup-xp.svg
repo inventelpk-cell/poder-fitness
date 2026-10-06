@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 72" fill="none" role="img">
+  <title>Popup de XP</title>
+  <desc>Cartel +XP en oro eléctrico, listo para flotar y desvanecerse una vez.</desc>
+  <path d="M8 8 H196 L212 24 V64 H24 L8 48 Z" fill="#07080D" stroke="#FFE14A" stroke-width="3"/>
+  <text x="110" y="46" text-anchor="middle" fill="#FFE14A" font-family="Rajdhani, sans-serif" font-size="32" font-weight="700">+40 XP</text>
+</svg>
