@@ -12,7 +12,11 @@ async function onboard(page: Page): Promise<void> {
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('button', { name: 'Solo peso corporal' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
+  await expect(page.getByText('Paso 5 de 6')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Tus días' })).toBeVisible();
+  await page.getByRole('button', { name: 'Más días' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
+  await expect(page.getByText('Paso 6 de 6')).toBeVisible();
   await page.getByRole('button', { name: 'Empezar' }).click();
   await expect(page.getByText('Chispa')).toBeVisible();
 }
@@ -42,25 +46,38 @@ async function nearBrasa(page: Page): Promise<void> {
   await page.reload();
 }
 
+async function shot(page: Page, name: string): Promise<void> {
+  await page.screenshot({ path: `${OUT}/${name}.png`, fullPage: true });
+}
+
 test('capturas de la app en marcha', async ({ page }) => {
-  await page.setViewportSize({ width: 1280, height: 800 });
+  test.setTimeout(180_000);
+  await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/onboarding');
-  await page.screenshot({ path: `${OUT}/onboarding.png`, fullPage: true });
+  await expect(page.getByText('Paso 1 de 6')).toBeVisible();
+  await shot(page, 'onboarding-movil');
+
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/onboarding');
+  await expect(page.getByRole('heading', { name: 'Tu nombre' })).toBeVisible();
+  await expect(page.getByText('Paso 1 de 6')).toBeVisible();
+  await shot(page, 'onboarding');
   await onboard(page);
-  await page.screenshot({ path: `${OUT}/hoy.png`, fullPage: true });
+  await shot(page, 'hoy');
 
   await page.getByRole('link', { name: 'Biblioteca' }).click();
-  await page.getByLabel('Buscar ejercicio').fill('flexion');
-  await expect(page.getByRole('link', { name: /Flexión de pecho/ })).toBeVisible();
-  await page.screenshot({ path: `${OUT}/biblioteca.png`, fullPage: true });
-  await page.getByRole('link', { name: /Flexión de pecho/ }).click();
-  await expect(page.getByRole('heading', { name: 'Flexión de pecho' })).toBeVisible();
-  await page.screenshot({ path: `${OUT}/ejercicio.png`, fullPage: true });
+  await page.getByLabel('Buscar ejercicio').fill('press de banca');
+  await expect(page.getByRole('link', { name: /Press de banca/ }).first()).toBeVisible();
+  await shot(page, 'biblioteca');
+  await page.goto('/biblioteca/bench-press');
+  await expect(page.getByRole('heading', { name: 'Press de banca' })).toBeVisible();
+  const exerciseUrl = page.url();
+  await shot(page, 'ejercicio');
 
   await page.getByRole('link', { name: 'Plan', exact: true }).click();
   await page.getByRole('button', { name: 'Empezar entreno' }).click();
   await expect(page.getByRole('button', { name: 'Completar serie' })).toBeVisible();
-  await page.screenshot({ path: `${OUT}/reproductor.png`, fullPage: true });
+  await shot(page, 'reproductor');
 
   await page.getByRole('button', { name: 'Terminar' }).click();
   await page.getByRole('button', { name: 'Terminar con lo que ya hiciste' }).click();
@@ -68,37 +85,53 @@ test('capturas de la app en marcha', async ({ page }) => {
 
   await nearBrasa(page);
   await page.getByRole('link', { name: 'Plan', exact: true }).click();
-  await page.getByRole('button', { name: 'Lunes' }).click();
-  const start = page.getByRole('button', { name: 'Empezar entreno' });
+  await page.getByRole('button', { name: 'Martes' }).click();
   if (await page.getByRole('button', { name: 'Seguir el entreno a medias' }).isVisible().catch(() => false)) {
     await page.getByRole('button', { name: 'Descartarlo' }).click();
   }
-  await start.click();
+  await page.getByRole('button', { name: 'Empezar entreno' }).click();
   await page.getByLabel('Repeticiones').first().fill('8');
   await page.getByRole('button', { name: 'Completar serie' }).click();
   await page.getByRole('button', { name: 'Terminar' }).click();
   await page.getByRole('button', { name: 'Terminar con lo que ya hiciste' }).click();
   await expect(page.getByText('Tu nivel de poder entra en Brasa.')).toBeVisible();
-  await page.screenshot({ path: `${OUT}/transformacion.png`, fullPage: true });
-  await page.getByRole('button', { name: 'Seguir' }).click({ force: true });
+  await page.waitForTimeout(400);
+  await shot(page, 'transformacion');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.waitForTimeout(200);
+  await shot(page, 'transformacion-movil');
+  await page.getByRole('button', { name: 'Seguir' }).click();
   await page.getByRole('button', { name: 'Listo' }).click();
 
+  await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/reto');
   await expect(page.getByRole('heading', { name: 'Reto del héroe' })).toBeVisible();
-  await page.screenshot({ path: `${OUT}/reto.png`, fullPage: true });
+  await shot(page, 'reto');
   await page.goto('/historial/volumen');
   await expect(page.getByRole('table')).toBeVisible();
-  await page.screenshot({ path: `${OUT}/estadisticas.png`, fullPage: true });
+  await shot(page, 'estadisticas');
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
   await expect(page.getByText('Antonio')).toBeVisible();
-  await page.screenshot({ path: `${OUT}/hoy-movil.png`, fullPage: true });
+  await shot(page, 'hoy-movil');
+  await page.goto('/biblioteca');
+  await page.getByLabel('Buscar ejercicio').fill('flexion');
+  await expect(page.getByRole('link', { name: /Flexión de pecho/ })).toBeVisible();
+  await shot(page, 'biblioteca-movil');
+  await page.goto(exerciseUrl);
+  await expect(page.getByRole('heading', { name: 'Press de banca' })).toBeVisible();
+  await shot(page, 'ejercicio-movil');
   await page.goto('/plan');
   await page.getByRole('button', { name: 'Empezar entreno' }).click();
   if (await page.getByRole('button', { name: 'Seguir el entreno a medias' }).isVisible().catch(() => false)) {
     await page.getByRole('button', { name: 'Seguir el entreno a medias' }).click();
   }
   await expect(page.getByRole('button', { name: 'Completar serie' })).toBeVisible();
-  await page.screenshot({ path: `${OUT}/reproductor-movil.png`, fullPage: true });
+  await shot(page, 'reproductor-movil');
+  await page.goto('/reto');
+  await shot(page, 'reto-movil');
+  await page.goto('/historial/volumen');
+  await expect(page.getByRole('table')).toBeVisible();
+  await shot(page, 'estadisticas-movil');
 });

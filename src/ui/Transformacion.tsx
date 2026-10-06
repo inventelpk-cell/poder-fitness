@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactElement } from 'react';
+import { useEffect, useState, useRef, type ReactElement } from 'react';
 import type { RankId } from '../catalog/types';
 import { labelRank } from '../domain/labels';
 import '../../design/transformation/transformation.css';
@@ -14,6 +14,7 @@ export function Transformacion({
 }): ReactElement {
   const scene = useRef<HTMLDivElement>(null);
   const title = useRef<HTMLHeadingElement>(null);
+  const [ready, setReady] = useState(false);
   const nombre = labelRank(hacia);
 
   useEffect(() => {
@@ -27,20 +28,20 @@ export function Transformacion({
       controles: false,
       teclas: false,
       alTerminar() {
-        return undefined;
+        setReady(true);
+        title.current?.focus();
       },
     });
-    title.current?.focus();
     return () => control.destruir();
   }, [desde, hacia]);
 
   useEffect(() => {
-    const root = scene.current?.parentElement;
+    const root = scene.current;
     if (!root) return;
     function onKey(event: KeyboardEvent): void {
       if (event.key !== 'Tab') return;
       const items = [...root!.querySelectorAll<HTMLElement>('button, [href], [tabindex]:not([tabindex="-1"])')].filter(
-        (element) => !element.hasAttribute('disabled'),
+        (element) => !element.hasAttribute('disabled') && element.tabIndex !== -1 && !element.hidden && element.offsetParent !== null,
       );
       const first = items[0];
       const last = items[items.length - 1];
@@ -74,6 +75,22 @@ export function Transformacion({
             {nombre}
           </h1>
           <p className="flavor" />
+          <div className={ready ? 'transform-follow is-ready' : 'transform-follow'}>
+            <h2 id="transform-title" tabIndex={-1} ref={title}>
+              Rango {nombre}
+            </h2>
+            <p>Tu nivel de poder entra en {nombre}.</p>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={(event) => {
+                event.stopPropagation();
+                onDone();
+              }}
+            >
+              Seguir
+            </button>
+          </div>
         </div>
         <div className="frame" aria-hidden="true">
           <span />
@@ -82,15 +99,6 @@ export function Transformacion({
           <span />
         </div>
         <div className="flash" aria-hidden="true" />
-      </div>
-      <div className="transform-copy">
-        <h2 id="transform-title" tabIndex={-1} ref={title}>
-          Rango {nombre}
-        </h2>
-        <p>Tu nivel de poder entra en {nombre}.</p>
-        <button type="button" className="btn btn-primary" onClick={onDone}>
-          Seguir
-        </button>
       </div>
     </div>
   );

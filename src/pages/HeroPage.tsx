@@ -6,6 +6,7 @@ import { formatDecimal, formatInt } from '../domain/format';
 import { HERO_GOALS, clampHero, heroQuota, xpDelReto } from '../domain/hero';
 import type { HeroLog } from '../domain/model';
 import { useApp } from '../state/app-state';
+import { HeroRings } from '../ui/Rings';
 
 export function HeroPage(): ReactElement {
   const { profile, heroToday, refresh } = useApp();
@@ -58,6 +59,8 @@ export function HeroPage(): ReactElement {
         <h1>Reto del héroe</h1>
         <Link className="btn" to="/reto/historial">Historial</Link>
       </div>
+      <img className="hero-art" src="/design/illustrations/empty-reto.svg" alt="" width="280" height="160" />
+      <HeroRings flexiones={flexiones} abdominales={abdominales} sentadillas={sentadillas} km={km} />
       <HeroField label="Flexiones" value={flexiones} max={999} goal={HERO_GOALS.flexiones} quota={quota.flexiones} onChange={setFlexiones} />
       <HeroField label="Abdominales" value={abdominales} max={999} goal={HERO_GOALS.abdominales} quota={quota.abdominales} onChange={setAbdominales} />
       <HeroField label="Sentadillas" value={sentadillas} max={999} goal={HERO_GOALS.sentadillas} quota={quota.sentadillas} onChange={setSentadillas} />

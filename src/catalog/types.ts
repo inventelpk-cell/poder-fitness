@@ -94,6 +94,8 @@ export interface Exercise {
   consejos?: string[];
   equipoTexto?: string[];
   musculosTexto?: string[];
+  /** false cuando el equipo no cabe en el perfil (fitball, bosu, balón, tabla). */
+  entraEnPlan?: boolean;
 }
 
 export const RESERVE_IDS = [

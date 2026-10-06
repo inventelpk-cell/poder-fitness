@@ -16,6 +16,7 @@ function onboardingArt(step: number): string {
 
 const GOALS: Goal[] = ['fuerza', 'hipertrofia', 'resistencia', 'grasa'];
 const LEVELS: Level[] = ['principiante', 'intermedio', 'avanzado'];
+const STEP_TITLES = ['Tu nombre', 'Tu nivel', 'Tu objetivo', 'Tu equipo', 'Tus días', 'Tu punto de partida'] as const;
 
 export function OnboardingPage(): ReactElement {
   const navigate = useNavigate();
@@ -101,9 +102,15 @@ export function OnboardingPage(): ReactElement {
 
   return (
     <main className="screen onboard">
+      <img className="wordmark-img" src="/design/brand/logo-horizontal.svg" alt="Poder Fitness" />
       <p className="kicker">Paso {step} de 6</p>
+      <ol className="step-rail" aria-hidden="true">
+        {STEP_TITLES.map((title, index) => (
+          <li key={title} className={index + 1 === step ? 'is-on' : index + 1 < step ? 'is-done' : ''} />
+        ))}
+      </ol>
       <img className="onboard-art" src={onboardingArt(step)} alt="" width="280" height="180" />
-      <h1>{step === 6 ? 'Tu punto de partida' : 'Poder Fitness'}</h1>
+      <h1>{STEP_TITLES[step - 1]}</h1>
       {step === 1 ? (
         <label className="field">
           <span>Nombre</span>

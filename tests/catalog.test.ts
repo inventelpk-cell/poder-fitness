@@ -9,11 +9,11 @@ describe('catálogo', () => {
     expect(found.some((item) => item.id === 'flexion-pecho')).toBe(true);
   });
 
-  it('abdomen y barra no tienen resultados', () => {
+  it('un filtro imposible deja el catálogo vacío', () => {
     const found = filterExercises(list, {
       query: '',
-      musculos: ['abdomen'],
-      equipos: ['barra'],
+      musculos: ['gemelos'],
+      equipos: ['paralelas'],
       patrones: [],
       niveles: [],
     });
@@ -28,11 +28,14 @@ describe('catálogo', () => {
     );
   });
 
-  it('carga everkinetic sin inventar nivel ni patrón', () => {
+  it('los 290 de everkinetic quedan mapeados sin tocar fotos ni pasos', () => {
     const illustrated = list.filter((item) => item.origen === 'everkinetic');
     expect(illustrated).toHaveLength(290);
-    expect(illustrated.every((item) => item.nivel === null && item.patron === null)).toBe(true);
+    expect(illustrated.every((item) => item.patron !== null && item.musculo !== null && item.nivel !== null)).toBe(true);
     expect(illustrated.filter((item) => (item.imagenes?.length ?? 0) === 0)).toHaveLength(3);
+    const push = illustrated.find((item) => item.id === 'push-ups');
+    expect(push?.pasos.length).toBeGreaterThan(2);
+    expect(push?.imagenes?.length).toBeGreaterThan(0);
   });
 
   it('las reservas no se pueden tratar como borrables', () => {

@@ -1,6 +1,7 @@
 import { useMemo, useState, type ReactElement } from 'react';
 import { Link } from 'react-router';
 import { emptyFilters, filterExercises, nameKey, type CatalogFilters } from '../catalog';
+import { exerciseThumb, imageSrc } from '../catalog/everkinetic';
 import { EQUIPMENT, LEVELS, MUSCLES, PATTERNS, type Equipment, type Exercise, type Level, type Muscle, type Pattern } from '../catalog/types';
 import { saveExercise } from '../db/db';
 import { labelEquipment, labelLevel, labelMuscle, labelPattern } from '../domain/labels';
@@ -48,8 +49,11 @@ export function LibraryPage(): ReactElement {
           {visible.map((exercise) => (
             <li key={exercise.id}>
               <Link className="exercise-row" to={`/biblioteca/${exercise.id}`}>
-                <strong>{exercise.nombre}</strong>
-                <span>{exerciseMeta(exercise)}</span>
+                <ExerciseThumb exercise={exercise} />
+                <span className="exercise-copy">
+                  <strong>{exercise.nombre}</strong>
+                  <span>{exerciseMeta(exercise)}</span>
+                </span>
               </Link>
             </li>
           ))}
@@ -60,14 +64,15 @@ export function LibraryPage(): ReactElement {
   );
 }
 
+function ExerciseThumb({ exercise }: { exercise: Exercise }): ReactElement {
+  const thumb = exerciseThumb(exercise.imagenes);
+  if (!thumb) return <span className="thumb-fallback" aria-hidden="true" />;
+  return <img src={imageSrc(thumb)} alt="" width="64" height="64" />;
+}
+
 function exerciseMeta(exercise: Exercise): string {
-  if (exercise.origen === 'everkinetic') {
-    const muscles = exercise.musculosTexto?.slice(0, 2).join(', ') ?? '';
-    const gear = exercise.equipoTexto?.join(', ') ?? '';
-    return [muscles, gear].filter(Boolean).join(' · ');
-  }
   const pattern = exercise.patron ? labelPattern(exercise.patron) : '';
-  const gear = exercise.equipo.map((item) => labelEquipment(item)).join(', ');
+  const gear = exercise.equipo.map((item) => labelEquipment(item)).join(', ') || exercise.equipoTexto?.join(', ') || '';
   return [pattern, gear].filter(Boolean).join(' · ');
 }
 

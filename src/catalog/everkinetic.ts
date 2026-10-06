@@ -1,4 +1,5 @@
-import type { Equipment, Exercise, Mechanic } from './types';
+import { mapEverkinetic } from './map-everkinetic';
+import type { Exercise, Mechanic } from './types';
 import raw from '../../data/exercises/exercises.es.json';
 
 interface EverkineticRow {
@@ -18,32 +19,6 @@ interface EverkineticRow {
   images: string[];
 }
 
-const EQUIPMENT_MAP: Record<string, Equipment> = {
-  'peso corporal': 'peso-corporal',
-  mancuernas: 'mancuernas',
-  barra: 'barra',
-  'banco plano': 'banco',
-  'banco inclinado': 'banco',
-  'banco declinado': 'banco',
-  polea: 'polea',
-  máquina: 'maquina',
-  'máquina de pecho': 'maquina',
-  'máquina de press': 'maquina',
-  multipower: 'maquina',
-  contractora: 'maquina',
-  'banda elástica': 'banda',
-  'barras paralelas': 'paralelas',
-};
-
-function mapEquipment(labels: readonly string[]): Equipment[] {
-  const found = new Set<Equipment>();
-  for (const label of labels) {
-    const mapped = EQUIPMENT_MAP[label];
-    if (mapped) found.add(mapped);
-  }
-  return [...found];
-}
-
 export function everkineticExercises(reservedIds: ReadonlySet<string>): Exercise[] {
   const rows = raw as EverkineticRow[];
   return rows
@@ -51,27 +26,36 @@ export function everkineticExercises(reservedIds: ReadonlySet<string>): Exercise
     .map((row) => {
       const pasos = row.instructions.map((step) => step.trim()).filter(Boolean);
       const resumen = row.summary.trim();
+      const mapped = mapEverkinetic({
+        id: row.id,
+        name: row.name,
+        nameEn: row.nameEn,
+        primaryMuscles: row.primaryMuscles,
+        equipment: row.equipment,
+        mechanic: row.mechanic,
+      });
       return {
         id: row.id,
         nombre: row.name,
         alias: [row.nameEn, row.sourceId].filter(Boolean),
-        patron: null,
-        musculo: null,
-        equipo: mapEquipment(row.equipment),
-        nivel: null,
-        prioridad: 80,
-        compuesto: row.mechanic === 'compuesto' || row.mechanic === 'mixto',
+        patron: mapped.patron,
+        musculo: mapped.musculo,
+        equipo: mapped.equipo,
+        nivel: mapped.nivel,
+        prioridad: mapped.prioridad,
+        compuesto: mapped.compuesto,
         pasos: pasos.length > 0 ? pasos : resumen ? [resumen] : [],
         origen: 'everkinetic' as const,
         archivado: false,
         medida: 'reps' as const,
-        cuentaEnVolumen: true,
+        cuentaEnVolumen: mapped.patron !== 'movilidad',
         imagenes: row.images,
         mecanica: row.mechanic,
         resumen,
         consejos: row.tips.map((tip) => tip.trim()).filter(Boolean),
         equipoTexto: [...row.equipment],
         musculosTexto: [...row.primaryMuscles, ...row.secondaryMuscles],
+        entraEnPlan: mapped.entraEnPlan,
       };
     });
 }
@@ -84,4 +68,10 @@ export function imageCaption(path: string, index: number): string {
 
 export function imageSrc(path: string): string {
   return `/ejercicios/${path}`;
+}
+
+export function exerciseThumb(images: readonly string[] | undefined): string | null {
+  if (!images || images.length === 0) return null;
+  const tension = images.find((path) => path.includes('tension'));
+  return tension ?? images[0] ?? null;
 }

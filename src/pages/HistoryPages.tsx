@@ -93,11 +93,18 @@ export function VolumePage(): ReactElement {
   useEffect(() => { void listSessions().then(setSessions); }, []);
   const weeks = useMemo(() => lastWeeks(sessions), [sessions]);
   const max = Math.max(1, ...weeks.map((week) => week.kg));
+  const empty = weeks.every((week) => week.kg === 0 && week.reps === 0);
   if (!profile) return <main className="screen"><p>Cargando…</p></main>;
   return (
     <main className="screen">
       <HistoryNav />
       <h1>Volumen</h1>
+      {empty ? (
+        <div className="empty-card">
+          <img src="/design/illustrations/empty-historial.svg" alt="" width="220" height="140" />
+          <p>Cuando cierres un entreno, aparecerá aquí.</p>
+        </div>
+      ) : null}
       <svg className="chart" viewBox="0 0 640 220" aria-hidden="true">
         {weeks.map((week, index) => (
           <g key={week.start}>

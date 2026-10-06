@@ -165,6 +165,49 @@
   color: #9aa3b5;
 }
 
+.transform-follow {
+  margin-top: 22px;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  max-width: 28rem;
+  visibility: hidden;
+}
+
+.transform-follow.is-ready {
+  visibility: visible;
+  animation: pf-follow-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.transform-follow h2 {
+  margin: 0;
+  font-family: "Poder Sans", "Avenir Next", "Segoe UI", sans-serif;
+  font-size: 15px;
+  font-weight: 520;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #f4f1ea;
+}
+
+.transform-follow p {
+  margin: 0;
+  color: #f4f1ea;
+}
+
+.transform-follow .btn {
+  min-width: 160px;
+  margin-top: 6px;
+}
+
+@keyframes pf-follow-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .transform-follow.is-ready { animation: none; }
+}
+
 .frame {
   z-index: 4;
   opacity: 0;

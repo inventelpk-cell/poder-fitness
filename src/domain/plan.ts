@@ -219,16 +219,19 @@ function prescribe(exercise: Exercise, goal: Goal, level: Level, weekInArc: 1 | 
 }
 
 function candidatesFor(pattern: Pattern, input: GenerateInput): Exercise[] {
-  return input.exercises
+  const matching = input.exercises
     .filter(
       (exercise) =>
         !exercise.archivado &&
+        exercise.entraEnPlan !== false &&
         exercise.patron === pattern &&
         exercise.nivel !== null &&
         levelAllows(input.level, exercise.nivel) &&
         equipmentCovers(input.equipment, exercise.equipo),
     )
     .sort((a, b) => a.prioridad - b.prioridad || a.id.localeCompare(b.id));
+  const fromCatalog = matching.filter((exercise) => exercise.origen !== 'semilla');
+  return fromCatalog.length > 0 ? fromCatalog : matching;
 }
 
 function pickExercise(
@@ -240,9 +243,10 @@ function pickExercise(
   const index = variant % list.length;
   const winner = list[index];
   if (!winner) return null;
-  if (prevMuscle && winner.musculo === prevMuscle) {
-    const next = list[(index + 1) % list.length];
-    if (next && next.id !== winner.id && next.musculo !== prevMuscle) return next;
+  if (!prevMuscle || winner.musculo !== prevMuscle) return winner;
+  for (let offset = 1; offset < list.length; offset += 1) {
+    const next = list[(index + offset) % list.length];
+    if (next && next.musculo !== prevMuscle) return next;
   }
   return winner;
 }

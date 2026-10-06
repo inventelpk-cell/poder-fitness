@@ -27,18 +27,23 @@ describe('generador de planes', () => {
     );
     expect(days.map((day) => day.kind)).toEqual(['cuerpo', 'cuerpo', 'cuerpo']);
     expect(days.map((day) => day.variant)).toEqual([0, 1, 2]);
-    expect(days.map((day) => day.items.map((item) => item.exerciseId))).toEqual([
-      ['sentadilla-corporal', 'flexion-pecho', 'remo-invertido', 'puente-gluteo', 'plancha'],
-      ['sentadilla-corporal', 'flexion-pecho', 'remo-invertido', 'puente-gluteo', 'abdominales'],
-      ['sentadilla-corporal', 'flexion-pecho', 'remo-invertido', 'puente-gluteo', 'bicho-muerto'],
-    ]);
+    expect(days[0]?.items.map((item) => item.slot)).toEqual(['rodilla', 'empuje-horizontal', 'traccion-horizontal', 'cadera', 'core']);
     for (const day of days) {
       const ids = day.items.map((item) => item.exerciseId);
       expect(new Set(ids).size).toBe(ids.length);
       for (const id of ids) {
         const exercise = exercises.find((item) => item.id === id);
         expect(exercise?.nivel).toBe('principiante');
-        expect(exercise?.equipo).toEqual(['peso-corporal']);
+        expect(exercise?.equipo.every((piece) => piece === 'peso-corporal')).toBe(true);
+        const samePattern = exercises.filter(
+          (item) =>
+            item.origen === 'everkinetic' &&
+            item.entraEnPlan !== false &&
+            item.patron === exercise?.patron &&
+            item.nivel === 'principiante' &&
+            item.equipo.every((piece) => piece === 'peso-corporal'),
+        );
+        if (samePattern.length > 0) expect(exercise?.origen).toBe('everkinetic');
       }
     }
     const again = generateWeek(
@@ -70,8 +75,12 @@ describe('generador de planes', () => {
         if (!same) continue;
         const alternatives = exercises.filter(
           (item) =>
+            item.origen !== 'semilla' &&
+            item.entraEnPlan !== false &&
             item.patron === curr?.patron &&
             item.nivel !== 'avanzado' &&
+            item.nivel !== null &&
+            item.equipo.every((piece) => piece === 'peso-corporal' || ['mancuernas', 'barra', 'banco'].includes(piece)) &&
             item.id !== curr?.id,
         );
         expect(alternatives.some((item) => item.musculo !== prev?.musculo)).toBe(false);
@@ -124,24 +133,27 @@ describe('generador de planes', () => {
       }),
     );
     const pulse = days.find((day) => day.kind === 'pulso');
-    const cat = pulse?.items.find((item) => item.exerciseId === 'gato-camello');
-    expect(cat).toMatchObject({ series: 1, repMin: 8, repMax: 8, descansoSegundos: 30 });
-    const squat = days[0]?.items.find((item) => item.exerciseId === 'sentadilla-corporal');
+    const mobility = pulse?.items.find((item) => item.slot === 'movilidad');
+    expect(mobility).toMatchObject({ series: 1, repMin: 8, repMax: 8, descansoSegundos: 30 });
+    const squat = days[0]?.items.find((item) => item.slot === 'rodilla');
     expect(squat?.series).toBe(2);
     expect(squat?.repObjetivo).toBe(squat?.repMin);
   });
 
   it('la plancha se prescribe en segundos', () => {
+    const plank = exercises.find((item) => item.id === 'plancha');
+    expect(plank).toBeTruthy();
     const days = generateWeek(
       input({
         level: 'principiante',
         goal: 'hipertrofia',
         equipment: ['peso-corporal'],
-        weekdays: [1, 3, 5],
+        weekdays: [1],
+        exercises: exercises.filter((item) => item.origen === 'semilla' || item.id === 'plancha'),
       }),
     );
-    const plank = days[0]?.items.find((item) => item.exerciseId === 'plancha');
-    expect(plank).toMatchObject({ medida: 'segundos', repMin: 20, repMax: 40, descansoSegundos: 90, repObjetivo: 20 });
+    const chosen = days[0]?.items.find((item) => item.exerciseId === 'plancha');
+    expect(chosen).toMatchObject({ medida: 'segundos', repMin: 20, repMax: 40, descansoSegundos: 90, repObjetivo: 20 });
   });
 
   it('un clavo de hueco se conserva', () => {

@@ -1,18 +1,19 @@
 import { useEffect, useState, type ReactElement } from 'react';
 import { Link } from 'react-router';
 import { RankEmblem } from '../assets';
+import { exerciseThumb, imageSrc } from '../catalog/everkinetic';
 import { listHero, listPlans, listSessions, performedFrom, saveSession } from '../db/db';
 import { arcTitle } from '../domain/arc';
 import { localDateISO, mondayOf } from '../domain/dates';
 import { formatInt } from '../domain/format';
-import { HERO_GOALS } from '../domain/hero';
-import { labelDayKind, labelRank } from '../domain/labels';
+import { labelDayKind, labelRank, WEEKDAY_SHORT } from '../domain/labels';
 import { nivelDePoder, nextLevelXp, rankForXp, xpParaAlcanzarNivel } from '../domain/ranks';
 import { buildSession } from '../domain/session';
 import { heroStreak, weekStreak } from '../domain/streaks';
 import type { Plan, WorkoutSession } from '../domain/model';
 import { useApp } from '../state/app-state';
 import { useWorkoutLauncher } from '../state/launch';
+import { HeroRings } from '../ui/Rings';
 
 export function TodayPage(): ReactElement {
   const { profile, plan, arc, live, heroToday, exercises } = useApp();
@@ -44,35 +45,59 @@ export function TodayPage(): ReactElement {
   });
   const hero = heroStreak(heroDays, today);
 
+  const doneDates = new Set(sessions.filter((session) => session.status === 'completada').map((session) => session.date));
+  const progress = next === null ? 100 : Math.min(100, ((profile.xpTotal - floor) / span) * 100);
+  const todayJs = new Date(`${today}T12:00:00`).getDay();
+  const todayWeekday = todayJs === 0 ? 7 : todayJs;
+
   return (
-    <main className="screen">
+    <main className="screen dashboard">
       {dialog}
-      <header className="hero-head">
+      <header className="power-board">
         <div className={`aura-wrap pf-aura pf-aura--${rank.id}`}>
-          <RankEmblem id={rank.id} />
+          <RankEmblem id={rank.id} size={148} />
         </div>
-        <div>
+        <div className="power-copy">
           <p className="kicker">{profile.name}</p>
-          <h1>
-            Nivel {level} · {labelRank(rank.id)}
-          </h1>
-          <p className="muted">
-            {formatInt(profile.xpTotal)} XP{level === 100 ? ', nivel 100' : ''}
+          <p className="rank-kicker">{labelRank(rank.id)}</p>
+          <p className="power-figure">
+            <span className="power-level">{level}</span>
+            <span className="power-xp">{formatInt(profile.xpTotal)} XP{level === 100 ? ', nivel 100' : ''}</span>
           </p>
-          <div className="bar" aria-hidden="true">
-            <span style={{ width: `${next === null ? 100 : Math.min(100, ((profile.xpTotal - floor) / span) * 100)}%` }} />
+          <div className="bar power-bar" aria-hidden="true">
+            <span style={{ width: `${progress}%` }} />
           </div>
           <p className="muted">
-            {arcTitle(arc.number)} · semana {arc.weekInArc}
+            Nivel {level} · {arcTitle(arc.number)} · semana {arc.weekInArc}
           </p>
         </div>
       </header>
       {arc.repeatNotice || streak.restart ? <p className="banner">Esta semana se empieza de nuevo.</p> : null}
       {arc.repeatNotice ? <p className="muted">Repites esta semana del arco para asentar el poder.</p> : null}
-      <p>
-        {streak.done} de {streak.planned || plan.days.length} entrenos esta semana
-        {streak.weeks > 0 ? ` · ${streak.weeks} ${streak.weeks === 1 ? 'semana' : 'semanas'} en racha` : ''}
-      </p>
+      <section className="card week-card">
+        <div className="split">
+          <h2>Esta semana</h2>
+          <p className="muted">
+            {streak.done} de {streak.planned || plan.days.length} entrenos
+            {streak.weeks > 0 ? ` · ${streak.weeks} ${streak.weeks === 1 ? 'semana' : 'semanas'} en racha` : ''}
+          </p>
+        </div>
+        <ol className="week-strip">
+          {WEEKDAY_SHORT.map((label, index) => {
+            const weekday = index + 1;
+            const planned = plan.days.find((item) => item.weekday === weekday);
+            const done = planned ? doneDates.has(planned.date) : false;
+            const isToday = weekday === todayWeekday;
+            const tone = done ? 'is-done' : isToday ? 'is-today' : planned ? 'is-planned' : '';
+            return (
+              <li key={label} className={tone}>
+                <span>{label}</span>
+                <i aria-hidden="true" />
+              </li>
+            );
+          })}
+        </ol>
+      </section>
       {hero.lost ? <p>La racha del reto vuelve a cero. Tu poder se queda.</p> : null}
       {live ? (
         <section className="card accent">
@@ -84,13 +109,20 @@ export function TodayPage(): ReactElement {
         </section>
       ) : null}
       {day ? (
-        <section className="card">
+        <section className="card today-session">
           <p className="kicker">{labelDayKind(day.kind)}</p>
           <h2>Hoy toca entrenar</h2>
-          <ul className="plain">
-            {day.items.map((item) => (
-              <li key={`${item.slot}-${item.exerciseId}`}>{exercises.find((entry) => entry.id === item.exerciseId)?.nombre ?? item.exerciseId}</li>
-            ))}
+          <ul className="thumb-row">
+            {day.items.map((item) => {
+              const exercise = exercises.find((entry) => entry.id === item.exerciseId);
+              const thumb = exerciseThumb(exercise?.imagenes);
+              return (
+                <li key={`${item.slot}-${item.exerciseId}`}>
+                  {thumb ? <img src={imageSrc(thumb)} alt="" width="72" height="72" /> : <span className="thumb-fallback" aria-hidden="true" />}
+                  <span>{exercise?.nombre ?? item.exerciseId}</span>
+                </li>
+              );
+            })}
           </ul>
           <button
             type="button"
@@ -115,32 +147,22 @@ export function TodayPage(): ReactElement {
           </button>
         </section>
       ) : (
-        <section className="card">
+        <section className="card today-rest">
+          <img src="/design/illustrations/empty-rutinas.svg" alt="" width="220" height="140" />
           <h2>Hoy el plan descansa. El reto sigue disponible.</h2>
         </section>
       )}
-      <section className="card">
+      <section className="card hero-card">
         <div className="split">
           <h2>Reto del héroe</h2>
           <Link to="/reto">Abrir</Link>
         </div>
-        <ul className="mini-bars">
-          {(
-            [
-              ['Flexiones', heroToday?.flexiones ?? 0, HERO_GOALS.flexiones],
-              ['Abdominales', heroToday?.abdominales ?? 0, HERO_GOALS.abdominales],
-              ['Sentadillas', heroToday?.sentadillas ?? 0, HERO_GOALS.sentadillas],
-              ['Km', heroToday?.km ?? 0, HERO_GOALS.km],
-            ] as const
-          ).map(([label, value, goal]) => (
-            <li key={label}>
-              <span>{label}</span>
-              <span className="bar" aria-hidden="true">
-                <span style={{ width: `${Math.min(100, (value / goal) * 100)}%` }} />
-              </span>
-            </li>
-          ))}
-        </ul>
+        <HeroRings
+          flexiones={heroToday?.flexiones ?? 0}
+          abdominales={heroToday?.abdominales ?? 0}
+          sentadillas={heroToday?.sentadillas ?? 0}
+          km={heroToday?.km ?? 0}
+        />
       </section>
     </main>
   );
