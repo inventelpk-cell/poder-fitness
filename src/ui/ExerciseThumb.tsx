@@ -28,9 +28,9 @@ export function ExerciseThumb({
   if (thumb) {
     const src = imageSrc(thumb);
     return (
-      <span className={`${className} pf-ek pf-ek--hueso`}>
+      <div className={`${className} pf-ek pf-ek--hueso`}>
         <img src={src} alt={labelled ? nombre : ''} />
-      </span>
+      </div>
     );
   }
   if (isOriginalHole(exerciseId)) {

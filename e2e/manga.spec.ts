@@ -115,7 +115,7 @@ test('video de la transformacion', async ({ browser }) => {
     viewport: { width: 390, height: 844 },
     locale: 'es-ES',
     baseURL: 'http://127.0.0.1:4173',
-    recordVideo: { dir: OUT, size: { width: 390, height: 844 } },
+    recordVideo: { dir: '/tmp/manga-video', size: { width: 390, height: 844 } },
   });
   const page = await context.newPage();
   await onboard(page);
