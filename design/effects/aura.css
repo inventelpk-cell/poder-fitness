@@ -1,0 +1,91 @@
+/* Poder Fitness — auras, velocidad e impacto. Requiere tokens.css */
+@import "./tokens.css";
+
+.pf-aura {
+  position: relative;
+  isolation: isolate;
+}
+
+.pf-aura::before {
+  content: "";
+  position: absolute;
+  inset: -28%;
+  z-index: -1;
+  background: radial-gradient(circle, var(--pf-aura, var(--pf-orange)) 0%, transparent 68%);
+  filter: blur(10px);
+  opacity: 0.8;
+  pointer-events: none;
+  animation: pf-breathe 3.6s var(--pf-ease-in-out) infinite;
+}
+
+.pf-aura--chispa { --pf-aura: var(--pf-rank-chispa); }
+.pf-aura--brasa { --pf-aura: var(--pf-rank-brasa); }
+.pf-aura--llama { --pf-aura: var(--pf-rank-llama); }
+.pf-aura--incendio { --pf-aura: var(--pf-rank-incendio); }
+.pf-aura--tormenta { --pf-aura: var(--pf-rank-tormenta); }
+.pf-aura--relampago { --pf-aura: var(--pf-rank-relampago); }
+.pf-aura--nova { --pf-aura: var(--pf-rank-nova); }
+.pf-aura--eclipse { --pf-aura: var(--pf-rank-eclipse); }
+.pf-aura--mitico { --pf-aura: var(--pf-rank-mitico); }
+.pf-aura--absoluto { --pf-aura: var(--pf-rank-absoluto); }
+
+.pf-speed {
+  background: repeating-conic-gradient(from 0deg, transparent 0 9deg, rgba(244, 241, 234, 0.45) 9deg 9.4deg);
+  -webkit-mask-image: radial-gradient(circle, transparent 0 18%, #000 42%, transparent 68%);
+  mask-image: radial-gradient(circle, transparent 0 18%, #000 42%, transparent 68%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.pf-speed.is-rush {
+  animation: pf-rush 520ms var(--pf-ease-out) both;
+}
+
+.pf-impact {
+  box-shadow: inset 0 0 0 2px rgba(255, 197, 61, 0.16);
+}
+
+.pf-impact.is-hit {
+  animation: pf-flash 460ms var(--pf-ease-out);
+}
+
+.pf-shock {
+  border: 2px solid var(--pf-gold);
+  border-radius: var(--pf-radius-pill);
+  pointer-events: none;
+}
+
+.pf-shock.is-hit {
+  animation: pf-shock 680ms var(--pf-ease-out) both;
+}
+
+@keyframes pf-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.62; }
+  50% { transform: scale(1.08); opacity: 0.9; }
+}
+
+@keyframes pf-rush {
+  0% { transform: scale(1.25) rotate(0deg); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: scale(0.62) rotate(-16deg); opacity: 0; }
+}
+
+@keyframes pf-flash {
+  0% { box-shadow: inset 0 0 0 0 rgba(255, 248, 232, 0); }
+  20% { box-shadow: inset 0 0 0 3px rgba(255, 197, 61, 0.95), inset 0 0 80px rgba(255, 248, 232, 0.35); }
+  100% { box-shadow: inset 0 0 0 2px rgba(255, 197, 61, 0.35); }
+}
+
+@keyframes pf-shock {
+  0% { transform: scale(0.35); opacity: 0.9; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-aura::before,
+  .pf-speed,
+  .pf-impact,
+  .pf-shock {
+    animation: none !important;
+  }
+}

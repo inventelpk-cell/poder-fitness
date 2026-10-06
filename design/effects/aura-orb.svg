@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none" role="img">
+  <title>Orbe de aura</title><desc>Resplandor radial naranja para colocar detrás de un emblema.</desc>
+  <circle cx="200" cy="200" r="200" fill="url(#orb)"/>
+  <defs>
+    <radialGradient id="orb" cx="200" cy="200" r="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF6A1A" stop-opacity="0.85"/>
+      <stop offset="0.45" stop-color="#FF6A1A" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#FF6A1A" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img">
+  <title>Emblema Absoluto</title><desc>Emblema del rango Absoluto: un halo dorado, estrella blanca y cuatro señales.</desc>
+  <circle cx="32" cy="32" r="29.75" fill="#10131A"/>
+  <circle cx="32" cy="32" r="29.75" stroke="#FFF8E8" stroke-width="1.5"/>
+  <circle cx="32" cy="32" r="25" stroke="#FFF8E8" stroke-opacity="0.24"/>
+  <path d="M18.5 23.5a15.5 15.5 0 0 1 27 0" stroke="#fff" stroke-opacity="0.14" stroke-linecap="round"/>
+  <circle cx="32" cy="32" r="18.2" stroke="#FFC53D" stroke-width="1.6"/>
+  <path fill="#FFF8E8" d="M 32.00 21.50 L 34.19 29.81 L 42.50 32.00 L 34.19 34.19 L 32.00 42.50 L 29.81 34.19 L 21.50 32.00 L 29.81 29.81 Z"/>
+  <path fill="#FFC53D" d="M32.00 11.20 L34.30 13.50 L32.00 15.80 L29.70 13.50 Z"/><path fill="#FFC53D" d="M50.50 29.70 L52.80 32.00 L50.50 34.30 L48.20 32.00 Z"/><path fill="#FFC53D" d="M32.00 48.20 L34.30 50.50 L32.00 52.80 L29.70 50.50 Z"/><path fill="#FFC53D" d="M13.50 29.70 L15.80 32.00 L13.50 34.30 L11.20 32.00 Z"/>
+  <circle cx="32" cy="32" r="2" fill="#FFC53D"/>
+</svg>

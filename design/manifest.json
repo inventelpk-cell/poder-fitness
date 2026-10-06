@@ -1,0 +1,542 @@
+{
+  "nombre": "Poder Fitness",
+  "marca": "Poder",
+  "version": "1.0.0",
+  "licencia": "Obra original. Archivo Black y Outfit se usan bajo SIL Open Font License; en la pantalla de transformación van embebidas y recortadas.",
+  "rangos": [
+    {
+      "id": "chispa",
+      "orden": 1,
+      "nombre": "Chispa",
+      "fase": "tenue",
+      "linea": "Una chispa basta para empezar.",
+      "color": "#9FD4FF",
+      "colorSecundario": "#EAF6FF",
+      "ruta": "ranks/chispa.svg",
+      "alt": "Emblema del rango Chispa: una estrella pequeña y pálida, casi en calma."
+    },
+    {
+      "id": "brasa",
+      "orden": 2,
+      "nombre": "Brasa",
+      "fase": "estable",
+      "linea": "El calor ya se sostiene solo.",
+      "color": "#FF6A1A",
+      "colorSecundario": "#FFB088",
+      "ruta": "ranks/brasa.svg",
+      "alt": "Emblema del rango Brasa: un diamante de brasa naranja con núcleo dorado."
+    },
+    {
+      "id": "llama",
+      "orden": 3,
+      "nombre": "Llama",
+      "fase": "ardiente",
+      "linea": "La llama responde a la constancia.",
+      "color": "#FF4D00",
+      "colorSecundario": "#FFC53D",
+      "ruta": "ranks/llama.svg",
+      "alt": "Emblema del rango Llama: una lengua de fuego naranja con corazón dorado."
+    },
+    {
+      "id": "incendio",
+      "orden": 4,
+      "nombre": "Incendio",
+      "fase": "ardiente",
+      "linea": "El fuego ocupa el cuerpo entero.",
+      "color": "#FF2D00",
+      "colorSecundario": "#FFC53D",
+      "ruta": "ranks/incendio.svg",
+      "alt": "Emblema del rango Incendio: dos llamas abiertas y ascuas alrededor."
+    },
+    {
+      "id": "tormenta",
+      "orden": 5,
+      "nombre": "Tormenta",
+      "fase": "relampago",
+      "linea": "El aire cambia antes del trueno.",
+      "color": "#7AA2FF",
+      "colorSecundario": "#D6E4FF",
+      "ruta": "ranks/tormenta.svg",
+      "alt": "Emblema del rango Tormenta: tres arcos de viento alrededor de un núcleo."
+    },
+    {
+      "id": "relampago",
+      "orden": 6,
+      "nombre": "Relámpago",
+      "fase": "relampago",
+      "linea": "El instante se parte en dos.",
+      "color": "#5CE1FF",
+      "colorSecundario": "#F3FCFF",
+      "ruta": "ranks/relampago.svg",
+      "alt": "Emblema del rango Relámpago: un rayo cian geométrico."
+    },
+    {
+      "id": "nova",
+      "orden": 7,
+      "nombre": "Nova",
+      "fase": "relampago",
+      "linea": "Un núcleo nuevo abre el paso.",
+      "color": "#FFC53D",
+      "colorSecundario": "#FFF6D8",
+      "ruta": "ranks/nova.svg",
+      "alt": "Emblema del rango Nova: un estallido de ocho puntas doradas."
+    },
+    {
+      "id": "eclipse",
+      "orden": 8,
+      "nombre": "Eclipse",
+      "fase": "soberana",
+      "linea": "La luz se aprieta detrás del disco.",
+      "color": "#FFC53D",
+      "colorSecundario": "#F4F1EA",
+      "ruta": "ranks/eclipse.svg",
+      "alt": "Emblema del rango Eclipse: un creciente dorado con corona de muescas."
+    },
+    {
+      "id": "mitico",
+      "orden": 9,
+      "nombre": "Mítico",
+      "fase": "soberana",
+      "linea": "El aura ya tiene nombre.",
+      "color": "#FFC53D",
+      "colorSecundario": "#9EBEFF",
+      "ruta": "ranks/mitico.svg",
+      "alt": "Emblema del rango Mítico: un hexágono partido en azul, oro y naranja."
+    },
+    {
+      "id": "absoluto",
+      "orden": 10,
+      "nombre": "Absoluto",
+      "fase": "soberana",
+      "linea": "Nada queda fuera del círculo.",
+      "color": "#FFF8E8",
+      "colorSecundario": "#FFC53D",
+      "ruta": "ranks/absoluto.svg",
+      "alt": "Emblema del rango Absoluto: un halo dorado, estrella blanca y cuatro señales."
+    }
+  ],
+  "insignias": [
+    {
+      "id": "primera-sesion",
+      "orden": 1,
+      "nombre": "Primera sesión",
+      "ruta": "badges/primera-sesion.svg",
+      "alt": "Insignia de la primera sesión: un camino con una sola marca encendida."
+    },
+    {
+      "id": "racha-7",
+      "orden": 2,
+      "nombre": "Racha de 7",
+      "ruta": "badges/racha-7.svg",
+      "alt": "Insignia de racha de 7 días."
+    },
+    {
+      "id": "racha-30",
+      "orden": 3,
+      "nombre": "Racha de 30",
+      "ruta": "badges/racha-30.svg",
+      "alt": "Insignia de racha de 30 días."
+    },
+    {
+      "id": "reto-heroe",
+      "orden": 4,
+      "nombre": "Reto del héroe",
+      "ruta": "badges/reto-heroe.svg",
+      "alt": "Insignia del reto del héroe completo: una cumbre con bandera."
+    },
+    {
+      "id": "record-personal",
+      "orden": 5,
+      "nombre": "Récord personal",
+      "ruta": "badges/record-personal.svg",
+      "alt": "Insignia de récord personal: barras que rompen su techo."
+    },
+    {
+      "id": "arco-terminado",
+      "orden": 6,
+      "nombre": "Arco terminado",
+      "ruta": "badges/arco-terminado.svg",
+      "alt": "Insignia de arco terminado: un círculo que se cierra con una marca."
+    },
+    {
+      "id": "cien-entrenos",
+      "orden": 7,
+      "nombre": "100 entrenos",
+      "ruta": "badges/cien-entrenos.svg",
+      "alt": "Insignia de cien entrenos."
+    },
+    {
+      "id": "volumen",
+      "orden": 8,
+      "nombre": "Volumen",
+      "ruta": "badges/volumen.svg",
+      "alt": "Insignia de volumen: tres bloques apilados."
+    },
+    {
+      "id": "madrugador",
+      "orden": 9,
+      "nombre": "Madrugador",
+      "ruta": "badges/madrugador.svg",
+      "alt": "Insignia de madrugador: un sol geométrico sobre el horizonte."
+    },
+    {
+      "id": "semana-perfecta",
+      "orden": 10,
+      "nombre": "Semana perfecta",
+      "ruta": "badges/semana-perfecta.svg",
+      "alt": "Insignia de semana perfecta: siete puntos cerrando un círculo."
+    },
+    {
+      "id": "transformacion",
+      "orden": 11,
+      "nombre": "Transformación",
+      "ruta": "badges/transformacion.svg",
+      "alt": "Insignia de transformación: dos chevrones ascendentes."
+    },
+    {
+      "id": "fuerza",
+      "orden": 12,
+      "nombre": "Fuerza",
+      "ruta": "badges/fuerza.svg",
+      "alt": "Insignia de fuerza: una barra con discos."
+    }
+  ],
+  "assets": [
+    {
+      "id": "logo-symbol",
+      "ruta": "brand/logo-symbol.svg",
+      "uso": "Símbolo solo: favicon, avatares, sellos y pie de pantalla.",
+      "alt": "Símbolo de Poder: una P geométrica azul y naranja con chispa dorada.",
+      "peso": 774
+    },
+    {
+      "id": "favicon",
+      "ruta": "brand/favicon.svg",
+      "uso": "Favicon SVG de la PWA.",
+      "alt": "Favicon de Poder Fitness.",
+      "peso": 753
+    },
+    {
+      "id": "logo-horizontal",
+      "ruta": "brand/logo-horizontal.svg",
+      "uso": "Marca horizontal para cabecera, login y pantallas de bienvenida sobre fondo oscuro.",
+      "alt": "Logotipo horizontal de Poder Fitness.",
+      "peso": 4396
+    },
+    {
+      "id": "icon-master",
+      "ruta": "brand/icon.svg",
+      "uso": "Máster del icono de aplicación. Fondo a sangre, símbolo centrado.",
+      "alt": "Icono de Poder Fitness sobre fondo oscuro con aura.",
+      "peso": 1687
+    },
+    {
+      "id": "icon-maskable-master",
+      "ruta": "brand/icon-maskable.svg",
+      "uso": "Máster maskable. El símbolo queda dentro de la zona segura central.",
+      "alt": "Icono adaptable de Poder Fitness con margen de seguridad.",
+      "peso": 1687
+    },
+    {
+      "id": "icon-512",
+      "ruta": "brand/icon-512.png",
+      "uso": "Icono PWA 512.",
+      "alt": "Icono de la aplicación Poder Fitness, 512 píxeles.",
+      "peso": 51285
+    },
+    {
+      "id": "icon-192",
+      "ruta": "brand/icon-192.png",
+      "uso": "Icono PWA 192.",
+      "alt": "Icono de la aplicación Poder Fitness, 192 píxeles.",
+      "peso": 14958
+    },
+    {
+      "id": "apple-touch-icon",
+      "ruta": "brand/apple-touch-icon.png",
+      "uso": "Apple touch icon 180.",
+      "alt": "Icono de Poder Fitness para la pantalla de inicio en Apple.",
+      "peso": 13607
+    },
+    {
+      "id": "icon-maskable-512",
+      "ruta": "brand/icon-maskable-512.png",
+      "uso": "Icono maskable 512 con zona segura.",
+      "alt": "Icono adaptable de Poder Fitness, 512 píxeles.",
+      "peso": 52930
+    },
+    {
+      "id": "rank-chispa",
+      "ruta": "ranks/chispa.svg",
+      "uso": "Emblema del rango Chispa.",
+      "alt": "Emblema del rango Chispa: una estrella pequeña y pálida, casi en calma.",
+      "peso": 959
+    },
+    {
+      "id": "rank-brasa",
+      "ruta": "ranks/brasa.svg",
+      "uso": "Emblema del rango Brasa.",
+      "alt": "Emblema del rango Brasa: un diamante de brasa naranja con núcleo dorado.",
+      "peso": 731
+    },
+    {
+      "id": "rank-llama",
+      "ruta": "ranks/llama.svg",
+      "uso": "Emblema del rango Llama.",
+      "alt": "Emblema del rango Llama: una lengua de fuego naranja con corazón dorado.",
+      "peso": 930
+    },
+    {
+      "id": "rank-incendio",
+      "ruta": "ranks/incendio.svg",
+      "uso": "Emblema del rango Incendio.",
+      "alt": "Emblema del rango Incendio: dos llamas abiertas y ascuas alrededor.",
+      "peso": 1432
+    },
+    {
+      "id": "rank-tormenta",
+      "ruta": "ranks/tormenta.svg",
+      "uso": "Emblema del rango Tormenta.",
+      "alt": "Emblema del rango Tormenta: tres arcos de viento alrededor de un núcleo.",
+      "peso": 776
+    },
+    {
+      "id": "rank-relampago",
+      "ruta": "ranks/relampago.svg",
+      "uso": "Emblema del rango Relámpago.",
+      "alt": "Emblema del rango Relámpago: un rayo cian geométrico.",
+      "peso": 839
+    },
+    {
+      "id": "rank-nova",
+      "ruta": "ranks/nova.svg",
+      "uso": "Emblema del rango Nova.",
+      "alt": "Emblema del rango Nova: un estallido de ocho puntas doradas.",
+      "peso": 806
+    },
+    {
+      "id": "rank-eclipse",
+      "ruta": "ranks/eclipse.svg",
+      "uso": "Emblema del rango Eclipse.",
+      "alt": "Emblema del rango Eclipse: un creciente dorado con corona de muescas.",
+      "peso": 2354
+    },
+    {
+      "id": "rank-mitico",
+      "ruta": "ranks/mitico.svg",
+      "uso": "Emblema del rango Mítico.",
+      "alt": "Emblema del rango Mítico: un hexágono partido en azul, oro y naranja.",
+      "peso": 1086
+    },
+    {
+      "id": "rank-absoluto",
+      "ruta": "ranks/absoluto.svg",
+      "uso": "Emblema del rango Absoluto.",
+      "alt": "Emblema del rango Absoluto: un halo dorado, estrella blanca y cuatro señales.",
+      "peso": 1110
+    },
+    {
+      "id": "badge-primera-sesion",
+      "ruta": "badges/primera-sesion.svg",
+      "uso": "Insignia «Primera sesión».",
+      "alt": "Insignia de la primera sesión: un camino con una sola marca encendida.",
+      "peso": 839
+    },
+    {
+      "id": "badge-racha-7",
+      "ruta": "badges/racha-7.svg",
+      "uso": "Insignia «Racha de 7».",
+      "alt": "Insignia de racha de 7 días.",
+      "peso": 872
+    },
+    {
+      "id": "badge-racha-30",
+      "ruta": "badges/racha-30.svg",
+      "uso": "Insignia «Racha de 30».",
+      "alt": "Insignia de racha de 30 días.",
+      "peso": 1715
+    },
+    {
+      "id": "badge-reto-heroe",
+      "ruta": "badges/reto-heroe.svg",
+      "uso": "Insignia «Reto del héroe».",
+      "alt": "Insignia del reto del héroe completo: una cumbre con bandera.",
+      "peso": 803
+    },
+    {
+      "id": "badge-record-personal",
+      "ruta": "badges/record-personal.svg",
+      "uso": "Insignia «Récord personal».",
+      "alt": "Insignia de récord personal: barras que rompen su techo.",
+      "peso": 1007
+    },
+    {
+      "id": "badge-arco-terminado",
+      "ruta": "badges/arco-terminado.svg",
+      "uso": "Insignia «Arco terminado».",
+      "alt": "Insignia de arco terminado: un círculo que se cierra con una marca.",
+      "peso": 780
+    },
+    {
+      "id": "badge-cien-entrenos",
+      "ruta": "badges/cien-entrenos.svg",
+      "uso": "Insignia «100 entrenos».",
+      "alt": "Insignia de cien entrenos.",
+      "peso": 1627
+    },
+    {
+      "id": "badge-volumen",
+      "ruta": "badges/volumen.svg",
+      "uso": "Insignia «Volumen».",
+      "alt": "Insignia de volumen: tres bloques apilados.",
+      "peso": 752
+    },
+    {
+      "id": "badge-madrugador",
+      "ruta": "badges/madrugador.svg",
+      "uso": "Insignia «Madrugador».",
+      "alt": "Insignia de madrugador: un sol geométrico sobre el horizonte.",
+      "peso": 806
+    },
+    {
+      "id": "badge-semana-perfecta",
+      "ruta": "badges/semana-perfecta.svg",
+      "uso": "Insignia «Semana perfecta».",
+      "alt": "Insignia de semana perfecta: siete puntos cerrando un círculo.",
+      "peso": 1011
+    },
+    {
+      "id": "badge-transformacion",
+      "ruta": "badges/transformacion.svg",
+      "uso": "Insignia «Transformación».",
+      "alt": "Insignia de transformación: dos chevrones ascendentes.",
+      "peso": 783
+    },
+    {
+      "id": "badge-fuerza",
+      "ruta": "badges/fuerza.svg",
+      "uso": "Insignia «Fuerza».",
+      "alt": "Insignia de fuerza: una barra con discos.",
+      "peso": 892
+    },
+    {
+      "id": "onboarding-enciende",
+      "ruta": "illustrations/onboarding-enciende.svg",
+      "uso": "Onboarding 1. El entrenamiento enciende el aura.",
+      "alt": "Ilustración de una barra con discos y una columna de luz naranja sobre fondo oscuro.",
+      "peso": 3434
+    },
+    {
+      "id": "onboarding-rangos",
+      "ruta": "illustrations/onboarding-rangos.svg",
+      "uso": "Onboarding 2. La escala de rangos.",
+      "alt": "Ilustración de cuatro emblemas de energía que ascienden en diagonal.",
+      "peso": 2342
+    },
+    {
+      "id": "onboarding-racha",
+      "ruta": "illustrations/onboarding-racha.svg",
+      "uso": "Onboarding 3. La constancia de la semana.",
+      "alt": "Ilustración de siete brasas en arco, la última más brillante.",
+      "peso": 1776
+    },
+    {
+      "id": "onboarding-listo",
+      "ruta": "illustrations/onboarding-listo.svg",
+      "uso": "Onboarding 4. El impacto de entrada.",
+      "alt": "Ilustración del símbolo de Poder centrado entre esquinas de impacto doradas.",
+      "peso": 1675
+    },
+    {
+      "id": "empty-biblioteca",
+      "ruta": "illustrations/empty-biblioteca.svg",
+      "uso": "Estado vacío de la biblioteca de ejercicios.",
+      "alt": "Tres fichas vacías sobre fondo oscuro, con una chispa dorada en la ficha central.",
+      "peso": 815
+    },
+    {
+      "id": "empty-historial",
+      "ruta": "illustrations/empty-historial.svg",
+      "uso": "Estado vacío del historial.",
+      "alt": "Línea de tiempo vacía con cinco nodos y un punto naranja en el centro.",
+      "peso": 912
+    },
+    {
+      "id": "empty-reto",
+      "ruta": "illustrations/empty-reto.svg",
+      "uso": "Estado vacío del reto.",
+      "alt": "Silueta de una cumbre oscura con un círculo azul en la cima y una brasa dorada abajo.",
+      "peso": 957
+    },
+    {
+      "id": "empty-rutinas",
+      "ruta": "illustrations/empty-rutinas.svg",
+      "uso": "Estado vacío de rutinas.",
+      "alt": "Tres fichas apiladas vacías y un círculo naranja en la de arriba.",
+      "peso": 869
+    },
+    {
+      "id": "speed-lines",
+      "ruta": "effects/speed-lines.svg",
+      "uso": "Overlay de líneas de velocidad. Fondo transparente.",
+      "alt": "Líneas de velocidad radiales, blancas y semitransparentes.",
+      "peso": 4378
+    },
+    {
+      "id": "impact-frame",
+      "ruta": "effects/impact-frame.svg",
+      "uso": "Marco de impacto en proporción de teléfono. Fondo transparente.",
+      "alt": "Marco de impacto con cuatro esquinas doradas.",
+      "peso": 513
+    },
+    {
+      "id": "aura-orb",
+      "ruta": "effects/aura-orb.svg",
+      "uso": "Resplandor de aura reutilizable. Se tiñe con CSS filter o se usa tal cual.",
+      "alt": "Resplandor radial naranja, suave, sin borde.",
+      "peso": 578
+    },
+    {
+      "id": "shockwave",
+      "ruta": "effects/shockwave.svg",
+      "uso": "Onda de impacto. Fondo transparente.",
+      "alt": "Tres anillos concéntricos dorados y claros.",
+      "peso": 464
+    },
+    {
+      "id": "tokens",
+      "ruta": "effects/tokens.css",
+      "uso": "Variables CSS del sistema. Importar antes que aura.css.",
+      "alt": "No aplica. Hoja de tokens, sin imagen.",
+      "peso": 1744
+    },
+    {
+      "id": "aura-css",
+      "ruta": "effects/aura.css",
+      "uso": "Clases de aura, líneas de velocidad e impacto para la interfaz.",
+      "alt": "No aplica. Hoja de efectos, sin imagen.",
+      "peso": 2590
+    },
+    {
+      "id": "transformation-css",
+      "ruta": "transformation/transformation.css",
+      "uso": "Estilos autónomos de la pantalla de transformación.",
+      "alt": "No aplica. Hoja de la pantalla de transformación.",
+      "peso": 19257
+    },
+    {
+      "id": "transformation-js",
+      "ruta": "transformation/transformation.js",
+      "uso": "Secuencia Chispa a cualquier rango, con vista previa y API para React.",
+      "alt": "No aplica. Lógica de la pantalla de transformación.",
+      "peso": 24267
+    },
+    {
+      "id": "transformation",
+      "ruta": "transformation/index.html",
+      "uso": "Pantalla de transformación autónoma. Por defecto anima Chispa hacia Brasa.",
+      "alt": "Pantalla dramática de subida de rango de Poder Fitness.",
+      "peso": 1572
+    }
+  ]
+}

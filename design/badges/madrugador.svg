@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img">
+  <title>Madrugador</title><desc>Insignia de madrugador: un sol geométrico sobre el horizonte.</desc>
+  <rect x="3.5" y="3.5" width="57" height="57" rx="16" fill="#10131A"/>
+  <rect x="3.5" y="3.5" width="57" height="57" rx="16" stroke="#FFC53D" stroke-width="1.5"/>
+  <rect x="9" y="9" width="46" height="46" rx="12" stroke="#FFC53D" stroke-opacity="0.26"/>
+  <path d="M17 19c5.5-5 24.5-5 30 0" stroke="#fff" stroke-opacity="0.13" stroke-linecap="round"/>
+  <path d="M15 42 H49" stroke="#FFC53D" stroke-width="2" stroke-linecap="round"/>
+  <path d="M22 42a10 10 0 0 1 20 0 Z" fill="#FFC53D"/>
+  <path d="M32 24 V20 M23 28 L20.5 25.5 M41 28 L43.5 25.5" stroke="#FFC53D" stroke-width="1.7" stroke-linecap="round"/>
+</svg>

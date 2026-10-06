@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img">
+  <title>Emblema Mítico</title><desc>Emblema del rango Mítico: un hexágono partido en azul, oro y naranja.</desc>
+  <circle cx="32" cy="32" r="29.75" fill="#10131A"/>
+  <circle cx="32" cy="32" r="29.75" stroke="#FFC53D" stroke-width="1.5"/>
+  <circle cx="32" cy="32" r="25" stroke="#FFC53D" stroke-opacity="0.24"/>
+  <path d="M18.5 23.5a15.5 15.5 0 0 1 27 0" stroke="#fff" stroke-opacity="0.14" stroke-linecap="round"/>
+  <defs>
+    <linearGradient id="mitico-split" x1="0" y1="0.5" x2="1" y2="0.5">
+      <stop offset="0" stop-color="#3B82FF"/>
+      <stop offset="0.5" stop-color="#FFC53D"/>
+      <stop offset="1" stop-color="#FF6A1A"/>
+    </linearGradient>
+  </defs>
+  <polygon points="32.00,17.00 44.99,24.50 44.99,39.50 32.00,47.00 19.01,39.50 19.01,24.50" fill="none" stroke="url(#mitico-split)" stroke-width="2.4" stroke-linejoin="round"/>
+  <path fill="#FFC53D" d="M 32.00 26.60 L 33.27 31.73 L 38.40 33.00 L 33.27 34.27 L 32.00 39.40 L 30.73 34.27 L 25.60 33.00 L 30.73 31.73 Z"/>
+</svg>
