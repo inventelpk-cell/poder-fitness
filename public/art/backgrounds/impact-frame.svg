@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <title>Marco de impacto</title>
+  <desc>Esquinas en ángulo para enmarcar un momento de golpe o desbloqueo.</desc>
+  <g fill="none" stroke="#FFC43A" stroke-width="10" stroke-linecap="square" stroke-linejoin="miter" opacity="1">
+    <path d="M16 80 V16 H80"/>
+    <path d="M320 16 H384 V80"/>
+    <path d="M16 320 V384 H80"/>
+    <path d="M320 384 H384 V320"/>
+  </g>
+</svg>

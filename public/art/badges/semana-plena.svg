@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="t d">
+  <title id="t">Semana plena</title>
+  <desc id="d">Los siete días del arco cerrados.</desc>
+  
+  <circle cx="64" cy="64" r="58" fill="#090B10" stroke="#FF6A1A" stroke-width="4"/>
+  <circle cx="64" cy="64" r="47" fill="#141821" stroke="#FFC43A" stroke-width="1.75" opacity="0.9"/>
+  <polygon points="28.0,56.0 32.2,64.0 28.0,72.0 23.8,64.0" fill="#FFC43A"/>
+  <polygon points="40.0,56.0 44.2,64.0 40.0,72.0 35.8,64.0" fill="#FFC43A"/>
+  <polygon points="52.0,56.0 56.2,64.0 52.0,72.0 47.8,64.0" fill="#FFC43A"/>
+  <polygon points="64.0,56.0 68.2,64.0 64.0,72.0 59.8,64.0" fill="#FFC43A"/>
+  <polygon points="76.0,56.0 80.2,64.0 76.0,72.0 71.8,64.0" fill="#FFC43A"/>
+  <polygon points="88.0,56.0 92.2,64.0 88.0,72.0 83.8,64.0" fill="#FFC43A"/>
+  <polygon points="100.0,56.0 104.2,64.0 100.0,72.0 95.8,64.0" fill="#FFF6E4"/>
+</svg>

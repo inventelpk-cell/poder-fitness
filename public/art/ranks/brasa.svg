@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="t d">
+  <title id="t">Brasa · Encendido</title>
+  <desc id="d">La brasa prende y el cuerpo responde.</desc>
+  
+  <circle cx="64" cy="64" r="38" fill="#FF6A1A" opacity="0.12"/>
+  <polygon points="64.0,10.0 110.8,37.0 110.8,91.0 64.0,118.0 17.2,91.0 17.2,37.0" fill="#090B10" stroke="#6A3A28" stroke-width="4" stroke-linejoin="round"/>
+  <polygon points="64.0,20.0 102.1,42.0 102.1,86.0 64.0,108.0 25.9,86.0 25.9,42.0" fill="#141821" stroke="#C2410C" stroke-width="2.25" stroke-linejoin="round" opacity="0.95"/>
+  <path d="M 86.66 117.39 A 58.00 58.00 0 0 1 41.34 117.39" fill="none" stroke="#FF6A1A" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="64" cy="62" r="14" fill="#FF6A1A"/>
+  <circle cx="59" cy="56" r="4" fill="#FFC43A"/>
+</svg>

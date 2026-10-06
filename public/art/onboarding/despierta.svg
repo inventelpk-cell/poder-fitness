@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 440" role="img" aria-labelledby="t d">
+  <title id="t">Despierta tu núcleo</title>
+  <desc id="d">Figura geométrica quieta, con el núcleo encendido y anillos de aura.</desc>
+  
+  <defs>
+    <pattern id="g1" width="31.1769" height="54.0000" patternUnits="userSpaceOnUse">
+      <path d="M 15.59 0.00 L 31.18 9.00 L 31.18 27.00 L 15.59 36.00 L -0.00 27.00 L 0.00 9.00 Z M 0.00 27.00 L 15.59 36.00 L 15.59 54.00 L 0.00 63.00 L -15.59 54.00 L -15.59 36.00 Z M 0.00 -27.00 L 15.59 -18.00 L 15.59 -0.00 L 0.00 9.00 L -15.59 -0.00 L -15.59 -18.00 Z" fill="none" stroke="#2A3346" stroke-width="1.25" stroke-linejoin="round"/>
+    </pattern>
+    <radialGradient id="wake" cx="50%" cy="46%" r="48%">
+      <stop offset="0%" stop-color="#FF6A1A" stop-opacity="0.38"/>
+      <stop offset="48%" stop-color="#FF6A1A" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#090B10" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="360" height="440" fill="#090B10"/>
+  <rect width="360" height="440" fill="url(#g1)" opacity="0.55"/>
+  <circle cx="180" cy="214" r="170" fill="url(#wake)"/>
+  <circle cx="180" cy="214" r="78" fill="none" stroke="#FF6A1A" stroke-width="2" opacity="0.55"/><circle cx="180" cy="214" r="112" fill="none" stroke="#FFC43A" stroke-width="2" opacity="0.35"/><circle cx="180" cy="214" r="150" fill="none" stroke="#3B82FF" stroke-width="2" opacity="0.28"/>
+  <polygon points="180.0,58.0 184.0,64.0 180.0,70.0 176.0,64.0" fill="#FFC43A" opacity="0.9"/><polygon points="286.1,101.9 290.1,107.9 286.1,113.9 282.1,107.9" fill="#FF6A1A" opacity="0.9"/><polygon points="330.0,208.0 334.0,214.0 330.0,220.0 326.0,214.0" fill="#FFC43A" opacity="0.9"/><polygon points="286.1,314.1 290.1,320.1 286.1,326.1 282.1,320.1" fill="#FF6A1A" opacity="0.9"/><polygon points="180.0,358.0 184.0,364.0 180.0,370.0 176.0,364.0" fill="#FFC43A" opacity="0.9"/><polygon points="73.9,314.1 77.9,320.1 73.9,326.1 69.9,320.1" fill="#FF6A1A" opacity="0.9"/><polygon points="30.0,208.0 34.0,214.0 30.0,220.0 26.0,214.0" fill="#FFC43A" opacity="0.9"/><polygon points="73.9,101.9 77.9,107.9 73.9,113.9 69.9,107.9" fill="#FF6A1A" opacity="0.9"/>
+  <ellipse cx="180" cy="392" rx="92" ry="12" fill="#FF6A1A" opacity="0.28"/>
+  <g transform="translate(180 236)"><g fill="none" stroke-linejoin="round">
+      <path d="M-16.0 62.0 L-28.0 148.0" stroke="#F4F0E6" stroke-width="16" stroke-linecap="round"/><polygon points="-28.0,140.0 -17.0,148.0 -28.0,156.0 -39.0,148.0" fill="#F4F0E6"/><path d="M16.0 62.0 L30.0 148.0" stroke="#F4F0E6" stroke-width="16" stroke-linecap="round"/><polygon points="30.0,140.0 41.0,148.0 30.0,156.0 19.0,148.0" fill="#F4F0E6"/>
+      <path d="M0 -24 V0" stroke="#F4F0E6" stroke-width="14" stroke-linecap="butt"/>
+      <polygon points="-52,-2 52,-2 36,70 -36,70" fill="#141821" stroke="#F4F0E6" stroke-width="4"/>
+      <polygon points="0.0,10.0 12.0,28.0 0.0,46.0 -12.0,28.0" fill="#FF6A1A"/>
+      <polygon points="0.0,21.0 5.0,28.0 0.0,35.0 -5.0,28.0" fill="#FFF6E4"/>
+      <polyline points="-18,56 0,40 18,56" fill="none" stroke="#FFC43A" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M-44.0 10.0 L-82.0 62.0" stroke="#F4F0E6" stroke-width="14" stroke-linecap="round"/><polygon points="-82.0,55.0 -74.0,62.0 -82.0,69.0 -90.0,62.0" fill="#F4F0E6"/><path d="M44.0 10.0 L84.0 52.0" stroke="#F4F0E6" stroke-width="14" stroke-linecap="round"/><polygon points="84.0,45.0 92.0,52.0 84.0,59.0 76.0,52.0" fill="#F4F0E6"/>
+      <polygon points="0.0,-78.0 24.2,-64.0 24.2,-36.0 0.0,-22.0 -24.2,-36.0 -24.2,-64.0" fill="#1A2030" stroke="#F4F0E6" stroke-width="4"/>
+      <path d="M-13 -50 H13" stroke="#9EC0FF" stroke-width="3.5" stroke-linecap="round"/>
+    </g></g>
+  <g fill="none" stroke="#FFC43A" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" opacity="0.85">
+    <path d="M16 52 V16 H52"/>
+    <path d="M308 16 H344 V52"/>
+    <path d="M16 388 V424 H52"/>
+    <path d="M308 424 H344 V388"/>
+  </g>
+</svg>

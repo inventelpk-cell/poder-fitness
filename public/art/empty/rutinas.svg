@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="t d">
+  <title id="t">Sin rutinas</title>
+  <desc id="d">Tarjeta vacía con la marca para crear la primera rutina.</desc>
+  
+  <defs><pattern id="e4" width="31.1769" height="54.0000" patternUnits="userSpaceOnUse">
+      <path d="M 15.59 0.00 L 31.18 9.00 L 31.18 27.00 L 15.59 36.00 L -0.00 27.00 L 0.00 9.00 Z M 0.00 27.00 L 15.59 36.00 L 15.59 54.00 L 0.00 63.00 L -15.59 54.00 L -15.59 36.00 Z M 0.00 -27.00 L 15.59 -18.00 L 15.59 -0.00 L 0.00 9.00 L -15.59 -0.00 L -15.59 -18.00 Z" fill="none" stroke="#243044" stroke-width="1.1" stroke-linejoin="round"/>
+    </pattern></defs>
+  <rect width="320" height="220" rx="18" fill="#090B10"/>
+  <rect width="320" height="220" rx="18" fill="url(#e4)" opacity="0.4"/>
+  <g fill="none" stroke="#3C4558" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" opacity="0.9">
+    <path d="M12 34 V12 H34"/>
+    <path d="M286 12 H308 V34"/>
+    <path d="M12 186 V208 H34"/>
+    <path d="M286 208 H308 V186"/>
+  </g>
+  <rect x="78" y="58" width="176" height="112" rx="16" fill="#1A2030" stroke="#3C4558" stroke-width="2"/>
+  <rect x="62" y="46" width="196" height="124" rx="16" fill="#090B10" stroke="#FF6A1A" stroke-width="2.5" stroke-dasharray="8 8"/>
+  <path d="M160 86 V132" stroke="#FFC43A" stroke-width="6" stroke-linecap="round"/>
+  <path d="M137 109 H183" stroke="#FFC43A" stroke-width="6" stroke-linecap="round"/>
+</svg>

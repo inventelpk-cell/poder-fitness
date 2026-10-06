@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="t d">
+  <title id="t">Reto sin empezar</title>
+  <desc id="d">Emblema sellado, a la espera de abrir el reto.</desc>
+  
+  <defs><pattern id="e3" width="31.1769" height="54.0000" patternUnits="userSpaceOnUse">
+      <path d="M 15.59 0.00 L 31.18 9.00 L 31.18 27.00 L 15.59 36.00 L -0.00 27.00 L 0.00 9.00 Z M 0.00 27.00 L 15.59 36.00 L 15.59 54.00 L 0.00 63.00 L -15.59 54.00 L -15.59 36.00 Z M 0.00 -27.00 L 15.59 -18.00 L 15.59 -0.00 L 0.00 9.00 L -15.59 -0.00 L -15.59 -18.00 Z" fill="none" stroke="#243044" stroke-width="1.1" stroke-linejoin="round"/>
+    </pattern></defs>
+  <rect width="320" height="220" rx="18" fill="#090B10"/>
+  <rect width="320" height="220" rx="18" fill="url(#e3)" opacity="0.4"/>
+  <g fill="none" stroke="#3C4558" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" opacity="0.9">
+    <path d="M12 34 V12 H34"/>
+    <path d="M286 12 H308 V34"/>
+    <path d="M12 186 V208 H34"/>
+    <path d="M286 208 H308 V186"/>
+  </g>
+  <polygon points="160.0,46.0 213.7,77.0 213.7,139.0 160.0,170.0 106.3,139.0 106.3,77.0" fill="#141821" stroke="#3C4558" stroke-width="4"/>
+  <polygon points="160.0,62.0 199.8,85.0 199.8,131.0 160.0,154.0 120.2,131.0 120.2,85.0" fill="none" stroke="#8E97AB" stroke-width="1.5" opacity="0.7"/>
+  <rect x="92" y="100" width="136" height="14" rx="3" fill="#090B10" stroke="#FFC43A" stroke-width="2" opacity="0.85"/>
+  <polygon points="160.0,68.0 167.0,78.0 160.0,88.0 153.0,78.0" fill="#8E97AB"/>
+</svg>

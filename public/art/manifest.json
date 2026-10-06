@@ -1,0 +1,330 @@
+{
+  "name": "Poder Fitness",
+  "system": "visual",
+  "palette": {
+    "fondo": "#090B10",
+    "naranja": "#FF6A1A",
+    "ambar": "#FFC43A",
+    "azul": "#3B82FF",
+    "tinta": "#F4F0E6"
+  },
+  "assets": [
+    {
+      "path": "/brand/logo.svg",
+      "type": "logo",
+      "purpose": "Logotipo horizontal para cabeceras y pantallas de bienvenida.",
+      "name": "Poder Fitness"
+    },
+    {
+      "path": "/brand/logo-mark.svg",
+      "type": "logo",
+      "purpose": "Símbolo solo, para avatares, botones y marca de agua.",
+      "name": "Marca Poder"
+    },
+    {
+      "path": "/brand/favicon.svg",
+      "type": "icono",
+      "purpose": "Favicon SVG. Legible en pestaña a 16 px.",
+      "name": "Favicon"
+    },
+    {
+      "path": "/brand/icon-192.png",
+      "type": "icono",
+      "purpose": "Icono PWA de 192 px, propósito any.",
+      "name": "Icono 192",
+      "size": 192
+    },
+    {
+      "path": "/brand/icon-512.png",
+      "type": "icono",
+      "purpose": "Icono PWA de 512 px, propósito any.",
+      "name": "Icono 512",
+      "size": 512
+    },
+    {
+      "path": "/brand/maskable-512.png",
+      "type": "icono",
+      "purpose": "Icono adaptable de 512 px. El símbolo vive en la zona segura central.",
+      "name": "Icono adaptable",
+      "size": 512,
+      "purpose_pwa": "maskable"
+    },
+    {
+      "path": "/brand/apple-touch-180.png",
+      "type": "icono",
+      "purpose": "Apple touch icon de 180 px, fondo opaco.",
+      "name": "Apple Touch",
+      "size": 180
+    },
+    {
+      "path": "/art/ranks/chispa.svg",
+      "type": "emblema",
+      "purpose": "Primer destello. El arco acaba de encenderse.",
+      "name": "Chispa",
+      "title": "Novato",
+      "order": 1,
+      "id": "chispa"
+    },
+    {
+      "path": "/art/ranks/brasa.svg",
+      "type": "emblema",
+      "purpose": "La brasa prende y el cuerpo responde.",
+      "name": "Brasa",
+      "title": "Encendido",
+      "order": 2,
+      "id": "brasa"
+    },
+    {
+      "path": "/art/ranks/pulso.svg",
+      "type": "emblema",
+      "purpose": "El ritmo de entreno ya late solo.",
+      "name": "Pulso",
+      "title": "Constante",
+      "order": 3,
+      "id": "pulso"
+    },
+    {
+      "path": "/art/ranks/forja.svg",
+      "type": "emblema",
+      "purpose": "El trabajo repetido templa la fuerza.",
+      "name": "Forja",
+      "title": "Templado",
+      "order": 4,
+      "id": "forja"
+    },
+    {
+      "path": "/art/ranks/impulso.svg",
+      "type": "emblema",
+      "purpose": "El movimiento gana velocidad propia.",
+      "name": "Impulso",
+      "title": "Impulsor",
+      "order": 5,
+      "id": "impulso"
+    },
+    {
+      "path": "/art/ranks/ascenso.svg",
+      "type": "emblema",
+      "purpose": "El arco sube de nivel y no vuelve atrás.",
+      "name": "Ascenso",
+      "title": "Ascendido",
+      "order": 6,
+      "id": "ascenso"
+    },
+    {
+      "path": "/art/ranks/vortice.svg",
+      "type": "emblema",
+      "purpose": "La energía gira y sostiene el esfuerzo.",
+      "name": "Vórtice",
+      "title": "Vorticial",
+      "order": 7,
+      "id": "vortice"
+    },
+    {
+      "path": "/art/ranks/corona.svg",
+      "type": "emblema",
+      "purpose": "El atleta gobierna su propio arco.",
+      "name": "Corona",
+      "title": "Soberano",
+      "order": 8,
+      "id": "corona"
+    },
+    {
+      "path": "/art/ranks/mito.svg",
+      "type": "emblema",
+      "purpose": "La cima del arco personal. Leyenda propia.",
+      "name": "Mito",
+      "title": "Mítico",
+      "order": 9,
+      "id": "mito"
+    },
+    {
+      "path": "/art/badges/racha.svg",
+      "type": "insignia",
+      "purpose": "Insignia de días seguidos de entreno.",
+      "name": "Racha",
+      "id": "racha"
+    },
+    {
+      "path": "/art/badges/primer-entreno.svg",
+      "type": "insignia",
+      "purpose": "Insignia de la primera sesión cerrada.",
+      "name": "Primer entreno",
+      "id": "primer-entreno"
+    },
+    {
+      "path": "/art/badges/reto-heroe.svg",
+      "type": "insignia",
+      "purpose": "Insignia de un reto mayor completado.",
+      "name": "Reto del héroe",
+      "id": "reto-heroe"
+    },
+    {
+      "path": "/art/badges/record.svg",
+      "type": "insignia",
+      "purpose": "Insignia de marca personal.",
+      "name": "Récord",
+      "id": "record"
+    },
+    {
+      "path": "/art/badges/constancia.svg",
+      "type": "insignia",
+      "purpose": "Insignia de ritmo sostenido.",
+      "name": "Constancia",
+      "id": "constancia"
+    },
+    {
+      "path": "/art/badges/volumen.svg",
+      "type": "insignia",
+      "purpose": "Insignia de series y repeticiones acumuladas.",
+      "name": "Volumen",
+      "id": "volumen"
+    },
+    {
+      "path": "/art/badges/madrugada.svg",
+      "type": "insignia",
+      "purpose": "Insignia de entreno al amanecer.",
+      "name": "Madrugador",
+      "id": "madrugada"
+    },
+    {
+      "path": "/art/badges/noche-hierro.svg",
+      "type": "insignia",
+      "purpose": "Insignia de entreno nocturno.",
+      "name": "Noche de hierro",
+      "id": "noche-hierro"
+    },
+    {
+      "path": "/art/badges/semana-plena.svg",
+      "type": "insignia",
+      "purpose": "Insignia de los siete días del arco.",
+      "name": "Semana plena",
+      "id": "semana-plena"
+    },
+    {
+      "path": "/art/badges/cien-sesiones.svg",
+      "type": "insignia",
+      "purpose": "Insignia de cien entrenos.",
+      "name": "Cien sesiones",
+      "id": "cien-sesiones"
+    },
+    {
+      "path": "/art/badges/superacion.svg",
+      "type": "insignia",
+      "purpose": "Insignia de un límite roto.",
+      "name": "Superación",
+      "id": "superacion"
+    },
+    {
+      "path": "/art/badges/equilibrio.svg",
+      "type": "insignia",
+      "purpose": "Insignia de un bloque de equilibrio.",
+      "name": "Equilibrio",
+      "id": "equilibrio"
+    },
+    {
+      "path": "/art/badges/guardia.svg",
+      "type": "insignia",
+      "purpose": "Insignia de recuperación respetada.",
+      "name": "Guardia",
+      "id": "guardia"
+    },
+    {
+      "path": "/art/badges/precision.svg",
+      "type": "insignia",
+      "purpose": "Insignia de técnica cumplida.",
+      "name": "Precisión",
+      "id": "precision"
+    },
+    {
+      "path": "/art/onboarding/despierta.svg",
+      "type": "ilustracion",
+      "purpose": "Ilustración de onboarding: el núcleo se enciende.",
+      "name": "Despierta tu núcleo",
+      "id": "despierta"
+    },
+    {
+      "path": "/art/onboarding/elige-arco.svg",
+      "type": "ilustracion",
+      "purpose": "Ilustración de onboarding: tres estaciones de rango.",
+      "name": "Elige tu arco",
+      "id": "elige-arco"
+    },
+    {
+      "path": "/art/onboarding/asciende.svg",
+      "type": "ilustracion",
+      "purpose": "Ilustración de onboarding: pose de poder y marco de impacto.",
+      "name": "Entrena y asciende",
+      "id": "asciende"
+    },
+    {
+      "path": "/art/empty/biblioteca.svg",
+      "type": "vacio",
+      "purpose": "Estado vacío de la biblioteca de ejercicios.",
+      "name": "Biblioteca vacía",
+      "id": "biblioteca"
+    },
+    {
+      "path": "/art/empty/historial.svg",
+      "type": "vacio",
+      "purpose": "Estado vacío del historial de sesiones.",
+      "name": "Historial vacío",
+      "id": "historial"
+    },
+    {
+      "path": "/art/empty/reto.svg",
+      "type": "vacio",
+      "purpose": "Estado vacío cuando no hay un reto abierto.",
+      "name": "Reto sin empezar",
+      "id": "reto"
+    },
+    {
+      "path": "/art/empty/rutinas.svg",
+      "type": "vacio",
+      "purpose": "Estado vacío del listado de rutinas.",
+      "name": "Sin rutinas",
+      "id": "rutinas"
+    },
+    {
+      "path": "/art/backgrounds/aura-radial.svg",
+      "type": "fondo",
+      "purpose": "Overlay radial naranja y azul, bordes transparentes.",
+      "name": "Campo de aura",
+      "id": "aura-radial"
+    },
+    {
+      "path": "/art/backgrounds/aura-myth.svg",
+      "type": "fondo",
+      "purpose": "Overlay más intenso para el rango Mito y la transformación.",
+      "name": "Aura de mito",
+      "id": "aura-myth"
+    },
+    {
+      "path": "/art/backgrounds/speed-lines.svg",
+      "type": "fondo",
+      "purpose": "Overlay de trazos diagonales para movimiento.",
+      "name": "Líneas de velocidad",
+      "id": "speed-lines"
+    },
+    {
+      "path": "/art/backgrounds/hex-grid.svg",
+      "type": "fondo",
+      "purpose": "Patrón de fondo, baja contraste.",
+      "name": "Rejilla hexagonal",
+      "id": "hex-grid"
+    },
+    {
+      "path": "/art/backgrounds/impact-frame.svg",
+      "type": "fondo",
+      "purpose": "Esquinas para enmarcar un golpe visual.",
+      "name": "Marco de impacto",
+      "id": "impact-frame"
+    },
+    {
+      "path": "/art/backgrounds/vignette.svg",
+      "type": "fondo",
+      "purpose": "Oscurece bordes sobre una escena.",
+      "name": "Viñeta",
+      "id": "vignette"
+    }
+  ]
+}

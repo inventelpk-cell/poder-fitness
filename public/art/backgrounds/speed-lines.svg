@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+<title>Líneas de velocidad</title>
+<desc>Trazos diagonales naranjas y azules para overlays de movimiento.</desc>
+<line x1="0" y1="16" x2="140" y2="-12" stroke="#FF6A1A" stroke-width="7" stroke-linecap="round" opacity="0.28"/>
+<line x1="0" y1="50" x2="193" y2="22" stroke="#9EC0FF" stroke-width="3" stroke-linecap="round" opacity="0.38"/>
+<line x1="0" y1="84" x2="246" y2="56" stroke="#FF6A1A" stroke-width="3" stroke-linecap="round" opacity="0.48"/>
+<line x1="0" y1="118" x2="299" y2="90" stroke="#9EC0FF" stroke-width="3" stroke-linecap="round" opacity="0.58"/>
+<line x1="0" y1="152" x2="352" y2="124" stroke="#FF6A1A" stroke-width="7" stroke-linecap="round" opacity="0.68"/>
+<line x1="0" y1="186" x2="405" y2="158" stroke="#9EC0FF" stroke-width="3" stroke-linecap="round" opacity="0.28"/>
+<line x1="0" y1="220" x2="458" y2="192" stroke="#FF6A1A" stroke-width="3" stroke-linecap="round" opacity="0.38"/>
+<line x1="0" y1="254" x2="191" y2="226" stroke="#9EC0FF" stroke-width="3" stroke-linecap="round" opacity="0.48"/>
+<line x1="0" y1="288" x2="244" y2="260" stroke="#FF6A1A" stroke-width="7" stroke-linecap="round" opacity="0.58"/>
+<line x1="0" y1="322" x2="297" y2="294" stroke="#9EC0FF" stroke-width="3" stroke-linecap="round" opacity="0.68"/>
+<line x1="0" y1="356" x2="350" y2="328" stroke="#FF6A1A" stroke-width="3" stroke-linecap="round" opacity="0.28"/>
+<line x1="0" y1="390" x2="403" y2="362" stroke="#9EC0FF" stroke-width="3" stroke-linecap="round" opacity="0.38"/>
+<line x1="0" y1="424" x2="456" y2="396" stroke="#FF6A1A" stroke-width="7" stroke-linecap="round" opacity="0.48"/>
+<line x1="0" y1="458" x2="189" y2="430" stroke="#9EC0FF" stroke-width="3" stroke-linecap="round" opacity="0.58"/>
+</svg>
