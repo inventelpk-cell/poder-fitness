@@ -1,13 +1,10 @@
 import { useEffect, useState, type ReactElement } from 'react';
 import { Link } from 'react-router';
-import { ExerciseThumb } from '../ui/ExerciseThumb';
 import { Avatar } from '../ui/Avatar';
 import { listHero, listPlans, listSessions, performedFrom, saveSession } from '../db/db';
-import { arcTitle } from '../domain/arc';
 import { localDateISO, mondayOf } from '../domain/dates';
-import { formatInt } from '../domain/format';
 import { labelDayKind, labelRank, WEEKDAY_SHORT } from '../domain/labels';
-import { nivelDePoder, nextLevelXp, rankForXp, xpParaAlcanzarNivel } from '../domain/ranks';
+import { nivelDePoder, rankForXp } from '../domain/ranks';
 import { buildSession } from '../domain/session';
 import { heroStreak, weekStreak } from '../domain/streaks';
 import type { Plan, WorkoutSession } from '../domain/model';
@@ -35,9 +32,6 @@ export function TodayPage(): ReactElement {
   const day = plan.days.find((item) => item.date === today);
   const rank = rankForXp(profile.xpTotal);
   const level = nivelDePoder(profile.xpTotal);
-  const floor = xpParaAlcanzarNivel(level);
-  const next = nextLevelXp(level);
-  const span = next === null ? 1 : Math.max(1, next - floor);
   const monday = mondayOf(today);
   const streak = weekStreak({
     plans: plans.map((item) => ({ weekStart: item.weekStart, planned: item.days.length })),
@@ -47,28 +41,20 @@ export function TodayPage(): ReactElement {
   const hero = heroStreak(heroDays, today);
 
   const doneDates = new Set(sessions.filter((session) => session.status === 'completada').map((session) => session.date));
-  const progress = next === null ? 100 : Math.min(100, ((profile.xpTotal - floor) / span) * 100);
   const todayJs = new Date(`${today}T12:00:00`).getDay();
   const todayWeekday = todayJs === 0 ? 7 : todayJs;
+  const fecha = new Date(`${today}T12:00:00`).toLocaleDateString('es', { weekday: 'long', day: 'numeric', month: 'long' });
+  const fechaLinea = fecha.charAt(0).toUpperCase() + fecha.slice(1);
 
   return (
     <main className="screen dashboard">
       {dialog}
-      <header className="power-board">
-        <Avatar gender={profile.avatar} rank={rank.id} />
-        <div className="power-copy">
-          <p className="kicker">{profile.name}</p>
-          <p className={`rank-pill pf-aura--${rank.id}`}>{labelRank(rank.id)}</p>
-          <p className="power-figure">
-            <span className="power-level">{level}</span>
-            <span className="power-xp">{formatInt(profile.xpTotal)} XP{level === 100 ? ', nivel 100' : ''}</span>
-          </p>
-          <div className="bar power-bar" aria-hidden="true">
-            <span style={{ width: `${progress}%` }} />
-          </div>
-          <p className="muted">
-            Nivel {level} · {arcTitle(arc.number)} · semana {arc.weekInArc}
-          </p>
+      <header className="power-board today-head">
+        <Avatar gender={profile.avatar} rank={rank.id} className={`pf-aura pf-aura--${rank.id}`} />
+        <div className="today-copy">
+          <p className="kicker">{fechaLinea}</p>
+          <h1>{profile.name}</h1>
+          <p className="today-rank">{labelRank(rank.id)} · Nivel {level}</p>
         </div>
       </header>
       <CoachBubble event={hero.lost || streak.restart || arc.repeatNotice ? 'racha' : 'empezar'} />
@@ -119,7 +105,6 @@ export function TodayPage(): ReactElement {
               const dose = item.medida === 'segundos' ? `${item.series} × ${item.repObjetivo} s` : `${item.series} × ${item.repObjetivo}`;
               return (
                 <li key={`${item.slot}-${item.exerciseId}`}>
-                  <ExerciseThumb images={exercise?.imagenes} nombre={nombre} exerciseId={item.exerciseId} />
                   <span className="session-name">{nombre}</span>
                   <span className="session-dose">{dose}</span>
                 </li>

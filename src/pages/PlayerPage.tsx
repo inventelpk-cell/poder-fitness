@@ -168,7 +168,13 @@ export function PlayerPage(): ReactElement {
     const exercise = activeExercise(live);
     const active = exercise ? currentSet(exercise) : null;
     if (!exercise || !active) return;
-    const result = completeSet(live, exercise.instanceId, active.id);
+    const seeded =
+      exercise.medida === 'segundos' && active.segundos === null
+        ? patchSet(live, exercise.instanceId, active.id, { segundos: exercise.repMin })
+        : exercise.medida === 'reps' && active.reps === null
+          ? patchSet(live, exercise.instanceId, active.id, { reps: exercise.repMin })
+          : live;
+    const result = completeSet(seeded, exercise.instanceId, active.id);
     if (!result.ok) {
       setError(result.error);
       return;
@@ -322,6 +328,9 @@ export function PlayerPage(): ReactElement {
   const serieTotal = Math.max(1, workSets.length);
   const serieIndex = workSets.findIndex((item) => item.id === set?.id);
   const serieNumero = serieIndex >= 0 ? serieIndex + 1 : 1;
+  const rankId = rankForXp(profile.xpTotal).id;
+  const repsShown = !set || !current ? 0 : current.medida === 'segundos' ? (set.segundos ?? current.repMin) : (set.reps ?? current.repMin);
+  const kgShown = set?.pesoKg === null || set?.pesoKg === undefined ? 0 : Math.round(toDisplay(set.pesoKg, profile.unit) * 1000) / 1000;
 
   function bump(field: 'reps' | 'pesoKg' | 'segundos', delta: number): void {
     if (!current || !set || !profile) return;
@@ -331,7 +340,7 @@ export function PlayerPage(): ReactElement {
       editSet(current, set, 'pesoKg', String(next));
       return;
     }
-    const base = field === 'reps' ? (set.reps ?? 0) : (set.segundos ?? 0);
+    const base = field === 'reps' ? (set.reps ?? current.repMin) : (set.segundos ?? current.repMin);
     editSet(current, set, field, String(Math.max(0, base + delta)));
   }
 
@@ -350,7 +359,7 @@ export function PlayerPage(): ReactElement {
       {current ? (
         <section className="player-now">
           <div className="player-hero">
-            <Avatar gender={profile.avatar} rank={rankForXp(profile.xpTotal).id} pose="entrenando" />
+            <Avatar gender={profile.avatar} rank={rankId} pose="entrenando" className={`pf-aura pf-aura--${rankId}`} />
             {impact ? <p className="zas" aria-hidden="true">¡ZAS!</p> : null}
           </div>
           {impact ? <p className="narracion">¡Tu poder aumenta!</p> : null}
@@ -371,10 +380,18 @@ export function PlayerPage(): ReactElement {
               </div>
             </div>
           ) : null}
-          <div className="set-progress" aria-hidden="true">
-            {current.series.map((item) => (
-              <i key={item.id} className={item.completed ? 'is-done' : item.id === set?.id ? 'is-now' : ''} />
-            ))}
+          <div className="set-segments" aria-label="Series">
+            {workSets.map((item, index) => {
+              const done = item.completed;
+              const nowSet = item.id === set?.id;
+              const tone = done ? 'is-done' : nowSet ? 'is-now' : '';
+              const label = done ? 'Hecha' : nowSet ? 'Ahora' : String(index + 1);
+              return (
+                <span key={item.id} className={`set-seg ${tone}`}>
+                  {label}
+                </span>
+              );
+            })}
           </div>
           {set ? (
             <ol className="set-list">
@@ -388,7 +405,7 @@ export function PlayerPage(): ReactElement {
                     <input
                       inputMode="decimal"
                       aria-label={`Peso (${profile.unit})`}
-                      value={set.pesoKg === null ? '' : String(Math.round(toDisplay(set.pesoKg, profile.unit) * 1000) / 1000)}
+                      value={String(kgShown)}
                       onChange={(event) => editSet(current, set, 'pesoKg', event.target.value)}
                     />
                     <button type="button" onClick={() => bump('pesoKg', profile.increment)} aria-label="Más peso">
@@ -403,9 +420,9 @@ export function PlayerPage(): ReactElement {
                       −
                     </button>
                     {current.medida === 'segundos' ? (
-                      <input aria-label="Segundos" inputMode="numeric" value={set.segundos ?? ''} onChange={(event) => editSet(current, set, 'segundos', event.target.value)} />
+                      <input aria-label="Segundos" inputMode="numeric" value={String(repsShown)} onChange={(event) => editSet(current, set, 'segundos', event.target.value)} />
                     ) : (
-                      <input aria-label="Repeticiones" inputMode="numeric" value={set.reps ?? ''} onChange={(event) => editSet(current, set, 'reps', event.target.value)} />
+                      <input aria-label="Repeticiones" inputMode="numeric" value={String(repsShown)} onChange={(event) => editSet(current, set, 'reps', event.target.value)} />
                     )}
                     <button type="button" onClick={() => bump(current.medida === 'segundos' ? 'segundos' : 'reps', 1)} aria-label={current.medida === 'segundos' ? 'Subir segundos' : 'Subir'}>
                       +
@@ -442,7 +459,7 @@ export function PlayerPage(): ReactElement {
           ) : null}
           {error ? <strong className="error">{error}</strong> : null}
           <button type="button" className="btn btn-primary" onClick={() => void onComplete()}>Completar serie</button>
-          <button type="button" className="btn" onClick={() => void onSkip()}>Saltar</button>
+          <button type="button" className="btn btn-danger" onClick={() => void onSkip()}>Saltar</button>
           <details className="player-more">
             <summary>Más opciones</summary>
             <div className="camera-row">

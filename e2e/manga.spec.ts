@@ -4,7 +4,6 @@ const OUT = '/cursor/stores/self/media/app-screenshots/manga';
 
 async function onboard(page: Page): Promise<void> {
   await page.goto('/');
-  await page.getByLabel('Nombre').fill('Antonio');
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('heading', { name: 'Tu entrenador' }).waitFor();
   await page.getByRole('button', { name: 'Continuar' }).click();
@@ -16,6 +15,7 @@ async function onboard(page: Page): Promise<void> {
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('button', { name: 'Más días' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
+  await page.getByLabel('Nombre').fill('Antonio');
   await page.getByRole('button', { name: 'Empezar' }).click();
   await expect(page.getByText('Chispa')).toBeVisible();
 }
@@ -63,12 +63,8 @@ test('capturas del avatar manga', async ({ page }) => {
 
   await onboard(page);
   await expect(page.locator('.dashboard .avatar-frame img')).toHaveAttribute('src', /\/avatar\/male\/chispa\.png$/);
-  for (const [name, file] of [
-    ['Sentadilla', 'sentadilla.png'],
-    ['Zancada', 'zancada.png'],
-    ['Curl femoral deslizante', 'curl-femoral-deslizante.png'],
-  ] as const) {
-    await expect(page.locator('.session-list li', { hasText: name }).locator('img')).toHaveAttribute('src', new RegExp(`${file}$`));
+  for (const name of ['Sentadilla', 'Zancada', 'Curl femoral deslizante']) {
+    await expect(page.locator('.session-list li', { hasText: name })).toBeVisible();
   }
   await shot(page, 'hoy');
 

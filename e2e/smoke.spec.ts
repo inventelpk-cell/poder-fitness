@@ -2,9 +2,8 @@ import { expect, test } from '@playwright/test';
 
 test('onboarding, entreno, biblioteca, reto y exportación', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Tu nombre' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Tu figura' })).toBeVisible();
   await expect(page.getByText('Paso 1 de 7')).toBeVisible();
-  await page.getByLabel('Nombre').fill('Antonio');
   await page.getByRole('button', { name: 'Continuar' }).click();
   await expect(page.getByRole('heading', { name: 'Tu entrenador' })).toBeVisible();
   await page.getByRole('button', { name: 'Continuar' }).click();
@@ -17,6 +16,7 @@ test('onboarding, entreno, biblioteca, reto y exportación', async ({ page }) =>
   await expect(page.getByText('Paso 6 de 7')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Tus días' })).toBeVisible();
   await page.getByRole('button', { name: 'Continuar' }).click();
+  await page.getByLabel('Nombre').fill('Antonio');
   await page.getByRole('button', { name: 'Empezar' }).click();
 
   await expect(page.getByText('Antonio')).toBeVisible();

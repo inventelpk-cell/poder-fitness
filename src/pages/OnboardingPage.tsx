@@ -13,7 +13,7 @@ const FACE_RANKS = ['chispa', 'llama', 'nova'] as const satisfies readonly RankI
 
 const GOALS: Goal[] = ['fuerza', 'hipertrofia', 'resistencia', 'grasa'];
 const LEVELS: Level[] = ['principiante', 'intermedio', 'avanzado'];
-const STEP_TITLES = ['Tu nombre', 'Tu entrenador', 'Tu nivel', 'Tu objetivo', 'Tu equipo', 'Tus días', 'Tu punto de partida'] as const;
+const STEP_TITLES = ['Tu figura', 'Tu entrenador', 'Tu nivel', 'Tu objetivo', 'Tu equipo', 'Tus días', 'Tu punto de partida'] as const;
 
 export function OnboardingPage(): ReactElement {
   const navigate = useNavigate();
@@ -57,10 +57,16 @@ export function OnboardingPage(): ReactElement {
   }
 
   async function finish(): Promise<void> {
+    const trimmed = name.trim();
+    if (trimmed.length < 1 || trimmed.length > 24) {
+      setNameError('Escribe tu nombre.');
+      return;
+    }
     if (!level || !goal || equipment.length === 0) return;
+    setNameError('');
     setBusy(true);
     const profile: Profile = {
-      name: name.trim(),
+      name: trimmed,
       level,
       goal,
       equipment,
@@ -83,14 +89,6 @@ export function OnboardingPage(): ReactElement {
   }
 
   function next(): void {
-    if (step === 1) {
-      const trimmed = name.trim();
-      if (trimmed.length < 1 || trimmed.length > 24) {
-        setNameError('Escribe tu nombre.');
-        return;
-      }
-      setNameError('');
-    }
     if (step === 3 && !level) return;
     if (step === 4 && !goal) return;
     if (step === 5 && equipment.length === 0) {
@@ -113,24 +111,25 @@ export function OnboardingPage(): ReactElement {
           <li key={title} className={index + 1 === step ? 'is-on' : index + 1 < step ? 'is-done' : ''} />
         ))}
       </ol>
+      {step > 2 ? <Avatar gender={avatar} rank="chispa" className="onboard-avatar" /> : null}
+      <h1>{STEP_TITLES[step - 1]}</h1>
       {step === 1 ? (
-        <div className="gender-row" role="radiogroup" aria-label="Avatar">
-          {(['hombre', 'mujer'] as const).map((option) => (
+        <div className="figure-row" role="radiogroup" aria-label="Avatar">
+          {(['mujer', 'hombre'] as const).map((option) => (
             <button
               key={option}
               type="button"
               role="radio"
               aria-checked={avatar === option}
-              className={avatar === option ? 'chip is-on' : 'chip'}
+              className={avatar === option ? 'figure-card is-on' : 'figure-card'}
               onClick={() => setAvatar(option)}
             >
-              {option === 'hombre' ? 'Hombre' : 'Mujer'}
+              <Avatar gender={option} rank="chispa" />
+              <span>{option === 'mujer' ? 'Mujer' : 'Hombre'}</span>
             </button>
           ))}
         </div>
       ) : null}
-      {step > 2 ? <Avatar gender={avatar} rank="chispa" className="onboard-avatar" /> : null}
-      <h1>{STEP_TITLES[step - 1]}</h1>
       {step === 1 ? (
         <div className="rank-trio" aria-hidden="true">
           {FACE_RANKS.map((rank) => (
@@ -140,14 +139,6 @@ export function OnboardingPage(): ReactElement {
             </figure>
           ))}
         </div>
-      ) : null}
-      {step === 1 ? (
-        <label className="field">
-          <span>Nombre</span>
-          <input value={name} maxLength={24} onChange={(event) => setName(event.target.value)} aria-invalid={nameError ? true : undefined} />
-          <small>Cómo quieres que te llamemos</small>
-          {nameError ? <strong className="error">{nameError}</strong> : null}
-        </label>
       ) : null}
       {step === 2 ? (
         <div className="coach-choice" role="radiogroup" aria-label="Entrenador">
@@ -247,9 +238,17 @@ export function OnboardingPage(): ReactElement {
           {!daysOk ? <strong className="error">Elige {count} días.</strong> : null}
         </div>
       ) : null}
+      {step === 7 ? (
+        <label className="field">
+          <span>Nombre</span>
+          <input value={name} maxLength={24} onChange={(event) => setName(event.target.value)} aria-invalid={nameError ? true : undefined} />
+          <small>Cómo quieres que te llamemos</small>
+          {nameError ? <strong className="error">{nameError}</strong> : null}
+        </label>
+      ) : null}
       {step === 7 && level && goal ? (
         <section className="card">
-          <p><strong>{name.trim()}</strong> · {avatar === 'mujer' ? 'Mujer' : 'Hombre'}</p>
+          <p><strong>{name.trim() || 'Tu nombre'}</strong> · {avatar === 'mujer' ? 'Mujer' : 'Hombre'}</p>
           <p>{coachName}{coach === 'dario' ? ` · ${darioTone === 'brusco' ? 'Brusco' : 'Suave'}` : ''}</p>
           <p>{labelLevel(level)}</p>
           <p>{labelGoal(goal)}</p>
@@ -260,7 +259,7 @@ export function OnboardingPage(): ReactElement {
       ) : null}
       <div className="row">
         {step > 1 ? (
-          <button type="button" className="btn" onClick={() => setStep((value) => value - 1)}>
+          <button type="button" className="text-link" onClick={() => setStep((value) => value - 1)}>
             Atrás
           </button>
         ) : null}

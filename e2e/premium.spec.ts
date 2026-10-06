@@ -20,7 +20,6 @@ test('capturas del paquete premium', async ({ page }) => {
   await shot(page, 'onboarding');
 
   await page.getByRole('radio', { name: 'Mujer' }).click();
-  await page.getByLabel('Nombre').fill('Antonio');
   await page.getByRole('button', { name: 'Continuar' }).click();
   await expect(page.getByRole('heading', { name: 'Tu entrenador' })).toBeVisible();
   const dario = page.locator('.coach-card', { hasText: 'Darío Sanz' });
@@ -36,6 +35,7 @@ test('capturas del paquete premium', async ({ page }) => {
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('button', { name: 'Más días' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
+  await page.getByLabel('Nombre').fill('Antonio');
   await page.getByRole('button', { name: 'Empezar' }).click();
   await expect(page.getByText('Chispa')).toBeVisible();
   await expect(page.locator('.coach-bubble')).toBeVisible();

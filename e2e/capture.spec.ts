@@ -4,7 +4,6 @@ const OUT = '/cursor/stores/self/media/app-screenshots';
 
 async function onboard(page: Page): Promise<void> {
   await page.goto('/');
-  await page.getByLabel('Nombre').fill('Antonio');
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('heading', { name: 'Tu entrenador' }).waitFor();
   await page.getByRole('button', { name: 'Continuar' }).click();
@@ -19,6 +18,7 @@ async function onboard(page: Page): Promise<void> {
   await page.getByRole('button', { name: 'Más días' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
   await expect(page.getByText('Paso 7 de 7')).toBeVisible();
+  await page.getByLabel('Nombre').fill('Antonio');
   await page.getByRole('button', { name: 'Empezar' }).click();
   await expect(page.getByText('Chispa')).toBeVisible();
 }
@@ -61,7 +61,7 @@ test('capturas de la app en marcha', async ({ page }) => {
 
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/onboarding');
-  await expect(page.getByRole('heading', { name: 'Tu nombre' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Tu figura' })).toBeVisible();
   await expect(page.getByText('Paso 1 de 7')).toBeVisible();
   await shot(page, 'onboarding');
   await onboard(page);
@@ -118,7 +118,7 @@ test('capturas de la app en marcha', async ({ page }) => {
   await expect(page.getByText('Antonio')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Empezar entreno' })).toBeVisible();
   for (const name of ['Sentadilla', 'Zancada', 'Curl femoral deslizante']) {
-    await expect(page.locator('.session-list li', { hasText: name }).locator('.exercise-thumb')).toHaveCount(1);
+    await expect(page.locator('.session-list li', { hasText: name })).toBeVisible();
   }
   await expect(page.locator('.thumb-fallback')).toHaveCount(0);
   const startBox = await page.getByRole('button', { name: 'Empezar entreno' }).boundingBox();
@@ -128,7 +128,7 @@ test('capturas de la app en marcha', async ({ page }) => {
   expect(heroBox && tabBox && heroBox.y + heroBox.height <= tabBox.y + 1).toBeTruthy();
   const hoyArt = await page.locator('.session-list li').evaluateAll((nodes) =>
     nodes.map((li) => ({
-      name: (li.querySelector(':scope > span')?.textContent ?? '').trim(),
+      name: (li.querySelector('.session-name')?.textContent ?? '').trim(),
       src: li.querySelector('img')?.getAttribute('src') ?? '',
     })),
   );

@@ -9,11 +9,25 @@ import { uid } from '../domain/model';
 import { useApp } from '../state/app-state';
 import { Dialog } from '../ui/Dialog';
 
+const MUSCLE_ROW: { id: string; label: string; muscles: Muscle[] }[] = [
+  { id: 'todos', label: 'Todos', muscles: [] },
+  { id: 'pecho', label: 'Pecho', muscles: ['pecho'] },
+  { id: 'espalda', label: 'Espalda', muscles: ['espalda'] },
+  { id: 'pierna', label: 'Pierna', muscles: ['cuadriceps', 'gluteos', 'isquiotibiales', 'gemelos'] },
+  { id: 'hombros', label: 'Hombros', muscles: ['hombros'] },
+  { id: 'biceps', label: 'Bíceps', muscles: ['biceps'] },
+  { id: 'triceps', label: 'Tríceps', muscles: ['triceps'] },
+  { id: 'abdomen', label: 'Abdomen', muscles: ['abdomen'] },
+  { id: 'completo', label: 'Completo', muscles: ['cuerpo-completo'] },
+];
+
 export function LibraryPage(): ReactElement {
   const { exercises, refresh } = useApp();
   const [filters, setFilters] = useState<CatalogFilters>(emptyFilters());
   const [creating, setCreating] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const visible = useMemo(() => filterExercises(exercises, filters), [exercises, filters]);
+  const hiddenCount = filters.equipos.length + filters.patrones.length + filters.niveles.length;
 
   function toggle<T extends string>(key: 'musculos' | 'equipos' | 'patrones' | 'niveles', value: T): void {
     setFilters((current) => {
@@ -29,15 +43,39 @@ export function LibraryPage(): ReactElement {
         <h1>Biblioteca</h1>
         <button type="button" className="text-link" onClick={() => setCreating(true)}>Crear ejercicio</button>
       </header>
-      <label className="field">
-        <span>Buscar ejercicio</span>
-        <input value={filters.query} onChange={(event) => setFilters({ ...filters, query: event.target.value })} />
+      <label className="search-field">
+        <span className="sr">Buscar ejercicio</span>
+        <SearchIcon />
+        <input
+          placeholder="Buscar"
+          value={filters.query}
+          onChange={(event) => setFilters({ ...filters, query: event.target.value })}
+        />
       </label>
-      <FilterRow label="Músculo" options={MUSCLES} selected={filters.musculos} nameOf={labelMuscle} onToggle={(value) => toggle('musculos', value)} />
-      <FilterRow label="Equipo" options={EQUIPMENT} selected={filters.equipos} nameOf={labelEquipment} onToggle={(value) => toggle('equipos', value)} />
-      <FilterRow label="Patrón" options={PATTERNS} selected={filters.patrones} nameOf={labelPattern} onToggle={(value) => toggle('patrones', value)} />
-      <FilterRow label="Nivel" options={LEVELS} selected={filters.niveles} nameOf={labelLevel} onToggle={(value) => toggle('niveles', value)} />
-      <button type="button" className="btn" onClick={() => setFilters(emptyFilters())}>Limpiar</button>
+      <div className="lib-filters">
+        <div className="muscle-row" role="radiogroup" aria-label="Músculo">
+          {MUSCLE_ROW.map((group) => {
+            const on = group.muscles.length === 0
+              ? filters.musculos.length === 0
+              : sameList(filters.musculos, group.muscles);
+            return (
+              <button
+                key={group.id}
+                type="button"
+                role="radio"
+                aria-checked={on}
+                className={on ? 'chip is-on' : 'chip'}
+                onClick={() => setFilters((current) => ({ ...current, musculos: [...group.muscles] }))}
+              >
+                {group.label}
+              </button>
+            );
+          })}
+        </div>
+        <button type="button" className="btn btn-filter" onClick={() => setFiltersOpen(true)}>
+          Filtros{hiddenCount > 0 ? ` · ${hiddenCount}` : ''}
+        </button>
+      </div>
       {visible.length === 0 ? (
         <div className="card empty-card">
           <img src="/design/illustrations/empty-biblioteca.svg" alt="" width="160" height="120" />
@@ -54,13 +92,36 @@ export function LibraryPage(): ReactElement {
                   <strong>{exercise.nombre}</strong>
                   <span>{exerciseMeta(exercise)}</span>
                 </span>
+                <span className="exercise-chevron" aria-hidden="true">›</span>
               </Link>
             </li>
           ))}
         </ul>
       )}
+      {filtersOpen ? (
+        <Dialog title="Filtros" onClose={() => setFiltersOpen(false)}>
+          <FilterRow label="Músculo" options={MUSCLES} selected={filters.musculos} nameOf={labelMuscle} onToggle={(value) => toggle('musculos', value)} />
+          <FilterRow label="Equipo" options={EQUIPMENT} selected={filters.equipos} nameOf={labelEquipment} onToggle={(value) => toggle('equipos', value)} />
+          <FilterRow label="Patrón" options={PATTERNS} selected={filters.patrones} nameOf={labelPattern} onToggle={(value) => toggle('patrones', value)} />
+          <FilterRow label="Nivel" options={LEVELS} selected={filters.niveles} nameOf={labelLevel} onToggle={(value) => toggle('niveles', value)} />
+          <button type="button" className="btn" onClick={() => setFilters(emptyFilters())}>Limpiar</button>
+        </Dialog>
+      ) : null}
       {creating ? <CreateExercise existing={exercises} onClose={() => setCreating(false)} onSaved={() => void refresh()} /> : null}
     </main>
+  );
+}
+
+function sameList(current: readonly string[], next: readonly string[]): boolean {
+  return current.length === next.length && next.every((item) => current.includes(item));
+}
+
+function SearchIcon(): ReactElement {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" strokeWidth="2" />
+      <path d="M16 16 L21 21" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
   );
 }
 

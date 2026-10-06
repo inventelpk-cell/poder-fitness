@@ -76,11 +76,14 @@ export function Transformacion({
   return (
     <div className="transform-screen" role="dialog" aria-modal="true" aria-labelledby="transform-title" ref={root}>
       <div className={`manga-transform is-${phase} pf-aura pf-aura--${rank}`} data-rank={rank}>
+        <div className="transform-burst" aria-hidden="true" />
+        <div className="transform-rings" aria-hidden="true" />
         {phase === 'salto' ? <div className="manga-flash" aria-hidden="true" /> : null}
         <Avatar gender={gender} rank={rank} pose={phase === 'salto' ? 'transformacion' : undefined} className="transform-avatar" />
       </div>
       <div className="transform-caption">
         <div className="transform-follow" hidden={!ready}>
+          <p className="transform-eyebrow">Subida de rango</p>
           <h2 id="transform-title" tabIndex={-1} ref={title}>
             Rango {nombre}
           </h2>
