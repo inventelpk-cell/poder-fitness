@@ -124,6 +124,12 @@ test('capturas de la app en marcha', async ({ page }) => {
   const tabBox = await page.locator('.tabbar').boundingBox();
   expect(startBox && tabBox && startBox.y + startBox.height <= tabBox.y + 1).toBeTruthy();
   expect(heroBox && tabBox && heroBox.y + heroBox.height <= tabBox.y + 1).toBeTruthy();
+  const hoyArt = await page.locator('.thumb-row li').evaluateAll((nodes) =>
+    nodes.map((li) => ({
+      name: (li.querySelector(':scope > span')?.textContent ?? '').trim(),
+      src: li.querySelector('img')?.getAttribute('src') ?? '',
+    })),
+  );
   await shot(page, 'hoy-movil', false);
   await page.goto('/biblioteca');
   await page.getByLabel('Buscar ejercicio').fill('flexion');
@@ -138,19 +144,33 @@ test('capturas de la app en marcha', async ({ page }) => {
   await page.goto(exerciseUrl);
   await expect(page.getByRole('heading', { name: 'Press de banca' })).toBeVisible();
   await shot(page, 'ejercicio-movil');
-  await page.goto('/plan');
+  await page.goto('/');
   await page.getByRole('button', { name: 'Empezar entreno' }).click();
   if (await page.getByRole('button', { name: 'Seguir el entreno a medias' }).isVisible().catch(() => false)) {
     await page.getByRole('button', { name: 'Seguir el entreno a medias' }).click();
   }
-  await page.locator('.set-line.is-current input').last().fill('8');
-  await page.getByRole('button', { name: 'Completar serie' }).click();
-  await expect(page.getByLabel('Descanso')).toBeVisible();
+  for (let attempt = 0; attempt < 8; attempt += 1) {
+    const src = await page.locator('.player-art img').getAttribute('src');
+    const resting = await page.getByRole('region', { name: 'Descanso' }).isVisible();
+    if (src?.includes('/ejercicios/') && resting) break;
+    await page.locator('.set-line.is-current input').last().fill('8');
+    await page.getByRole('button', { name: 'Completar serie' }).click();
+    await expect(page.getByRole('region', { name: 'Descanso' })).toBeVisible();
+  }
+  const stageSrc = await page.locator('.player-art img').getAttribute('src');
+  const stageName = (await page.locator('.player-now h2').innerText()).trim();
+  const sameOnHoy = hoyArt.find((item) => item.name === stageName);
+  expect(stageSrc).toContain('/ejercicios/');
+  expect(stageSrc).not.toContain('logo-symbol');
+  expect(sameOnHoy?.src).toBe(stageSrc);
   await expect(page.locator('.rest-ring')).toBeVisible();
   await expect(page.locator('.switch-ui').first()).toBeVisible();
   await expect(page.locator('.set-line.is-current input').last()).toBeEnabled();
   await expect(page.locator('.thumb-fallback')).toHaveCount(0);
-  await shot(page, 'reproductor-movil', true);
+  const artBox = await page.locator('.player-art').boundingBox();
+  const ringBox = await page.locator('.rest-ring').boundingBox();
+  expect(artBox && ringBox && Math.abs(artBox.y - ringBox.y) < 80).toBeTruthy();
+  await shot(page, 'reproductor-movil', false);
   await page.goto('/reto');
   await shot(page, 'reto-movil');
   await page.goto('/historial/volumen');

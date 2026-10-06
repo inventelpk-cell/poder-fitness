@@ -336,49 +336,42 @@ export function PlayerPage(): ReactElement {
         {cameraReady ? null : <small>Se abre en el rango Llama.</small>}
       </div>
       {saveError ? <strong className="error">{saveError}</strong> : null}
-      {session.restEndsAt ? (
-        <section className="rest-bar" aria-label="Descanso">
-          <div className="rest-ring" style={{ ['--rest' as string]: String(restRatio) }} aria-hidden="true">
-            <span className="timer">{formatInt(left)}</span>
-          </div>
-          <div className="rest-copy">
-            <p className="kicker">Descanso</p>
-            <div className="rest-track" aria-hidden="true">
-              <span style={{ width: `${Math.round(restRatio * 100)}%` }} />
-            </div>
-            <div className="row">
-              <button type="button" className="btn" onClick={() => void changeRest(15)}>+15 s</button>
-              <button type="button" className="btn" onClick={() => void changeRest(-15)}>−15 s</button>
-            </div>
-          </div>
-          <div className="rest-tools">
-            <label className="rest-edit">
-              <span>Tiempo restante</span>
-              <input
-                inputMode="numeric"
-                value={left}
-                onChange={(event) => {
-                  const seconds = Number(event.target.value);
-                  if (Number.isNaN(seconds)) return;
-                  void persist(setRestSeconds(session, seconds), session);
-                }}
-              />
-            </label>
-            <Switch checked={saveRest} label="Guardar para este ejercicio" onChange={setSaveRest} />
-          </div>
-        </section>
-      ) : null}
       {current ? (
         <section className="player-now">
-          <div className="player-stage">
-            {profile.theme !== 'suave' ? <div className="speed-lines" aria-hidden="true" /> : null}
-            <figure className="player-art">
-              <ExerciseThumb images={currentArt?.imagenes} nombre={current.nombre} size="stage" />
-            </figure>
+          <div className="player-live">
+            <div className="player-stage">
+              {profile.theme !== 'suave' ? <div className="speed-lines" aria-hidden="true" /> : null}
+              <figure className="player-art">
+                <ExerciseThumb
+                  images={current.imagenes && current.imagenes.length > 0 ? current.imagenes : currentArt?.imagenes}
+                  nombre={current.nombre}
+                  size="stage"
+                />
+              </figure>
+            </div>
+            <div className="player-live-copy">
+              {session.restEndsAt ? (
+                <div className="rest-inline" role="region" aria-label="Descanso">
+                  <div className="rest-ring" style={{ ['--rest' as string]: String(restRatio) }} aria-hidden="true">
+                    <span className="timer">{formatInt(left)}</span>
+                  </div>
+                  <div className="rest-copy">
+                    <p className="kicker">Descanso</p>
+                    <div className="rest-track" aria-hidden="true">
+                      <span style={{ width: `${Math.round(restRatio * 100)}%` }} />
+                    </div>
+                    <div className="row">
+                      <button type="button" className="btn" onClick={() => void changeRest(15)}>+15 s</button>
+                      <button type="button" className="btn" onClick={() => void changeRest(-15)}>−15 s</button>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+              <h2>
+                <button type="button" className="text-link" onClick={() => setDetailId(current.exerciseId)}>{current.nombre}</button>
+              </h2>
+            </div>
           </div>
-          <h2>
-            <button type="button" className="text-link" onClick={() => setDetailId(current.exerciseId)}>{current.nombre}</button>
-          </h2>
           {current.nota ? <p>{current.nota}</p> : null}
           <p className="muted">{previousLine(current, performed, profile.unit)}</p>
           {current.propuesta === 'sube' ? <p>Sube</p> : null}
@@ -430,6 +423,23 @@ export function PlayerPage(): ReactElement {
               </li>
             ))}
           </ol>
+          {session.restEndsAt ? (
+            <div className="rest-tools">
+              <label className="rest-edit">
+                <span>Tiempo restante</span>
+                <input
+                  inputMode="numeric"
+                  value={left}
+                  onChange={(event) => {
+                    const seconds = Number(event.target.value);
+                    if (Number.isNaN(seconds)) return;
+                    void persist(setRestSeconds(session, seconds), session);
+                  }}
+                />
+              </label>
+              <Switch checked={saveRest} label="Guardar para este ejercicio" onChange={setSaveRest} />
+            </div>
+          ) : null}
           {error ? <strong className="error">{error}</strong> : null}
           <div className="row">
             <button type="button" className="btn" onClick={() => setSubstituteOpen(true)}>Sustituir ejercicio</button>
@@ -444,9 +454,10 @@ export function PlayerPage(): ReactElement {
         <ul className="plain">
           {session.exercises.filter((exercise) => exercise.estado === 'pendiente').map((exercise) => {
             const art = exercises.find((item) => item.id === exercise.exerciseId);
+            const images = exercise.imagenes && exercise.imagenes.length > 0 ? exercise.imagenes : art?.imagenes;
             return (
               <li key={exercise.instanceId} className="queue-row">
-                <ExerciseThumb images={art?.imagenes} nombre={exercise.nombre} />
+                <ExerciseThumb images={images} nombre={exercise.nombre} />
                 <strong>{exercise.nombre}</strong>
                 <button type="button" className="icon-btn" aria-label={`Subir ${exercise.nombre}`} onClick={() => void persist(moveExercise(session, exercise.instanceId, -1), session)}>
                   <span aria-hidden="true">↑</span>

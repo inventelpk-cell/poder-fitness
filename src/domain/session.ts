@@ -95,6 +95,7 @@ function exerciseFromItem(
       slot: item.slot,
       propuesta: proposal.direction,
       anteriorKg: proposal.anteriorKg,
+      imagenes: exercise.imagenes ? [...exercise.imagenes] : undefined,
     },
   };
 }

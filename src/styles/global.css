@@ -335,8 +335,9 @@ th, td { text-align: left; padding: 0.35rem; border-bottom: 1px solid var(--pf-l
   height: 72%;
   background: url('/design/effects/speed-lines.svg') center / contain no-repeat;
   mix-blend-mode: screen;
-  opacity: 0.8;
+  opacity: 0.55;
   pointer-events: none;
+  z-index: 0;
 }
 html[data-intensity='suave'] .speed-lines,
 html[data-motion='reduce'] .speed-lines { display: none; }
@@ -583,11 +584,21 @@ pre.license { white-space: pre-wrap; font-size: 0.82rem; max-height: 50dvh; over
 .rest-tools { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; }
 .rest-edit { display: flex; flex-direction: column; gap: 0.15rem; font-size: 0.78rem; color: var(--pf-text-dim); }
 .rest-edit input { width: 5.5rem; }
-.player-stage { position: relative; display: grid; place-items: center; min-height: 160px; }
-.player-art { margin: 0; }
+.player-live {
+  display: grid;
+  grid-template-columns: 156px minmax(0, 1fr);
+  gap: 0.7rem;
+  align-items: center;
+  margin-bottom: 0.55rem;
+}
+.player-live-copy { min-width: 0; }
+.player-live-copy h2 { margin: 0.15rem 0 0; }
+.rest-inline { display: flex; align-items: center; gap: 0.55rem; }
+.player-stage { position: relative; display: grid; place-items: center; min-height: 140px; }
+.player-art { position: relative; z-index: 1; margin: 0; }
 .player-art .exercise-thumb.is-stage {
-  width: min(100%, 260px);
-  height: 148px;
+  width: 156px;
+  height: 140px;
   object-fit: contain;
 }
 .player-art .thumb-mark.is-stage > img { width: 72px; height: 72px; }
@@ -682,7 +693,10 @@ pre.license { white-space: pre-wrap; font-size: 0.82rem; max-height: 50dvh; over
   .ring-num { top: 16px; font-size: 0.58rem; }
   .filter-row .chips { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.15rem; }
   .filter-row .chip { flex: none; }
-  .player-stage { min-height: 112px; }
-  .player-art .exercise-thumb.is-stage { height: 112px; }
+  .player-live { grid-template-columns: 132px minmax(0, 1fr); gap: 0.5rem; }
+  .player-stage { min-height: 120px; }
+  .player-art .exercise-thumb.is-stage { width: 132px; height: 120px; }
+  .rest-ring { width: 64px; height: 64px; }
+  .rest-ring .timer { width: 50px; height: 50px; font-size: 1.1rem; }
   .set-head, .set-line { grid-template-columns: 22px 46px 1fr 1fr 44px; gap: 0.25rem; }
 }

@@ -99,6 +99,7 @@ export interface SessionExercise {
   slot: Pattern | null;
   propuesta: LoadDirection;
   anteriorKg: number | null;
+  imagenes?: string[];
 }
 
 export interface WorkoutSession {
