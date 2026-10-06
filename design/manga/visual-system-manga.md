@@ -1,6 +1,6 @@
 # Avatar manga de Poder Fitness
 
-Arte original para la app. El centro es un hombre anime que se transforma con el rango. Las viñetas y las onomatopeyas son un acento: no tapan el cuerpo ni el aura.
+Arte original para la app. El centro es un avatar anime que se transforma con el rango. El hombre es el de defecto; la mujer comparte las mismas marcas y la misma progresión. Las viñetas y las onomatopeyas son un acento: no tapan el cuerpo ni el aura.
 
 No usa personajes, nombres, logos, peinados-firma ni sonidos de ninguna serie. El parecido con el shonen es de lenguaje (sombreado por celdas, tinta, pose, pelo de pinchos), no de copia.
 
@@ -35,9 +35,9 @@ Misma cara. Cambian el pelo, el tamaño y el color del aura, y el músculo. Desd
 | `mitico` | Mítico | Azul y oro | Aura doble, oro y `#9EBEFF` | Máximo, con rayos |
 | `absoluto` | Absoluto | Blanco y oro, controlado | Halo claro, `#FFF8E8` | Cima, en calma |
 
-Los archivos sueltos están en `avatar/male/{id}.png`. La hoja es `avatar/rank-sheet.png`.
+Los archivos sueltos del hombre están en `avatar/male/{id}.png`. La hoja es `avatar/rank-sheet.png`.
 
-Poses en rango Llama, en `avatar/male/poses/`: `idle`, `entrenando`, `victoria`, `cargando`. `transformacion` es el fotograma del salto, con el pelo levantado y el flash.
+Poses del hombre en rango Llama, en `avatar/male/poses/`: `idle`, `entrenando`, `victoria`, `cargando`. `transformacion` es el fotograma del salto, con el pelo levantado y el flash.
 
 ## Paleta
 
@@ -73,4 +73,20 @@ Las tres piezas son 390×844. Siguen siendo la app de entreno.
 
 ## Variante femenina
 
-Hueco. No hay lámina a medias. Cuando se dibuje, será la misma transformación (pelo, aura, músculo, rayos en los rangos altos) y las mismas marcas de cara adaptadas, no otro personaje genérico.
+Misma cara, en femenino: pecas, muesca en la ceja izquierda, aro triangular en la oreja izquierda y la cresta asimétrica. La tabla de arriba vale igual. Cambia el cuerpo, no el diseño.
+
+| Qué | Dónde |
+| --- | --- |
+| Hoja de los diez | `avatar/female/rank-sheet.png` |
+| Un rango | `avatar/female/{id}.png` |
+| Poses en Llama | `avatar/female/poses/`: `idle`, `entrenando`, `victoria`, `cargando` |
+
+## Ejercicios
+
+Mismo idioma visual, rango Llama, sin texto dentro del dibujo.
+
+| Archivo | Qué se lee |
+| --- | --- |
+| `exercises/sentadilla.png` | Sentadilla con la barra en la espalda, muslos paralelos al suelo |
+| `exercises/zancada.png` | Zancada, rodilla de atrás cerca del suelo |
+| `exercises/curl-femoral-deslizante.png` | Tumbada, cadera alta, talones sobre discos que se deslizan |
