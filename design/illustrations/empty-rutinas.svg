@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" fill="none" role="img">
+  <title>Sin rutinas</title><desc>Tres fichas apiladas y un anillo naranja dormido.</desc>
+  <rect width="1200" height="750" fill="#07080D"/>
+  <circle cx="640" cy="340" r="200" stroke="#F4F1EA" stroke-opacity="0.04" stroke-width="1.5" stroke-dasharray="3 11"/>
+  <rect x="300" y="340" width="560" height="130" rx="20" fill="#0C0F16" stroke="#243044" stroke-width="2"/>
+  <rect x="330" y="270" width="560" height="130" rx="20" fill="#0C0F16" stroke="#2A3346" stroke-width="2"/>
+  <rect x="360" y="200" width="560" height="130" rx="20" fill="#10131A" stroke="#3D4860" stroke-width="2"/>
+  <circle cx="430" cy="265" r="16" fill="none" stroke="#FF6A1A" stroke-opacity="0.8" stroke-width="2"/>
+  <path d="M480 265 H820" stroke="#2A3346" stroke-width="3" stroke-linecap="round"/>
+</svg>

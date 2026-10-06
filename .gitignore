@@ -1,0 +1,12 @@
+node_modules
+dist
+dev-dist
+.vite
+test-results
+playwright-report
+blob-report
+*.log
+.DS_Store
+.idea
+.vscode
+*.tsbuildinfo

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" fill="none" role="img">
+  <title>Historial vacío</title><desc>Una línea de tiempo sin sesiones, con un punto naranja de espera.</desc>
+  <rect width="1200" height="750" fill="#07080D"/>
+  <circle cx="600" cy="390" r="180" stroke="#F4F1EA" stroke-opacity="0.04" stroke-width="1.5" stroke-dasharray="2 10"/>
+  <path d="M180 390 H1020" stroke="#2A3346" stroke-width="2"/>
+  <circle cx="260" cy="390" r="11" fill="#07080D" stroke="#2A3346" stroke-width="2"/><circle cx="430" cy="390" r="11" fill="#07080D" stroke="#2A3346" stroke-width="2"/><circle cx="600" cy="390" r="11" fill="#07080D" stroke="#FF6A1A" stroke-width="2.2"/><circle cx="770" cy="390" r="11" fill="#07080D" stroke="#2A3346" stroke-width="2"/><circle cx="940" cy="390" r="11" fill="#07080D" stroke="#2A3346" stroke-width="2"/>
+  <circle cx="600" cy="390" r="3" fill="#FF6A1A"/>
+</svg>
