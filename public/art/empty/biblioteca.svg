@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="t d">
+  <title id="t">Biblioteca vacía</title>
+  <desc id="d">Tres ranuras de biblioteca, la central marcada por un destello.</desc>
+  
+  <defs><pattern id="e1" width="31.1769" height="54.0000" patternUnits="userSpaceOnUse">
+      <path d="M 15.59 0.00 L 31.18 9.00 L 31.18 27.00 L 15.59 36.00 L -0.00 27.00 L 0.00 9.00 Z M 0.00 27.00 L 15.59 36.00 L 15.59 54.00 L 0.00 63.00 L -15.59 54.00 L -15.59 36.00 Z M 0.00 -27.00 L 15.59 -18.00 L 15.59 -0.00 L 0.00 9.00 L -15.59 -0.00 L -15.59 -18.00 Z" fill="none" stroke="#243044" stroke-width="1.1" stroke-linejoin="round"/>
+    </pattern></defs>
+  <rect width="320" height="220" rx="18" fill="#090B10"/>
+  <rect width="320" height="220" rx="18" fill="url(#e1)" opacity="0.4"/>
+  <g fill="none" stroke="#3C4558" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" opacity="0.9">
+    <path d="M12 34 V12 H34"/>
+    <path d="M286 12 H308 V34"/>
+    <path d="M12 186 V208 H34"/>
+    <path d="M286 208 H308 V186"/>
+  </g>
+<rect x="36" y="36" width="248" height="40" rx="10" fill="#141821" stroke="#3C4558" stroke-width="2" stroke-dasharray="7 7"/>
+<rect x="36" y="88" width="248" height="40" rx="10" fill="#141821" stroke="#FF6A1A" stroke-width="2" />
+<rect x="36" y="140" width="248" height="40" rx="10" fill="#141821" stroke="#3C4558" stroke-width="2" stroke-dasharray="7 7"/>
+<polygon points="160.0,99.0 166.0,108.0 160.0,117.0 154.0,108.0" fill="#FFC43A"/>
+</svg>

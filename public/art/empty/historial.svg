@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="t d">
+  <title id="t">Historial vacío</title>
+  <desc id="d">Línea de tiempo sin sesiones, con el primer nodo encendido.</desc>
+  
+  <defs><pattern id="e2" width="31.1769" height="54.0000" patternUnits="userSpaceOnUse">
+      <path d="M 15.59 0.00 L 31.18 9.00 L 31.18 27.00 L 15.59 36.00 L -0.00 27.00 L 0.00 9.00 Z M 0.00 27.00 L 15.59 36.00 L 15.59 54.00 L 0.00 63.00 L -15.59 54.00 L -15.59 36.00 Z M 0.00 -27.00 L 15.59 -18.00 L 15.59 -0.00 L 0.00 9.00 L -15.59 -0.00 L -15.59 -18.00 Z" fill="none" stroke="#243044" stroke-width="1.1" stroke-linejoin="round"/>
+    </pattern></defs>
+  <rect width="320" height="220" rx="18" fill="#090B10"/>
+  <rect width="320" height="220" rx="18" fill="url(#e2)" opacity="0.4"/>
+  <g fill="none" stroke="#3C4558" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" opacity="0.9">
+    <path d="M12 34 V12 H34"/>
+    <path d="M286 12 H308 V34"/>
+    <path d="M12 186 V208 H34"/>
+    <path d="M286 208 H308 V186"/>
+  </g>
+<path d="M78 34 V168" stroke="#3C4558" stroke-width="3" stroke-linecap="round"/>
+<circle cx="78" cy="42" r="8" fill="#090B10" stroke="#8E97AB" stroke-width="2.5"/>
+<rect x="104" y="31" width="148" height="22" rx="8" fill="none" stroke="#3C4558" stroke-width="2" stroke-dasharray="6 6"/>
+<circle cx="78" cy="84" r="8" fill="#090B10" stroke="#8E97AB" stroke-width="2.5"/>
+<rect x="104" y="73" width="132" height="22" rx="8" fill="none" stroke="#3C4558" stroke-width="2" stroke-dasharray="6 6"/>
+<circle cx="78" cy="126" r="8" fill="#090B10" stroke="#8E97AB" stroke-width="2.5"/>
+<rect x="104" y="115" width="116" height="22" rx="8" fill="none" stroke="#3C4558" stroke-width="2" stroke-dasharray="6 6"/>
+<circle cx="78" cy="168" r="8" fill="#090B10" stroke="#8E97AB" stroke-width="2.5"/>
+<rect x="104" y="157" width="100" height="22" rx="8" fill="none" stroke="#3C4558" stroke-width="2" stroke-dasharray="6 6"/>
+<polygon points="78.0,36.0 82.0,42.0 78.0,48.0 74.0,42.0" fill="#FF6A1A"/>
+</svg>

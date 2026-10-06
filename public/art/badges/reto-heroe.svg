@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="t d">
+  <title id="t">Reto del héroe</title>
+  <desc id="d">Un reto mayor superado de principio a fin.</desc>
+  
+  <circle cx="64" cy="64" r="58" fill="#090B10" stroke="#FFC43A" stroke-width="4"/>
+  <circle cx="64" cy="64" r="47" fill="#141821" stroke="#FF6A1A" stroke-width="1.75" opacity="0.9"/>
+  <polygon points="64.0,34.0 90.0,49.0 90.0,79.0 64.0,94.0 38.0,79.0 38.0,49.0" fill="#090B10" stroke="#FFC43A" stroke-width="3.5"/>
+  <polygon points="64.0,52.0 72.0,64.0 64.0,76.0 56.0,64.0" fill="#FF6A1A"/>
+  <polygon points="64.0,59.5 67.0,64.0 64.0,68.5 61.0,64.0" fill="#FFF6E4"/>
+</svg>

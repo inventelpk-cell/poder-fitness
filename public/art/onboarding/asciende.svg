@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 440" role="img" aria-labelledby="t d">
+  <title id="t">Entrena y asciende</title>
+  <desc id="d">Figura geométrica en pose de poder, con líneas de velocidad y marco de impacto.</desc>
+  
+  <defs>
+    <pattern id="g3" width="31.1769" height="54.0000" patternUnits="userSpaceOnUse">
+      <path d="M 15.59 0.00 L 31.18 9.00 L 31.18 27.00 L 15.59 36.00 L -0.00 27.00 L 0.00 9.00 Z M 0.00 27.00 L 15.59 36.00 L 15.59 54.00 L 0.00 63.00 L -15.59 54.00 L -15.59 36.00 Z M 0.00 -27.00 L 15.59 -18.00 L 15.59 -0.00 L 0.00 9.00 L -15.59 -0.00 L -15.59 -18.00 Z" fill="none" stroke="#2A3346" stroke-width="1.25" stroke-linejoin="round"/>
+    </pattern>
+    <radialGradient id="burst" cx="58%" cy="46%" r="42%">
+      <stop offset="0%" stop-color="#FFF6E4" stop-opacity="0.55"/>
+      <stop offset="28%" stop-color="#FF6A1A" stop-opacity="0.35"/>
+      <stop offset="70%" stop-color="#3B82FF" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#090B10" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="360" height="440" fill="#090B10"/>
+  <rect width="360" height="440" fill="url(#g3)" opacity="0.35"/>
+  <circle cx="196" cy="210" r="150" fill="url(#burst)"/>
+  <line x1="0" y1="70" x2="90" y2="52" stroke="#FF6A1A" stroke-width="6" stroke-linecap="round" opacity="0.35"/><line x1="0" y1="110" x2="138" y2="92" stroke="#9EC0FF" stroke-width="3" stroke-linecap="round" opacity="0.55"/><line x1="0" y1="150" x2="186" y2="132" stroke="#FF6A1A" stroke-width="3" stroke-linecap="round" opacity="0.75"/><line x1="0" y1="196" x2="234" y2="178" stroke="#9EC0FF" stroke-width="6" stroke-linecap="round" opacity="0.35"/><line x1="0" y1="240" x2="90" y2="222" stroke="#FF6A1A" stroke-width="3" stroke-linecap="round" opacity="0.55"/><line x1="0" y1="286" x2="138" y2="268" stroke="#9EC0FF" stroke-width="3" stroke-linecap="round" opacity="0.75"/><line x1="0" y1="330" x2="186" y2="312" stroke="#FF6A1A" stroke-width="6" stroke-linecap="round" opacity="0.35"/><line x1="0" y1="372" x2="234" y2="354" stroke="#9EC0FF" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
+  <ellipse cx="190" cy="392" rx="100" ry="14" fill="#FFC43A" opacity="0.3"/>
+  <g transform="translate(190 230)"><g fill="none" stroke-linejoin="round">
+      <path d="M-14.0 62.0 L-46.0 146.0" stroke="#F4F0E6" stroke-width="16" stroke-linecap="round"/><polygon points="-46.0,138.0 -35.0,146.0 -46.0,154.0 -57.0,146.0" fill="#F4F0E6"/><path d="M14.0 62.0 L48.0 146.0" stroke="#F4F0E6" stroke-width="16" stroke-linecap="round"/><polygon points="48.0,138.0 59.0,146.0 48.0,154.0 37.0,146.0" fill="#F4F0E6"/>
+      <path d="M0 -24 V0" stroke="#F4F0E6" stroke-width="14" stroke-linecap="butt"/>
+      <polygon points="-52,-2 52,-2 36,70 -36,70" fill="#141821" stroke="#F4F0E6" stroke-width="4"/>
+      <polygon points="0.0,10.0 12.0,28.0 0.0,46.0 -12.0,28.0" fill="#FF6A1A"/>
+      <polygon points="0.0,21.0 5.0,28.0 0.0,35.0 -5.0,28.0" fill="#FFF6E4"/>
+      <polyline points="-18,56 0,40 18,56" fill="none" stroke="#FFC43A" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M-40.0 2.0 L-86.0 -70.0" stroke="#F4F0E6" stroke-width="14" stroke-linecap="round"/><polygon points="-86.0,-77.0 -78.0,-70.0 -86.0,-63.0 -94.0,-70.0" fill="#F4F0E6"/><path d="M40.0 2.0 L86.0 -70.0" stroke="#F4F0E6" stroke-width="14" stroke-linecap="round"/><polygon points="86.0,-77.0 94.0,-70.0 86.0,-63.0 78.0,-70.0" fill="#F4F0E6"/><polygon points="-86.0,-82.0 -77.0,-70.0 -86.0,-58.0 -95.0,-70.0" fill="#FFC43A"/><polygon points="86.0,-82.0 95.0,-70.0 86.0,-58.0 77.0,-70.0" fill="#FFC43A"/>
+      <polygon points="0.0,-78.0 24.2,-64.0 24.2,-36.0 0.0,-22.0 -24.2,-36.0 -24.2,-64.0" fill="#1A2030" stroke="#F4F0E6" stroke-width="4"/>
+      <path d="M-13 -50 H13" stroke="#9EC0FF" stroke-width="3.5" stroke-linecap="round"/>
+    </g></g>
+  <g fill="none" stroke="#FFC43A" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter" opacity="1">
+    <path d="M18 66 V18 H66"/>
+    <path d="M294 18 H342 V66"/>
+    <path d="M18 374 V422 H66"/>
+    <path d="M294 422 H342 V374"/>
+  </g>
+</svg>

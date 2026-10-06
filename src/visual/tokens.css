@@ -1,0 +1,53 @@
+:root {
+  color-scheme: dark;
+  --pf-color-bg: #090b10;
+  --pf-color-bg-raised: #141821;
+  --pf-color-bg-mid: #1a2030;
+  --pf-color-surface: #1c2433;
+  --pf-color-line: rgba(244, 240, 230, 0.14);
+  --pf-color-line-strong: rgba(255, 196, 58, 0.55);
+  --pf-color-text: #f4f0e6;
+  --pf-color-text-dim: #a7a193;
+  --pf-color-text-faint: #6f6a62;
+  --pf-color-orange: #ff6a1a;
+  --pf-color-orange-deep: #c2410c;
+  --pf-color-amber: #ffc43a;
+  --pf-color-amber-deep: #e39b12;
+  --pf-color-blue: #3b82ff;
+  --pf-color-blue-soft: #9ec0ff;
+  --pf-color-hot: #fff6e4;
+  --pf-color-steel: #8e97ab;
+  --pf-color-ink: #090b10;
+  --pf-radius-sm: 8px;
+  --pf-radius-md: 14px;
+  --pf-radius-lg: 22px;
+  --pf-radius-pill: 999px;
+  --pf-shadow-lift: 0 16px 40px rgba(0, 0, 0, 0.38);
+  --pf-shadow-orange: 0 0 28px rgba(255, 106, 26, 0.45);
+  --pf-shadow-blue: 0 0 28px rgba(59, 130, 255, 0.4);
+  --pf-shadow-amber: 0 0 24px rgba(255, 196, 58, 0.4);
+  --pf-font-display: "Noto Sans Display", "Arial Black", "Segoe UI", sans-serif;
+  --pf-font-body: Inter, "Segoe UI", "Helvetica Neue", sans-serif;
+  --pf-motion-fast: 140ms;
+  --pf-motion-base: 280ms;
+  --pf-motion-slow: 640ms;
+  --pf-motion-aura: 3.4s;
+  --pf-ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+  --pf-ease-impact: cubic-bezier(0.2, 0.9, 0.15, 1);
+  --pf-space-1: 0.25rem;
+  --pf-space-2: 0.5rem;
+  --pf-space-3: 0.75rem;
+  --pf-space-4: 1rem;
+  --pf-space-5: 1.5rem;
+  --pf-space-6: 2rem;
+  --pf-space-8: 3rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --pf-motion-fast: 0ms;
+    --pf-motion-base: 0ms;
+    --pf-motion-slow: 0ms;
+    --pf-motion-aura: 0ms;
+  }
+}

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="t d">
+  <title id="t">Madrugador</title>
+  <desc id="d">Entreno al amanecer, antes de que el día pida permiso.</desc>
+  
+  <circle cx="64" cy="64" r="58" fill="#090B10" stroke="#FF6A1A" stroke-width="4"/>
+  <circle cx="64" cy="64" r="47" fill="#141821" stroke="#FFC43A" stroke-width="1.75" opacity="0.9"/>
+  <path d="M34 78 H94" stroke="#9EC0FF" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 42.00 78.00 A 22.00 22.00 0 0 1 86.00 78.00" fill="#FF6A1A" stroke="none"/>
+  <polygon points="64.0,42.0 68.0,48.0 64.0,54.0 60.0,48.0" fill="#FFC43A"/>
+  <path d="M64 40 V32 M46 50 L40 44 M82 50 L88 44" stroke="#FFC43A" stroke-width="3" stroke-linecap="round"/>
+</svg>

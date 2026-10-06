@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="t d">
+  <title id="t">Vórtice · Vorticial</title>
+  <desc id="d">La energía gira y sostiene el esfuerzo.</desc>
+  
+  <circle cx="64" cy="64" r="48" fill="#FFC43A" opacity="0.28"/>
+  <circle cx="64" cy="64" r="53" fill="#3B82FF" opacity="0.08"/>
+  <polygon points="64.0,10.0 110.8,37.0 110.8,91.0 64.0,118.0 17.2,91.0 17.2,37.0" fill="#090B10" stroke="#FFC43A" stroke-width="4" stroke-linejoin="round"/>
+  <polygon points="64.0,20.0 102.1,42.0 102.1,86.0 64.0,108.0 25.9,86.0 25.9,42.0" fill="#141821" stroke="#3B82FF" stroke-width="2.25" stroke-linejoin="round" opacity="0.95"/>
+  <path d="M 113.19 94.74 A 58.00 58.00 0 0 1 14.81 94.74" fill="none" stroke="#FFC43A" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="64" cy="62" r="18" fill="none" stroke="#FF6A1A" stroke-width="5.5" stroke-linecap="round" stroke-dasharray="30 26" transform="rotate(20 64 62)"/>
+  <circle cx="64" cy="62" r="18" fill="none" stroke="#3B82FF" stroke-width="5.5" stroke-linecap="round" stroke-dasharray="30 26" transform="rotate(200 64 62)"/>
+  <circle cx="64" cy="62" r="5.5" fill="#FFF6E4"/>
+</svg>
