@@ -753,7 +753,7 @@ a { color: #f4f1ea; }
   max-height: 100dvh;
   overflow: hidden;
   box-sizing: border-box;
-  padding-bottom: 16px;
+  padding-bottom: calc(56px + 16px + env(safe-area-inset-bottom, 0px));
 }
 
 .player-title {
@@ -783,15 +783,15 @@ a { color: #f4f1ea; }
   align-items: flex-end;
   margin: 0;
   flex: 1 1 auto;
-  min-height: 220px;
-  max-height: 420px;
+  min-height: 200px;
+  max-height: 300px;
 }
 
 .player-fit .player-hero .avatar-frame,
 .player-fit .player-hero .avatar-frame img {
   width: min(300px, 86vw);
   height: 100%;
-  max-height: 420px;
+  max-height: 300px;
   object-fit: contain;
   object-position: center bottom;
   background: transparent;
