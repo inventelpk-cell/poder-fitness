@@ -14,7 +14,7 @@ export function Avatar({
   pose?: AvatarPose;
   className?: string;
 }): ReactElement {
-  const src = pose ? poseSrc(gender, pose) : avatarSrc(gender, rank);
+  const src = (pose ? poseSrc(gender, pose) : null) ?? avatarSrc(gender, rank);
   return (
     <div className={`avatar-frame pf-aura pf-aura--${rank} ${className}`.trim()}>
       <img src={src} alt="" />

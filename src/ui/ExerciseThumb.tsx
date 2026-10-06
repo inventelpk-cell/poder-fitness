@@ -37,7 +37,7 @@ export function ExerciseThumb({
     return (
       <img
         className={className}
-        src={poseSrc('hombre', 'entrenando')}
+        src={poseSrc('hombre', 'entrenando') ?? '/design/manga/avatar/male/poses/entrenando.png'}
         alt={labelled ? nombre : ''}
         width={size === 'stage' ? 240 : 72}
         height={size === 'stage' ? 150 : 72}

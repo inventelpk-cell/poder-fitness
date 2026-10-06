@@ -51,13 +51,21 @@ test('capturas del avatar manga', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/onboarding');
   await expect(page.getByText('Paso 1 de 6')).toBeVisible();
-  await expect(page.getByRole('radio', { name: 'Hombre' })).toBeVisible();
-  await expect(page.getByRole('radio', { name: 'Mujer' })).toBeVisible();
-  await page.locator('.avatar-choice img').first().evaluate((img: HTMLImageElement) => img.decode());
+  await expect(page.getByRole('radio', { name: 'Hombre' }).locator('img')).toHaveAttribute('src', /\/avatar\/male\/chispa\.png$/);
+  await expect(page.getByRole('radio', { name: 'Mujer' }).locator('img')).toHaveAttribute('src', /\/avatar\/female\/chispa\.png$/);
+  await page.locator('.avatar-choice img').nth(0).evaluate((img: HTMLImageElement) => img.decode());
+  await page.locator('.avatar-choice img').nth(1).evaluate((img: HTMLImageElement) => img.decode());
   await shot(page, 'onboarding');
 
   await onboard(page);
-  await expect(page.locator('.dashboard .avatar-frame img')).toBeVisible();
+  await expect(page.locator('.dashboard .avatar-frame img')).toHaveAttribute('src', /\/avatar\/male\/chispa\.png$/);
+  for (const [name, file] of [
+    ['Sentadilla', 'sentadilla.png'],
+    ['Zancada', 'zancada.png'],
+    ['Curl femoral deslizante', 'curl-femoral-deslizante.png'],
+  ] as const) {
+    await expect(page.locator('.thumb-row li', { hasText: name }).locator('img')).toHaveAttribute('src', new RegExp(`${file}$`));
+  }
   await shot(page, 'hoy');
 
   await page.goto('/plan');
@@ -70,6 +78,7 @@ test('capturas del avatar manga', async ({ page }) => {
 
   await page.goto('/biblioteca/sentadilla-corporal');
   await expect(page.getByRole('heading', { name: 'Sentadilla' })).toBeVisible();
+  await expect(page.locator('.screen img[src$="sentadilla.png"]')).toBeVisible();
   await shot(page, 'ficha');
 
   await page.goto('/');
@@ -105,7 +114,7 @@ test('capturas del avatar manga', async ({ page }) => {
 
   await page.goto('/ajustes');
   await expect(page.getByRole('heading', { name: 'Ajustes' })).toBeVisible();
-  await expect(page.getByRole('radio', { name: 'Mujer' })).toBeVisible();
+  await expect(page.getByRole('radio', { name: 'Mujer' }).locator('img')).toHaveAttribute('src', /\/avatar\/female\//);
   await shot(page, 'ajustes');
 });
 
