@@ -7,7 +7,7 @@ import { formatLastTime } from '../domain/progression'
 import type { LibraryExercise, SessionExercise, WorkoutSession, WorkoutSet } from '../domain/types'
 import { usePoder } from '../state/store'
 import { inheritedBlock, profileEquip } from '../ui/blocks'
-import { equipmentCovered } from '../domain/labels'
+import { substituteList } from '../ui/substitutes'
 import { Modal } from '../ui/Modal'
 import { fieldToKg, kgToField, weightStep } from '../ui/weight'
 
@@ -193,17 +193,12 @@ export function Player() {
     setSubOpen(false)
   }
 
-  const candidates = poder.profile && block ? poder.exercises.filter((exercise) => {
-    if (exercise.id === block.exerciseId) return false
-    const primary = block.musculosPrimarios[0]
-    const muscleOk = primary
-      ? exercise.musculosPrimarios[0] === primary
-      : false
-    const covered = equipmentCovered(profileEquip(exercise), poder.profile?.equipment ?? [])
-    const text = query.trim().toLowerCase()
-    const named = text.length === 0 || exercise.nombre.toLowerCase().includes(text)
-    return muscleOk && covered && named
-  }).slice(0, 30) : []
+  const candidates = poder.profile && block ? substituteList({
+    exercises: poder.exercises,
+    block,
+    owned: poder.profile.equipment,
+    query,
+  }) : []
 
   return (
     <section className={impact ? 'stack impact' : 'stack'}>

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { todayISO, mondayOf } from '../domain/dates'
+import { formatAmount } from '../domain/units'
 import { heroRepsFromSession } from '../domain/session'
 import { combinedTotals, displayHeroStreak } from '../domain/hero'
 import { PATTERN_NAME } from '../domain/labels'
@@ -114,7 +115,7 @@ export function Home() {
           <span className="stat"><b className="tabular">{totals.pushups}/{quota.pushups}</b> Flexiones</span>
           <span className="stat"><b className="tabular">{totals.abs}/{quota.abs}</b> Abdominales</span>
           <span className="stat"><b className="tabular">{totals.squats}/{quota.squats}</b> Sentadillas</span>
-          <span className="stat"><b className="tabular">{totals.km}/{quota.km}</b> Km</span>
+          <span className="stat"><b className="tabular">{formatAmount(totals.km)}/{formatAmount(quota.km)}</b> Km</span>
         </div>
       </Link>
       {anyDone ? null : (

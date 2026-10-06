@@ -3,7 +3,8 @@ import { heroRepsFromSession } from '../domain/session'
 import { clampQuota, combinedTotals, defaultQuota } from '../domain/hero'
 import type { HeroQuota } from '../domain/types'
 import { usePoder } from '../state/store'
-import { todayISO } from '../domain/dates'
+import { longDate, todayISO } from '../domain/dates'
+import { formatAmount } from '../domain/units'
 import { asset } from '../ui/asset'
 
 export function Hero() {
@@ -41,7 +42,7 @@ export function Hero() {
       <Counter label="Sentadillas" value={totals.squats} goal={quota.squats} onDelta={(delta) => bump('squats', delta)} />
       <article className="card stack">
         <h2>Km</h2>
-        <p className="tabular">{totals.km}/{quota.km}</p>
+        <p className="tabular">{formatAmount(totals.km)}/{formatAmount(quota.km)}</p>
         <div className="split">
           <button className="btn ghost" type="button" onClick={() => bump('km', -0.1)}>−0,1 km</button>
           <button className="btn ghost" type="button" onClick={() => bump('km', 0.1)}>+0,1 km</button>
@@ -80,11 +81,11 @@ export function Hero() {
             const shown = combinedTotals(item.manual, part)
             return (
               <li key={item.date} className="card">
-                <strong>{item.date}</strong>
+                <strong>{longDate(item.date)}</strong>
                 <p>Flexiones: {shown.pushups}/{item.quota.pushups}</p>
                 <p>Abdominales: {shown.abs}/{item.quota.abs}</p>
                 <p>Sentadillas: {shown.squats}/{item.quota.squats}</p>
-                <p>Km: {shown.km}/{item.quota.km}</p>
+                <p>Km: {formatAmount(shown.km)}/{formatAmount(item.quota.km)}</p>
                 {item.shield ? <p>Escudo</p> : null}
                 {item.bonusGranted ? <p>Cuota cerrada</p> : null}
               </li>
@@ -111,17 +112,22 @@ function Counter({ label, value, goal, onDelta }: { label: string; value: number
   )
 }
 
+function fieldText(value: number, decimal?: boolean): string {
+  if (!decimal) return String(value)
+  return formatAmount(value)
+}
+
 function NumberField({ label, value, decimal, onCommit }: {
   label: string
   value: number
   decimal?: boolean
   onCommit: (next: number) => void
 }): ReactNode {
-  const [text, setText] = useState(String(value))
+  const [text, setText] = useState(fieldText(value, decimal))
   const focused = useRef(false)
   useEffect(() => {
-    if (!focused.current) setText(String(value))
-  }, [value])
+    if (!focused.current) setText(fieldText(value, decimal))
+  }, [value, decimal])
   return (
     <input
       className="field"

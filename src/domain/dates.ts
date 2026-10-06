@@ -1,3 +1,10 @@
+const MONTHS = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
+
+export function longDate(iso: string): string {
+  const date = parseISODate(iso)
+  return `${date.getDate()} de ${MONTHS[date.getMonth()]} de ${date.getFullYear()}`
+}
+
 export function parseISODate(iso: string): Date {
   const [year, month, day] = iso.split('-').map(Number)
   return new Date(year, (month ?? 1) - 1, day ?? 1)

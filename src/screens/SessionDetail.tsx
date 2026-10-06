@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router'
+import { longDate } from '../domain/dates'
 import { PATTERN_NAME } from '../domain/labels'
 import { formatWeight } from '../domain/units'
 import { usePoder } from '../state/store'
@@ -13,7 +14,7 @@ export function SessionDetail() {
   return (
     <article className="stack">
       <h1 className="screen-title">{session.pattern ? PATTERN_NAME[session.pattern] : 'Sesión'}</h1>
-      <p>{session.date} · {session.xp} XP</p>
+      <p>{longDate(session.date)} · {session.xp} XP</p>
       {session.records.map((record) => <p key={`${record.exerciseId}-${record.type}`}>Récord · {record.nombre}</p>)}
       {session.exercises.map((exercise) => (
         <section key={exercise.id} className="card">

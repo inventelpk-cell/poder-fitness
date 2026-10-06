@@ -1,11 +1,11 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router'
 import { Bar, BarChart, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
-import { addDays, formatISODate, mondayOf, parseISODate, todayISO } from '../domain/dates'
+import { addDays, formatISODate, longDate, mondayOf, parseISODate, todayISO } from '../domain/dates'
 import { heroRepsFromSession } from '../domain/session'
 import { combinedTotals } from '../domain/hero'
 import { MUSCLE_GROUP_LABEL } from '../domain/labels'
-import { formatWeight } from '../domain/units'
+import { formatEs, formatWeight } from '../domain/units'
 import type { MuscleGroup } from '../domain/types'
 import { usePoder } from '../state/store'
 import { asset } from '../ui/asset'
@@ -38,9 +38,12 @@ export function History() {
     .filter((session) => session.exerciseE1rm.some((item) => item.exerciseId === exerciseId))
     .slice(-16)
     .map((session) => ({
-      fecha: session.date.slice(5),
+      id: session.id,
+      eje: shortDate(session.date),
+      fecha: longDate(session.date),
       kg: session.exerciseE1rm.find((item) => item.exerciseId === exerciseId)?.e1rmKg ?? 0,
     }))
+  const markedMemory = poder.memory.filter((item) => item.bestE1rmKg != null || item.bestReps.length > 0)
   const weights = [...poder.bodyWeight].sort((a, b) => a.at.localeCompare(b.at))
   const weightRows = last90(weights, today)
 
@@ -123,13 +126,13 @@ export function History() {
           <>
             <div style={{ width: '100%', height: 220 }}>
               <ResponsiveContainer>
-                <LineChart data={e1rmRows}><XAxis dataKey="fecha" /><YAxis /><Tooltip /><Line dataKey="kg" stroke="#ffc43a" /></LineChart>
+                <LineChart data={e1rmRows}><XAxis dataKey="eje" /><YAxis /><Tooltip formatter={(value) => formatEs(Number(value), 1)} /><Line dataKey="kg" stroke="#ffc43a" /></LineChart>
               </ResponsiveContainer>
             </div>
             <table className="data">
               <caption>1RM estimado</caption>
               <thead><tr><th>Fecha</th><th>kg</th></tr></thead>
-              <tbody>{e1rmRows.map((row) => <tr key={row.fecha}><td>{row.fecha}</td><td>{row.kg}</td></tr>)}</tbody>
+              <tbody>{e1rmRows.map((row) => <tr key={row.id}><td>{row.fecha}</td><td>{formatEs(row.kg, 1)}</td></tr>)}</tbody>
             </table>
           </>
         )}
@@ -171,22 +174,22 @@ export function History() {
       </article>
       <article className="card stack">
         <h2>Récords</h2>
-        {poder.memory.every((item) => item.bestE1rmKg == null && item.bestReps.length === 0) ? (
+        {markedMemory.length === 0 ? (
           <>
             <img className="empty-art" src={asset('art/empty/historial.svg')} alt="" />
             <p>Los récords aparecen al repetir un ejercicio</p>
           </>
-        ) : poder.memory.map((item) => (
-          <p key={item.exerciseId}>{exerciseName(item.exerciseId, poder.exercises, poder.sessions)}{item.bestE1rmKg ? ` · ${formatWeight(item.bestE1rmKg, 'kg')} estimados` : ''}</p>
+        ) : markedMemory.map((item) => (
+          <p key={item.exerciseId}>{exerciseName(item.exerciseId, poder.exercises, poder.sessions)}{item.bestE1rmKg != null ? ` · ${formatWeight(item.bestE1rmKg, 'kg')} estimados` : ''}</p>
         ))}
       </article>
     </section>
   )
 }
 
-function longDate(iso: string): string {
-  const [year, month, day] = iso.split('-').map(Number)
-  return `${day} de ${MONTHS[(month ?? 1) - 1]} de ${year}`
+function shortDate(iso: string): string {
+  const [, month, day] = iso.split('-').map(Number)
+  return `${day} ${MONTHS[(month ?? 1) - 1].slice(0, 3)}`
 }
 
 function exerciseName(

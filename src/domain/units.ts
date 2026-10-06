@@ -26,6 +26,11 @@ export function roundToIncrement(value: number, increment: number): number {
   return tidy(steps * increment)
 }
 
+export function formatAmount(value: number): string {
+  if (Number.isInteger(value)) return String(value)
+  return formatEs(value, 1)
+}
+
 export function formatEs(value: number, digits: number): string {
   return new Intl.NumberFormat('es-ES', {
     minimumFractionDigits: digits,
