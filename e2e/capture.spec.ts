@@ -115,7 +115,7 @@ test('capturas de la app en marcha', async ({ page }) => {
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Hoy' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Hoy', exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Empezar entreno' })).toBeVisible();
   for (const name of ['Sentadilla', 'Zancada', 'Curl femoral deslizante']) {
     await expect(page.locator('.session-list li', { hasText: name })).toBeVisible();
