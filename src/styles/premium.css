@@ -1127,6 +1127,12 @@ a { color: #f4f1ea; }
   color: #b7b1a8;
 }
 
+.power-screen > .kicker {
+  margin: 0;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 .power-screen h1 {
   margin: 0;
   font-size: 32px;
