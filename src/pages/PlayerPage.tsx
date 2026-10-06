@@ -359,7 +359,7 @@ export function PlayerPage(): ReactElement {
       {current ? (
         <section className="player-now">
           <div className="player-hero">
-            <Avatar gender={profile.avatar} rank={rankId} pose="entrenando" className={`pf-aura pf-aura--${rankId}`} />
+            <Avatar gender={profile.avatar} rank={rankId} pose="entrenando" />
             {impact ? <p className="zas" aria-hidden="true">¡ZAS!</p> : null}
           </div>
           {impact ? <p className="narracion">¡Tu poder aumenta!</p> : null}
@@ -461,7 +461,7 @@ export function PlayerPage(): ReactElement {
           <button type="button" className="btn btn-primary" onClick={() => void onComplete()}>Completar serie</button>
           <button type="button" className="btn btn-danger" onClick={() => void onSkip()}>Saltar</button>
           <details className="player-more">
-            <summary>Más opciones</summary>
+            <summary className="more-icon" aria-label="Más opciones"><span aria-hidden="true">⋯</span></summary>
             <div className="camera-row">
               <Switch
                 checked={session.camaraGravedad}

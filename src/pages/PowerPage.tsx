@@ -47,7 +47,7 @@ export function PowerPage(): ReactElement {
       <p className="kicker">Tu poder</p>
       <h1>Nivel {level}</h1>
       <p className="rank-name">{formatInt(profile.xpTotal)} XP · {labelRank(rank.id)}</p>
-      <Avatar gender={profile.avatar} rank={rank.id} className={`power-avatar pf-aura pf-aura--${rank.id}`} />
+      <Avatar gender={profile.avatar} rank={rank.id} className="power-avatar" />
       <ol className="rank-strip">
         {RANKS.map((band) => (
           <li key={band.id} className={band.id === rank.id ? 'is-on' : ''}>

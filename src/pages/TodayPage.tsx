@@ -50,12 +50,12 @@ export function TodayPage(): ReactElement {
     <main className="screen dashboard">
       {dialog}
       <header className="power-board today-head">
-        <Avatar gender={profile.avatar} rank={rank.id} className={`pf-aura pf-aura--${rank.id}`} />
         <div className="today-copy">
           <p className="kicker">{fechaLinea}</p>
-          <h1>{profile.name}</h1>
+          <h1>Hoy</h1>
           <p className="today-rank">{labelRank(rank.id)} · Nivel {level}</p>
         </div>
+        <Avatar gender={profile.avatar} rank={rank.id} />
       </header>
       <CoachBubble event={hero.lost || streak.restart || arc.repeatNotice ? 'racha' : 'empezar'} />
       {arc.repeatNotice || streak.restart ? <p className="banner">Esta semana se empieza de nuevo.</p> : null}

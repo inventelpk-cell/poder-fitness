@@ -1,7 +1,6 @@
 import { useMemo, useState, type ReactElement } from 'react';
 import { Link } from 'react-router';
 import { emptyFilters, filterExercises, nameKey, type CatalogFilters } from '../catalog';
-import { ExerciseThumb } from '../ui/ExerciseThumb';
 import { EQUIPMENT, LEVELS, MUSCLES, PATTERNS, type Equipment, type Exercise, type Level, type Muscle, type Pattern } from '../catalog/types';
 import { saveExercise } from '../db/db';
 import { labelEquipment, labelLevel, labelMuscle, labelPattern } from '../domain/labels';
@@ -87,7 +86,6 @@ export function LibraryPage(): ReactElement {
           {visible.map((exercise) => (
             <li key={exercise.id}>
               <Link className="exercise-row" to={`/biblioteca/${exercise.id}`}>
-                <ExerciseThumb images={exercise.imagenes} nombre={exercise.nombre} exerciseId={exercise.id} />
                 <span className="exercise-copy">
                   <strong>{exercise.nombre}</strong>
                   <span>{exerciseMeta(exercise)}</span>

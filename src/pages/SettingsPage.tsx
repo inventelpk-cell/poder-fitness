@@ -115,8 +115,8 @@ export function SettingsPage(): ReactElement {
                       key={tone}
                       type="button"
                       role="radio"
-                      aria-checked={profile.coach === 'dario' && profile.darioTone === tone}
-                      className={profile.coach === 'dario' && profile.darioTone === tone ? 'chip is-on' : 'chip'}
+                      aria-checked={profile.darioTone === tone}
+                      className={profile.darioTone === tone ? 'chip is-on' : 'chip'}
                       onClick={() => void saveSimple({ ...profile, coach: 'dario', darioTone: tone })}
                     >
                       {tone === 'suave' ? 'Suave' : 'Brusco'}

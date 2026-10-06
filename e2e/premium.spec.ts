@@ -40,7 +40,7 @@ test('capturas del paquete premium', async ({ page }) => {
   await expect(page.getByText('Chispa')).toBeVisible();
   await expect(page.locator('.coach-bubble')).toBeVisible();
   const avatarBox = await page.locator('.dashboard .power-board .avatar-frame').boundingBox();
-  expect(avatarBox && avatarBox.height >= 240 && avatarBox.width >= 150).toBeTruthy();
+  expect(avatarBox && avatarBox.height >= 100 && avatarBox.height <= 180 && avatarBox.x >= 180).toBeTruthy();
   const bubble = page.locator('.coach-bubble p');
   const bubbleText = (await bubble.innerText()).trim();
   expect(bubbleText.includes('…')).toBeFalsy();

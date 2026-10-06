@@ -162,8 +162,8 @@ export function OnboardingPage(): ReactElement {
                       key={tone}
                       type="button"
                       role="radio"
-                      aria-checked={coach === 'dario' && darioTone === tone}
-                      className={coach === 'dario' && darioTone === tone ? 'chip is-on' : 'chip'}
+                      aria-checked={darioTone === tone}
+                      className={darioTone === tone ? 'chip is-on' : 'chip'}
                       onClick={() => {
                         setCoach('dario');
                         setDarioTone(tone);

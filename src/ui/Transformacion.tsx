@@ -75,9 +75,7 @@ export function Transformacion({
 
   return (
     <div className="transform-screen" role="dialog" aria-modal="true" aria-labelledby="transform-title" ref={root}>
-      <div className={`manga-transform is-${phase} pf-aura pf-aura--${rank}`} data-rank={rank}>
-        <div className="transform-burst" aria-hidden="true" />
-        <div className="transform-rings" aria-hidden="true" />
+      <div className={`manga-transform is-${phase}`} data-rank={rank}>
         {phase === 'salto' ? <div className="manga-flash" aria-hidden="true" /> : null}
         <Avatar gender={gender} rank={rank} pose={phase === 'salto' ? 'transformacion' : undefined} className="transform-avatar" />
       </div>

@@ -19,7 +19,7 @@ test('onboarding, entreno, biblioteca, reto y exportación', async ({ page }) =>
   await page.getByLabel('Nombre').fill('Antonio');
   await page.getByRole('button', { name: 'Empezar' }).click();
 
-  await expect(page.getByText('Antonio')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Hoy' })).toBeVisible();
   await expect(page.getByText('Chispa')).toBeVisible();
   await page.getByRole('link', { name: 'Plan', exact: true }).click();
   await page.getByRole('button', { name: 'Empezar entreno' }).click();

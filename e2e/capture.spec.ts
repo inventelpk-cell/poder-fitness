@@ -115,7 +115,7 @@ test('capturas de la app en marcha', async ({ page }) => {
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  await expect(page.getByText('Antonio')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Hoy' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Empezar entreno' })).toBeVisible();
   for (const name of ['Sentadilla', 'Zancada', 'Curl femoral deslizante']) {
     await expect(page.locator('.session-list li', { hasText: name })).toBeVisible();
@@ -162,7 +162,7 @@ test('capturas de la app en marcha', async ({ page }) => {
   expect(hoyArt.some((item) => item.name === stageName)).toBeTruthy();
   await expect(page.locator('.player-hero img')).toBeVisible();
   await expect(page.locator('.rest-ring')).toBeVisible();
-  await page.getByText('Más opciones').click();
+  await page.getByRole('button', { name: 'Más opciones' }).click();
   await expect(page.locator('.switch-ui').first()).toBeVisible();
   await expect(page.locator('.set-line.is-current input').last()).toBeEnabled();
   await expect(page.locator('.thumb-fallback')).toHaveCount(0);
