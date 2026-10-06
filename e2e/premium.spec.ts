@@ -11,12 +11,21 @@ test('capturas del paquete premium', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/onboarding');
   await expect(page.getByText('Paso 1 de 7')).toBeVisible();
+  await expect(page.locator('.rank-card')).toHaveCount(3);
+  const railTops = await page.locator('.step-rail li').evaluateAll((nodes) => nodes.map((node) => Math.round(node.getBoundingClientRect().top)));
+  expect(new Set(railTops).size).toBe(1);
+  const cardBox = await page.locator('.rank-card').first().boundingBox();
+  const cardImg = await page.locator('.rank-card img').first().boundingBox();
+  expect(cardBox && cardImg && cardImg.height >= cardBox.height * 0.7).toBeTruthy();
   await shot(page, 'onboarding');
 
   await page.getByRole('radio', { name: 'Mujer' }).click();
   await page.getByLabel('Nombre').fill('Antonio');
   await page.getByRole('button', { name: 'Continuar' }).click();
   await expect(page.getByRole('heading', { name: 'Tu entrenador' })).toBeVisible();
+  const dario = page.locator('.coach-card', { hasText: 'Darío Sanz' });
+  await expect(dario.getByRole('radio', { name: 'Suave' })).toBeVisible();
+  await expect(dario.getByRole('radio', { name: 'Brusco' })).toBeVisible();
   await shot(page, 'entrenadores');
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('radio', { name: /Principiante/ }).click();
@@ -30,6 +39,18 @@ test('capturas del paquete premium', async ({ page }) => {
   await page.getByRole('button', { name: 'Empezar' }).click();
   await expect(page.getByText('Chispa')).toBeVisible();
   await expect(page.locator('.coach-bubble')).toBeVisible();
+  const avatarBox = await page.locator('.dashboard .power-board .avatar-frame').boundingBox();
+  expect(avatarBox && avatarBox.height >= 240 && avatarBox.width >= 150).toBeTruthy();
+  const bubble = page.locator('.coach-bubble p');
+  const bubbleText = (await bubble.innerText()).trim();
+  expect(bubbleText.includes('…')).toBeFalsy();
+  expect(bubbleText.length).toBeGreaterThan(20);
+  const bubbleClip = await bubble.evaluate((el) => el.scrollHeight > el.clientHeight + 2 || el.scrollWidth > el.clientWidth + 2);
+  expect(bubbleClip).toBeFalsy();
+  const bars = page.locator('.hero-card .meter-bar');
+  await expect(bars).toHaveCount(4);
+  const barBox = await bars.first().boundingBox();
+  expect(barBox && barBox.width > barBox.height * 4).toBeTruthy();
   await shot(page, 'hoy');
 
   await page.goto('/plan');

@@ -96,36 +96,37 @@ export function SettingsPage(): ReactElement {
         <h2>Entrenador</h2>
         <div className="coach-choice" role="radiogroup" aria-label="Entrenador">
           {COACHES.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              role="radio"
-              aria-checked={profile.coach === item.id}
-              className={profile.coach === item.id ? 'choice is-on' : 'choice'}
-              onClick={() => void saveSimple({ ...profile, coach: item.id satisfies CoachId })}
-            >
-              <img src={coachPortrait(item.id)} alt="" width={64} height={64} />
-              <strong>{item.name}</strong>
-              <span>{item.blurb}</span>
-            </button>
-          ))}
-        </div>
-        {profile.coach === 'dario' ? (
-          <div className="row" role="radiogroup" aria-label="Tono de Darío">
-            {(['suave', 'brusco'] as const satisfies readonly DarioTone[]).map((tone) => (
+            <div key={item.id} className={profile.coach === item.id ? 'coach-card is-on' : 'coach-card'}>
               <button
-                key={tone}
                 type="button"
                 role="radio"
-                aria-checked={profile.darioTone === tone}
-                className={profile.darioTone === tone ? 'chip is-on' : 'chip'}
-                onClick={() => void saveSimple({ ...profile, darioTone: tone })}
+                aria-checked={profile.coach === item.id}
+                className="choice coach-pick"
+                onClick={() => void saveSimple({ ...profile, coach: item.id satisfies CoachId })}
               >
-                {tone === 'suave' ? 'Suave' : 'Brusco'}
+                <img src={coachPortrait(item.id)} alt="" width={64} height={64} />
+                <strong>{item.name}</strong>
+                <span>{item.blurb}</span>
               </button>
-            ))}
-          </div>
-        ) : null}
+              {item.id === 'dario' ? (
+                <div className="tone-row" role="radiogroup" aria-label="Tono de Darío">
+                  {(['suave', 'brusco'] as const satisfies readonly DarioTone[]).map((tone) => (
+                    <button
+                      key={tone}
+                      type="button"
+                      role="radio"
+                      aria-checked={profile.coach === 'dario' && profile.darioTone === tone}
+                      className={profile.coach === 'dario' && profile.darioTone === tone ? 'chip is-on' : 'chip'}
+                      onClick={() => void saveSimple({ ...profile, coach: 'dario', darioTone: tone })}
+                    >
+                      {tone === 'suave' ? 'Suave' : 'Brusco'}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          ))}
+        </div>
       </section>
       <section className="card">
         <h2>Unidad</h2>
@@ -240,7 +241,7 @@ export function SettingsPage(): ReactElement {
         <p>https://github.com/everkinetic/data</p>
         <p>Licencia: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
         <p>https://creativecommons.org/licenses/by-sa/4.0/deed.es</p>
-        <p>Poder Fitness tradujo al español los nombres, los resúmenes, las instrucciones y los consejos, unificó el vocabulario de músculos y equipo, y empaquetó las ilustraciones para uso offline. Los archivos SVG de origen no se han editado. En pantalla, esas figuras llevan un tinte: inversión, más contraste y un velo de color. Esa presentación es una modificación visual. Una exportación de esa vista es una obra derivada y sigue en CC BY-SA 4.0.</p>
+        <p>Poder Fitness tradujo al español los nombres, los resúmenes, las instrucciones y los consejos, unificó el vocabulario de músculos y equipo, y empaquetó las ilustraciones para uso offline. Los archivos SVG de origen no se han editado. En pantalla, esas figuras llevan un tinte de color para leerse sobre el fondo oscuro. Esa presentación es una modificación visual. Una exportación de esa vista es una obra derivada y sigue en CC BY-SA 4.0.</p>
         <p>Sentadilla, Zancada y Curl femoral deslizante no son de Everkinetic. Si hay un dibujo original, se usa ese archivo. Si no, el hueco lo cubre el avatar.</p>
         <p>Esta base es una obra derivada y se mantiene bajo CC BY-SA 4.0.</p>
         <button type="button" className="btn" onClick={() => setShowLicense((value) => !value)}>

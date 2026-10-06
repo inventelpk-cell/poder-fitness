@@ -112,7 +112,7 @@ export function TodayPage(): ReactElement {
         <section className="card today-session">
           <p className="kicker">{labelDayKind(day.kind)}</p>
           <h2>Hoy toca entrenar</h2>
-          <ul className="session-list thumb-row">
+          <ul className="session-list">
             {day.items.map((item) => {
               const exercise = exercises.find((entry) => entry.id === item.exerciseId);
               const nombre = exercise?.nombre ?? item.exerciseId;

@@ -231,17 +231,23 @@ a { color: #f4f1ea; }
 }
 
 .dashboard .power-board {
-  grid-template-columns: 124px minmax(0, 1fr);
-  align-items: end;
+  grid-template-columns: 176px minmax(0, 1fr);
+  align-items: center;
   gap: 8px;
 }
 
-.dashboard .avatar-frame,
-.dashboard .avatar-frame img {
-  width: 124px;
-  height: 156px;
-  object-fit: contain;
-  object-position: center bottom;
+.dashboard .power-board .avatar-frame {
+  width: 176px;
+  height: 244px;
+  overflow: hidden;
+}
+
+.dashboard .power-board .avatar-frame img {
+  width: 176px;
+  height: 244px;
+  max-width: none;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .dashboard .card { padding: 12px; }
@@ -332,16 +338,18 @@ a { color: #f4f1ea; }
 
 .coach-bubble {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
   height: auto;
-  min-height: 48px;
+  max-height: none;
+  min-height: 0;
+  flex: 0 0 auto;
   margin: 0;
   padding: 8px 12px 8px 8px;
   border-radius: 14px;
   background: #12151c;
   border: 1px solid #2a3142;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .coach-bubble img {
@@ -353,13 +361,19 @@ a { color: #f4f1ea; }
 }
 
 .coach-bubble p {
+  flex: 1 1 auto;
+  min-width: 0;
   margin: 0;
   font-size: 13px;
   font-weight: 600;
   line-height: 16px;
   white-space: normal;
   overflow: visible;
-  text-overflow: unset;
+  text-overflow: clip;
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  max-height: none;
 }
 
 .bar { background: #1a1e28; }
@@ -399,6 +413,8 @@ a { color: #f4f1ea; }
 
 .onboard > .row { margin-top: auto; }
 
+.onboard:has(.rank-trio) > .row { margin-top: 8px; }
+
 .gender-row,
 .tone-row {
   display: grid;
@@ -410,19 +426,21 @@ a { color: #f4f1ea; }
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
-  min-height: 280px;
-  flex: 1;
+  min-height: 320px;
+  flex: 1 1 auto;
+  align-items: stretch;
 }
 
 .rank-card {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: flex-end;
   gap: 4px;
   margin: 0;
-  min-height: 0;
-  padding: 8px 4px;
+  min-height: 320px;
+  height: 100%;
+  padding: 0 0 8px;
   background: #12151c;
   border: 1px solid #2a3142;
   border-radius: 16px;
@@ -431,20 +449,20 @@ a { color: #f4f1ea; }
 
 .rank-card .avatar-frame {
   width: 100%;
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  height: 100%;
+  display: block;
+  overflow: hidden;
 }
 
 .rank-card .avatar-frame img {
-  width: auto;
+  width: 100%;
   height: 100%;
-  max-height: 248px;
-  max-width: 100%;
-  object-fit: contain;
-  object-position: center bottom;
+  max-height: none;
+  max-width: none;
+  object-fit: cover;
+  object-position: center 18%;
 }
 
 .rank-card figcaption {
@@ -493,6 +511,15 @@ a { color: #f4f1ea; }
   background: #1a1e28;
 }
 
+.session-list .pf-ek > img {
+  filter: sepia(1) saturate(8) hue-rotate(340deg) brightness(0.72) contrast(1.35);
+}
+
+.session-list .pf-ek::after {
+  content: none;
+  display: none;
+}
+
 .session-name {
   font-size: 15px;
   line-height: 20px;
@@ -515,7 +542,21 @@ a { color: #f4f1ea; }
   align-items: center;
 }
 
-.meter .bar { grid-column: 1 / -1; height: 6px; margin: 0; }
+.meter .bar,
+.meter .meter-bar {
+  grid-column: 1 / -1;
+  height: 10px;
+  margin: 0;
+  background: rgba(226, 90, 42, 0.38);
+  border-radius: 999px;
+}
+
+.meter .bar > span,
+.meter .meter-bar > span {
+  background: #e25a2a;
+  border-radius: inherit;
+  min-height: 10px;
+}
 
 .meter-label { font-size: 13px; font-weight: 600; }
 
@@ -713,4 +754,172 @@ a { color: #f4f1ea; }
   height: 160px;
   object-fit: contain;
   object-position: center bottom;
+}
+
+.coach-card {
+  display: grid;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #12151c;
+  border: 1px solid #2a3142;
+  border-radius: 16px;
+}
+
+.coach-card.is-on {
+  border: 2px solid #e25a2a;
+}
+
+.coach-card .coach-pick,
+.coach-card .choice {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  min-height: 0;
+  padding: 0;
+  border-radius: 0;
+  width: 100%;
+}
+
+.coach-card .choice.is-on,
+.coach-card.is-on .choice {
+  border: 0;
+  background: transparent;
+  color: #f4f1ea;
+}
+
+.coach-choice {
+  gap: 8px;
+}
+
+.onboard .step-rail {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  width: 100%;
+  margin: 0;
+  flex-wrap: nowrap;
+}
+
+.onboard .step-rail li {
+  height: 4px;
+  min-width: 0;
+  width: auto;
+}
+
+.onboard h1 {
+  font-size: 22px;
+  line-height: 28px;
+  margin: 0;
+}
+
+.onboard .field small {
+  margin: 0;
+}
+
+.screen.dashboard {
+  gap: 4px;
+  padding-top: 4px;
+}
+
+.dashboard .power-level {
+  font-size: 34px;
+  line-height: 40px;
+  font-weight: 700;
+  color: #f4f1ea;
+}
+
+.dashboard .power-figure {
+  margin: 0;
+  gap: 8px;
+}
+
+.dashboard .week-card,
+.dashboard .today-session,
+.dashboard .hero-card {
+  padding: 4px 12px;
+}
+
+.dashboard .week-card h2,
+.dashboard .today-session h2,
+.dashboard .hero-card h2,
+.dashboard .week-card .muted,
+.dashboard .today-session .kicker {
+  margin: 0;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.dashboard .today-session .kicker,
+.dashboard .week-card .muted {
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.dashboard .week-strip {
+  margin-top: 4px;
+}
+
+.dashboard .week-strip li {
+  gap: 2px;
+  font-size: 11px;
+  letter-spacing: 0;
+}
+
+.dashboard .week-strip i {
+  height: 6px;
+}
+
+.dashboard .session-list {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2px;
+  margin: 4px 0;
+}
+
+.dashboard .session-list li {
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  min-width: 0;
+  min-height: 32px;
+}
+
+.dashboard .session-list li > span {
+  display: block;
+  overflow: visible;
+  white-space: normal;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+}
+
+.dashboard .session-list .exercise-thumb,
+.dashboard .session-list .pf-ek {
+  width: 32px;
+  height: 32px;
+}
+
+.dashboard .bar-list {
+  gap: 2px;
+}
+
+.dashboard .meter {
+  grid-template-columns: 108px minmax(0, 1fr) auto;
+  grid-template-rows: 16px;
+  gap: 0 8px;
+  height: 16px;
+}
+
+.dashboard .meter .bar,
+.dashboard .meter .meter-bar {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+}
+
+.dashboard .meter .bar,
+.dashboard .meter .meter-bar {
+  height: 8px;
+  margin: 0;
+}
+
+.dashboard .meter .bar > span,
+.dashboard .meter .meter-bar > span {
+  min-height: 8px;
 }

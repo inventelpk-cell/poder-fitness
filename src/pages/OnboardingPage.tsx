@@ -1,16 +1,15 @@
 import { useState, type ReactElement } from 'react';
 import { useNavigate } from 'react-router';
-import { EQUIPMENT, type Equipment, type Goal, type Level } from '../catalog/types';
+import { EQUIPMENT, type Equipment, type Goal, type Level, type RankId } from '../catalog/types';
 import { COACHES, coachPortrait, type CoachId, type DarioTone } from '../domain/coach';
 import { createProfile } from '../db/db';
 import { defaultWeekdays } from '../domain/dates';
 import { HEALTH_LINE, LEVEL_HELP, WEEKDAY_SHORT, labelEquipment, labelGoal, labelLevel, labelRank, labelWeekday } from '../domain/labels';
 import type { AvatarGender, Profile } from '../domain/model';
-import type { RankId } from '../catalog/types';
-
-const FACE_RANKS = ['chispa', 'llama', 'nova'] as const satisfies readonly RankId[];
 import { useApp } from '../state/app-state';
 import { Avatar } from '../ui/Avatar';
+
+const FACE_RANKS = ['chispa', 'llama', 'nova'] as const satisfies readonly RankId[];
 
 const GOALS: Goal[] = ['fuerza', 'hipertrofia', 'resistencia', 'grasa'];
 const LEVELS: Level[] = ['principiante', 'intermedio', 'avanzado'];
@@ -153,34 +152,38 @@ export function OnboardingPage(): ReactElement {
       {step === 2 ? (
         <div className="coach-choice" role="radiogroup" aria-label="Entrenador">
           {COACHES.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              role="radio"
-              aria-checked={coach === item.id}
-              className={coach === item.id ? 'choice is-on' : 'choice'}
-              onClick={() => setCoach(item.id)}
-            >
-              <img src={coachPortrait(item.id)} alt="" width={64} height={64} />
-              <strong>{item.name}</strong>
-              <span>{item.blurb}</span>
-            </button>
-          ))}
-        </div>
-      ) : null}
-      {step === 2 ? (
-        <div className="row tone-row" role="radiogroup" aria-label="Tono de Darío">
-          {(['suave', 'brusco'] as const).map((tone) => (
-            <button
-              key={tone}
-              type="button"
-              role="radio"
-              aria-checked={darioTone === tone}
-              className={darioTone === tone ? 'chip is-on' : 'chip'}
-              onClick={() => setDarioTone(tone)}
-            >
-              {tone === 'suave' ? 'Suave' : 'Brusco'}
-            </button>
+            <div key={item.id} className={coach === item.id ? 'coach-card is-on' : 'coach-card'}>
+              <button
+                type="button"
+                role="radio"
+                aria-checked={coach === item.id}
+                className="choice coach-pick"
+                onClick={() => setCoach(item.id)}
+              >
+                <img src={coachPortrait(item.id)} alt="" width={64} height={64} />
+                <strong>{item.name}</strong>
+                <span>{item.blurb}</span>
+              </button>
+              {item.id === 'dario' ? (
+                <div className="tone-row" role="radiogroup" aria-label="Tono de Darío">
+                  {(['suave', 'brusco'] as const).map((tone) => (
+                    <button
+                      key={tone}
+                      type="button"
+                      role="radio"
+                      aria-checked={coach === 'dario' && darioTone === tone}
+                      className={coach === 'dario' && darioTone === tone ? 'chip is-on' : 'chip'}
+                      onClick={() => {
+                        setCoach('dario');
+                        setDarioTone(tone);
+                      }}
+                    >
+                      {tone === 'suave' ? 'Suave' : 'Brusco'}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+            </div>
           ))}
         </div>
       ) : null}

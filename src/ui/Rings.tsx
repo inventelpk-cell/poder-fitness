@@ -31,7 +31,7 @@ function Meter({ label, value, goal, km = false }: { label: string; value: numbe
         {shown}
         <small>/{goal}</small>
       </span>
-      <div className="bar" aria-hidden="true">
+      <div className="bar meter-bar" aria-hidden="true">
         <span style={{ width: `${Math.round(ratio * 100)}%` }} />
       </div>
     </div>
