@@ -36,30 +36,31 @@ function toneOf(rank: RankId): KiTone {
   }
 }
 
-function flamePath(index: number, count: number, power: number): string {
+function flamePath(index: number, count: number, power: number, reach: number): string {
   const cx = 195;
-  const cy = 470;
-  const span = Math.PI * (1.05 + power * 0.35);
+  const cy = 508;
+  const span = Math.PI * (0.92 + power * 0.5);
   const start = Math.PI * 1.5 - span / 2;
   const angle = start + (span * (index + 0.5)) / count;
-  const length = 150 + power * 250 + (index % 3) * 28;
-  const spread = 0.045 + (index % 2) * 0.02;
+  const length = reach + ((index * 53) % 70);
+  const base = 16 + power * 14;
+  const leftX = cx + Math.cos(angle - 0.09) * base;
+  const leftY = cy + Math.sin(angle - 0.09) * base;
+  const rightX = cx + Math.cos(angle + 0.09) * base;
+  const rightY = cy + Math.sin(angle + 0.09) * base;
   const tipX = cx + Math.cos(angle) * length;
   const tipY = cy + Math.sin(angle) * length;
-  const mid = length * 0.42;
-  const leftX = cx + Math.cos(angle - spread) * mid;
-  const leftY = cy + Math.sin(angle - spread) * mid;
-  const rightX = cx + Math.cos(angle + spread) * mid;
-  const rightY = cy + Math.sin(angle + spread) * mid;
-  const notch = length * 0.72;
-  const notchX = cx + Math.cos(angle) * notch;
-  const notchY = cy + Math.sin(angle) * notch + ((index % 2) * 10 - 5);
-  return `M ${cx} ${cy} L ${leftX.toFixed(1)} ${leftY.toFixed(1)} L ${notchX.toFixed(1)} ${notchY.toFixed(1)} L ${tipX.toFixed(1)} ${tipY.toFixed(1)} L ${rightX.toFixed(1)} ${rightY.toFixed(1)} Z`;
+  const bend = (index % 2 === 0 ? 1 : -1) * (12 + power * 10);
+  const leftCx = cx + Math.cos(angle) * length * 0.5 + Math.cos(angle + Math.PI / 2) * bend;
+  const leftCy = cy + Math.sin(angle) * length * 0.5 + Math.sin(angle + Math.PI / 2) * bend;
+  const rightCx = cx + Math.cos(angle) * length * 0.62 + Math.cos(angle - Math.PI / 2) * bend * 0.6;
+  const rightCy = cy + Math.sin(angle) * length * 0.62 + Math.sin(angle - Math.PI / 2) * bend * 0.6;
+  return `M ${leftX.toFixed(1)} ${leftY.toFixed(1)} Q ${leftCx.toFixed(1)} ${leftCy.toFixed(1)} ${tipX.toFixed(1)} ${tipY.toFixed(1)} Q ${rightCx.toFixed(1)} ${rightCy.toFixed(1)} ${rightX.toFixed(1)} ${rightY.toFixed(1)} Z`;
 }
 
 function boltPoints(index: number, count: number, power: number): string {
   const cx = 195;
-  const cy = 450;
+  const cy = 490;
   const span = Math.PI * (0.9 + power * 0.4);
   const start = Math.PI * 1.5 - span / 2;
   const angle = start + (span * (index + 0.35)) / count;
@@ -78,10 +79,13 @@ function boltPoints(index: number, count: number, power: number): string {
 
 export function KiStage({ rank }: { rank: RankId }): ReactElement {
   const tone = toneOf(rank);
-  const flames = Math.round(7 + tone.power * 9);
-  const bolts = Math.round(2 + tone.power * 6);
-  const sparks = Math.round(8 + tone.power * 14);
+  const flames = Math.round(10 + tone.power * 12);
+  const hotFlames = Math.round(6 + tone.power * 6);
+  const bolts = Math.round(3 + tone.power * 8);
+  const sparks = Math.round(12 + tone.power * 18);
   const rings = tone.power > 0.7 ? 3 : 2;
+  const outerReach = 120 + tone.power * 230;
+  const innerReach = 70 + tone.power * 120;
   return (
     <div
       className="ki-stage"
@@ -93,10 +97,14 @@ export function KiStage({ rank }: { rank: RankId }): ReactElement {
         ['--ki-power' as string]: String(tone.power),
       }}
     >
+      <div className="ki-glow" />
       <div className="ki-rays" />
       <svg className="ki-svg" viewBox="0 0 390 640">
         {Array.from({ length: flames }, (_, index) => (
-          <path key={`flame-${index}`} className="ki-flame" d={flamePath(index, flames, tone.power)} />
+          <path key={`flame-${index}`} className="ki-flame" d={flamePath(index, flames, tone.power, outerReach)} />
+        ))}
+        {Array.from({ length: hotFlames }, (_, index) => (
+          <path key={`hot-${index}`} className="ki-flame is-hot" d={flamePath(index + 3, hotFlames, tone.power, innerReach)} />
         ))}
         {Array.from({ length: bolts }, (_, index) => (
           <polyline key={`bolt-${index}`} className="ki-bolt" points={boltPoints(index, bolts, tone.power)} />
@@ -106,17 +114,17 @@ export function KiStage({ rank }: { rank: RankId }): ReactElement {
             key={`ring-${index}`}
             className="ki-ring"
             cx="195"
-            cy={498 + index * 14}
-            rx={78 + tone.power * 90 + index * 28}
-            ry={12 + tone.power * 8 + index * 4}
+            cy={528 + index * 16}
+            rx={70 + tone.power * 110 + index * 36}
+            ry={10 + tone.power * 6 + index * 5}
           />
         ))}
         {Array.from({ length: sparks }, (_, index) => {
-          const angle = Math.PI * (1.15 + (0.7 * index) / sparks);
-          const dist = 90 + ((index * 37) % 180) + tone.power * 40;
+          const angle = Math.PI * (1.05 + (0.9 * index) / sparks);
+          const dist = 70 + ((index * 41) % 220) + tone.power * 50;
           const cx = 195 + Math.cos(angle) * dist;
-          const cy = 460 + Math.sin(angle) * dist;
-          return <circle key={`spark-${index}`} className="ki-spark" cx={cx} cy={cy} r={1.4 + (index % 3) * 0.7} />;
+          const cy = 470 + Math.sin(angle) * dist * 0.85;
+          return <circle key={`spark-${index}`} className="ki-spark" cx={cx} cy={cy} r={1.2 + (index % 4) * 0.7} />;
         })}
       </svg>
     </div>

@@ -963,24 +963,38 @@ a { color: #f4f1ea; }
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  transform-origin: center 72%;
+  transform-origin: center 74%;
+}
+
+.ki-glow {
+  position: absolute;
+  left: 50%;
+  bottom: -4%;
+  width: calc(118% + var(--ki-power) * 70%);
+  height: calc(88% + var(--ki-power) * 28%);
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at 50% 72%,
+    var(--ki-hot) 0%,
+    var(--ki) 24%,
+    var(--ki) 42%,
+    #07090f 47%
+  );
 }
 
 .ki-rays {
   position: absolute;
   left: 50%;
-  bottom: 8%;
-  width: calc(120% + var(--ki-power) * 80%);
-  height: calc(78% + var(--ki-power) * 30%);
+  bottom: -2%;
+  width: calc(150% + var(--ki-power) * 70%);
+  height: calc(96% + var(--ki-power) * 20%);
   transform: translateX(-50%);
   background: repeating-conic-gradient(
-    from -20deg,
-    var(--ki) 0 7deg,
-    transparent 7deg 18deg
+    from -14deg at 50% 76%,
+    var(--ki-hot) 0deg 1.5deg,
+    transparent 2.1deg calc(11deg - var(--ki-power) * 3deg)
   );
-  mask-image: radial-gradient(ellipse at 50% 70%, #000 0 28%, transparent 72%);
-  opacity: calc(0.28 + var(--ki-power) * 0.45);
-  filter: blur(1.5px);
+  mask-image: radial-gradient(ellipse at 50% 76%, #000 0 8%, #000 42%, transparent 64%);
 }
 
 .ki-svg {
@@ -992,28 +1006,28 @@ a { color: #f4f1ea; }
 
 .ki-flame {
   fill: var(--ki);
-  opacity: calc(0.35 + var(--ki-power) * 0.4);
+}
+
+.ki-flame.is-hot {
+  fill: var(--ki-hot);
 }
 
 .ki-bolt {
   fill: none;
   stroke: var(--ki-bolt);
-  stroke-width: calc(1.2px + var(--ki-power) * 1.4px);
+  stroke-width: calc(1.6px + var(--ki-power) * 2px);
   stroke-linejoin: round;
   stroke-linecap: round;
-  opacity: calc(0.55 + var(--ki-power) * 0.4);
 }
 
 .ki-ring {
   fill: none;
   stroke: var(--ki-hot);
-  stroke-width: calc(2px + var(--ki-power) * 2px);
-  opacity: calc(0.45 + var(--ki-power) * 0.4);
+  stroke-width: calc(2.4px + var(--ki-power) * 2.2px);
 }
 
 .ki-spark {
-  fill: var(--ki-hot);
-  opacity: 0.9;
+  fill: var(--ki-bolt);
 }
 
 .transform-avatar {
@@ -1079,8 +1093,8 @@ a { color: #f4f1ea; }
 }
 
 @keyframes ki-enter {
-  0% { opacity: 0; transform: scale(0.78); }
-  100% { opacity: 1; transform: scale(1); }
+  0% { transform: scale(0.72); }
+  100% { transform: scale(1); }
 }
 
 @keyframes ki-ring {
