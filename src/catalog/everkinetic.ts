@@ -75,3 +75,16 @@ export function exerciseThumb(images: readonly string[] | undefined): string | n
   const tension = images.find((path) => path.includes('tension'));
   return tension ?? images[0] ?? null;
 }
+
+function isLineArt(path: string): boolean {
+  const ext = path.split('.').pop()?.toLowerCase();
+  return ext === 'svg' || ext === 'png';
+}
+
+/** Trazo Everkinetic de ese ejercicio. El resto del catálogo no lleva miniatura. */
+export function verifiedExerciseSrc(origen: string | undefined, images: readonly string[] | undefined): string | null {
+  if (origen !== 'everkinetic') return null;
+  const thumb = exerciseThumb(images);
+  if (!thumb || !isLineArt(thumb)) return null;
+  return imageSrc(thumb);
+}

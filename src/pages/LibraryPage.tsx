@@ -7,6 +7,7 @@ import { labelEquipment, labelLevel, labelMuscle, labelPattern } from '../domain
 import { uid } from '../domain/model';
 import { useApp } from '../state/app-state';
 import { Dialog } from '../ui/Dialog';
+import { ExerciseThumb } from '../ui/ExerciseThumb';
 
 const MUSCLE_ROW: { id: string; label: string; muscles: Muscle[] }[] = [
   { id: 'todos', label: 'Todos', muscles: [] },
@@ -88,6 +89,7 @@ export function LibraryPage(): ReactElement {
           {visible.map((exercise) => (
             <li key={exercise.id}>
               <Link className="exercise-row" to={`/biblioteca/${exercise.id}`}>
+                <ExerciseThumb images={exercise.imagenes} nombre={exercise.nombre} origen={exercise.origen} />
                 <span className="exercise-copy">
                   <strong>{exercise.nombre}</strong>
                   <span>{exerciseMeta(exercise)}</span>

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { bundledExercises } from '../src/catalog';
-import { daySequence, generateWeek } from '../src/domain/plan';
+import { daySequence, exerciseBudget, generateWeek } from '../src/domain/plan';
 import type { GenerateInput } from '../src/domain/plan';
 
 const exercises = bundledExercises();
@@ -154,6 +154,73 @@ describe('generador de planes', () => {
     );
     const chosen = days[0]?.items.find((item) => item.exerciseId === 'plancha');
     expect(chosen).toMatchObject({ medida: 'segundos', repMin: 20, repMax: 40, descansoSegundos: 90, repObjetivo: 20 });
+  });
+
+  it('20 minutos deja tres ejercicios y 60 no pasa de seis', () => {
+    expect(exerciseBudget(20)).toBe(3);
+    expect(exerciseBudget(60)).toBe(6);
+    const short = generateWeek(
+      input({
+        level: 'principiante',
+        goal: 'hipertrofia',
+        equipment: ['peso-corporal'],
+        weekdays: [1],
+        sessionMinutes: 20,
+      }),
+    );
+    expect(short[0]?.items).toHaveLength(3);
+    const long = generateWeek(
+      input({
+        level: 'intermedio',
+        goal: 'hipertrofia',
+        equipment: ['mancuernas', 'barra', 'banco'],
+        weekdays: [1],
+        sessionMinutes: 60,
+      }),
+    );
+    expect(long[0]?.items.length).toBeLessThanOrEqual(6);
+    expect(long[0]?.items.length).toBeGreaterThan(3);
+  });
+
+  it('una exclusión de rodilla saca ese patrón', () => {
+    const days = generateWeek(
+      input({
+        level: 'principiante',
+        goal: 'hipertrofia',
+        equipment: ['peso-corporal'],
+        weekdays: [1],
+        exclusiones: 'rodilla',
+      }),
+    );
+    expect(days[0]?.items.map((item) => item.slot)).not.toContain('rodilla');
+    expect(daySequence(3, 'intermedio', 'salud')).toEqual(['empuje', 'traccion', 'pierna']);
+  });
+
+  it('mancuernas y barra cambian los ejercicios del peso corporal', () => {
+    const body = generateWeek(
+      input({
+        level: 'principiante',
+        goal: 'hipertrofia',
+        equipment: ['peso-corporal'],
+        weekdays: [2],
+      }),
+    );
+    const geared = generateWeek(
+      input({
+        level: 'principiante',
+        goal: 'hipertrofia',
+        equipment: ['mancuernas', 'barra'],
+        weekdays: [2],
+      }),
+    );
+    const bodyIds = body[0]?.items.map((item) => item.exerciseId) ?? [];
+    const gearedIds = geared[0]?.items.map((item) => item.exerciseId) ?? [];
+    expect(gearedIds.join()).not.toBe(bodyIds.join());
+    const usesGear = gearedIds.some((id) => {
+      const exercise = exercises.find((item) => item.id === id);
+      return exercise?.equipo.some((piece) => piece === 'mancuernas' || piece === 'barra');
+    });
+    expect(usesGear).toBe(true);
   });
 
   it('un clavo de hueco se conserva', () => {

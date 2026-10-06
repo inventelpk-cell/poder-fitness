@@ -18,6 +18,8 @@ function profile(partial: Partial<Profile> = {}): Profile {
     avatar: 'mujer',
     coach: 'ciro',
     darioTone: 'brusco',
+    sessionMinutes: 45,
+    exclusiones: '',
     xpTotal: 0,
     ranksSeen: [],
     createdAt: '2026-01-01T00:00:00.000Z',
@@ -27,11 +29,20 @@ function profile(partial: Partial<Profile> = {}): Profile {
 
 describe('perfil', () => {
   it('completa avatar y entrenador cuando el registro viejo no los trae', () => {
-    const stored = { ...profile(), avatar: 'otro', coach: undefined, darioTone: undefined } as unknown as Profile;
+    const stored = {
+      ...profile(),
+      avatar: 'otro',
+      coach: undefined,
+      darioTone: undefined,
+      sessionMinutes: undefined,
+      exclusiones: undefined,
+    } as unknown as Profile;
     const next = normalizeProfile(stored);
     expect(next.avatar).toBe('hombre');
     expect(next.coach).toBe('lino');
     expect(next.darioTone).toBe('suave');
+    expect(next.sessionMinutes).toBe(45);
+    expect(next.exclusiones).toBe('');
   });
 
   it('guarda el avatar y el entrenador elegidos', async () => {

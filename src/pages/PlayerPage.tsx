@@ -42,6 +42,7 @@ import { Avatar } from '../ui/Avatar';
 import { CoachBubble } from '../ui/CoachBubble';
 import { Dialog } from '../ui/Dialog';
 import { ExerciseThumb } from '../ui/ExerciseThumb';
+import { HowTo } from '../ui/HowTo';
 import { Switch } from '../ui/Switch';
 
 function previousLine(exercise: SessionExercise, performed: PerformedSet[], unit: 'kg' | 'lb'): string {
@@ -524,7 +525,7 @@ export function PlayerPage(): ReactElement {
             {substitutes.map((exercise) => (
               <li key={exercise.id}>
                 <button type="button" className="btn substitute-btn" onClick={() => void onSubstitute(exercise.id)}>
-                  <ExerciseThumb images={exercise.imagenes} nombre={exercise.nombre} exerciseId={exercise.id} />
+                  <ExerciseThumb images={exercise.imagenes} nombre={exercise.nombre} origen={exercise.origen} />
                   <span>{exercise.nombre}{exercise.patron ? ` · ${labelPattern(exercise.patron)}` : ''}</span>
                 </button>
               </li>
@@ -534,9 +535,7 @@ export function PlayerPage(): ReactElement {
       ) : null}
       {catalogExercise ? (
         <Dialog title={catalogExercise.nombre} onClose={() => setDetailId(null)}>
-          <ol>
-            {catalogExercise.pasos.map((step) => <li key={step}>{step}</li>)}
-          </ol>
+          <HowTo exercise={catalogExercise} />
           <Link to={`/biblioteca/${catalogExercise.id}`}>Abrir la ficha</Link>
         </Dialog>
       ) : null}

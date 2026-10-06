@@ -1,59 +1,26 @@
 import type { ReactElement } from 'react';
-import { exerciseThumb, imageSrc } from '../catalog/everkinetic';
-import { isOriginalHole, originalExerciseSrc, poseSrc } from './manga-art';
+import { verifiedExerciseSrc } from '../catalog/everkinetic';
+import type { Origin } from '../catalog/types';
 
 export function ExerciseThumb({
   images,
   nombre,
-  exerciseId,
+  origen,
   size = 'tile',
   labelled = false,
 }: {
   images: readonly string[] | undefined;
   nombre: string;
-  exerciseId?: string;
+  origen?: Origin;
   size?: 'tile' | 'stage';
   labelled?: boolean;
-}): ReactElement {
-  const className = size === 'stage' ? 'exercise-thumb is-stage' : 'exercise-thumb';
-  const original = originalExerciseSrc(exerciseId);
-  if (original) {
-    return labelled ? (
-      <img className={className} src={original} alt={nombre} width={size === 'stage' ? 240 : 72} height={size === 'stage' ? 150 : 72} />
-    ) : (
-      <img className={className} src={original} alt="" width={size === 'stage' ? 240 : 72} height={size === 'stage' ? 150 : 72} />
-    );
-  }
-  const thumb = exerciseThumb(images);
-  if (thumb) {
-    const src = imageSrc(thumb);
-    return (
-      <div className={`${className} pf-ek pf-ek--hueso`}>
-        <img src={src} alt={labelled ? nombre : ''} />
-      </div>
-    );
-  }
-  if (isOriginalHole(exerciseId)) {
-    return (
-      <img
-        className={className}
-        src={poseSrc('hombre', 'entrenando') ?? '/design/manga/avatar/male/poses/entrenando.png'}
-        alt={labelled ? nombre : ''}
-        width={size === 'stage' ? 240 : 72}
-        height={size === 'stage' ? 150 : 72}
-      />
-    );
-  }
-  if (labelled) {
-    return (
-      <span className={`${className} thumb-mark`} role="img" aria-label={nombre}>
-        <img src="/design/brand/logo-symbol.svg" alt="" />
-      </span>
-    );
-  }
+}): ReactElement | null {
+  const src = verifiedExerciseSrc(origen, images);
+  if (!src) return null;
+  const className = size === 'stage' ? 'exercise-thumb is-stage pf-ek' : 'exercise-thumb pf-ek';
   return (
-    <span className={`${className} thumb-mark`} aria-hidden="true">
-      <img src="/design/brand/logo-symbol.svg" alt="" />
+    <span className={className}>
+      <img src={src} alt={labelled ? nombre : ''} />
     </span>
   );
 }

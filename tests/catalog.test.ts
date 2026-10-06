@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { bundledExercises, filterExercises, isReserveId } from '../src/catalog';
+import { verifiedExerciseSrc } from '../src/catalog/everkinetic';
 
 const imageFiles = import.meta.glob('../data/exercises/images/*', { eager: true, query: '?raw', import: 'default' });
 
@@ -28,6 +29,28 @@ describe('catálogo', () => {
     expect(found.map((item) => item.nombre).join('|')).toBe(
       [...found].sort((a, b) => a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' })).map((item) => item.nombre).join('|'),
     );
+  });
+
+  it('los 40 primeros solo muestran el trazo de ese ejercicio', () => {
+    const first = filterExercises(list, { query: '', musculos: [], equipos: [], patrones: [], niveles: [] }).slice(0, 40);
+    const srcs = first.map((item) => verifiedExerciseSrc(item.origen, item.imagenes));
+    srcs.forEach((src, index) => {
+      const item = first[index];
+      if (!item) return;
+      if (item.origen !== 'everkinetic') {
+        expect(src).toBeNull();
+        return;
+      }
+      if (!src) {
+        expect(item.imagenes?.every((path) => !/\.(svg|png)$/i.test(path)) ?? true).toBe(true);
+        return;
+      }
+      expect(src.startsWith('/ejercicios/')).toBe(true);
+      expect(/\.(svg|png)$/i.test(src)).toBe(true);
+      expect(item.imagenes?.some((path) => src.endsWith(path))).toBe(true);
+    });
+    const shown = srcs.filter((src): src is string => src !== null);
+    expect(new Set(shown).size).toBe(shown.length);
   });
 
   it('los 290 de everkinetic quedan mapeados sin tocar fotos ni pasos', () => {

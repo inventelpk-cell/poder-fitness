@@ -622,9 +622,13 @@ a { color: #f4f1ea; }
 
 .session-list li {
   display: grid;
-  grid-template-columns: 48px minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 8px;
   align-items: center;
+}
+
+.session-list li.has-media {
+  grid-template-columns: 48px minmax(0, 1fr) auto;
 }
 
 .session-list .exercise-thumb,
@@ -641,15 +645,6 @@ a { color: #f4f1ea; }
 .session-list .pf-ek,
 .exercise-row .pf-ek {
   background: #1a1e28;
-}
-
-.session-list .pf-ek > img {
-  filter: sepia(1) saturate(8) hue-rotate(340deg) brightness(0.72) contrast(1.35);
-}
-
-.session-list .pf-ek::after {
-  content: none;
-  display: none;
 }
 
 .session-name {
@@ -1171,6 +1166,10 @@ a { color: #f4f1ea; }
   min-height: 28px;
 }
 
+.dashboard .session-list li.has-media {
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+}
+
 .dashboard .session-list li > span {
   display: block;
   overflow: visible;
@@ -1485,4 +1484,21 @@ a { color: #f4f1ea; }
   color: #b7b1a8;
   font-size: 22px;
   line-height: 1;
+}
+
+.how-to .exercise-thumb.is-stage {
+  width: 120px;
+  height: 96px;
+}
+
+.how-to h2 {
+  margin: 12px 0 4px;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.how-to ol,
+.how-to ul {
+  margin: 0;
+  padding-left: 1.2rem;
 }

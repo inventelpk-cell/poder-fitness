@@ -78,7 +78,9 @@ test('capturas del avatar manga', async ({ page }) => {
 
   await page.goto('/biblioteca/sentadilla-corporal');
   await expect(page.getByRole('heading', { name: 'Sentadilla' })).toBeVisible();
-  await expect(page.locator('.screen img[src$="sentadilla.png"]')).toBeVisible();
+  await expect(page.getByText('Cómo se hace')).toBeVisible();
+  await expect(page.getByText('Pies a la anchura de la cadera.')).toBeVisible();
+  await expect(page.locator('.screen img[src$="sentadilla.png"]')).toHaveCount(0);
   await shot(page, 'ficha');
 
   await page.goto('/');

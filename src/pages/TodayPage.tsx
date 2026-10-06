@@ -11,6 +11,8 @@ import type { Plan, WorkoutSession } from '../domain/model';
 import { useApp } from '../state/app-state';
 import { useWorkoutLauncher } from '../state/launch';
 import { CoachBubble } from '../ui/CoachBubble';
+import { verifiedExerciseSrc } from '../catalog/everkinetic';
+import { ExerciseThumb } from '../ui/ExerciseThumb';
 import { HeroRings } from '../ui/Rings';
 
 export function TodayPage(): ReactElement {
@@ -103,9 +105,16 @@ export function TodayPage(): ReactElement {
               const exercise = exercises.find((entry) => entry.id === item.exerciseId);
               const nombre = exercise?.nombre ?? item.exerciseId;
               const dose = item.medida === 'segundos' ? `${item.series} × ${item.repObjetivo} s` : `${item.series} × ${item.repObjetivo}`;
+              const media = exercise ? verifiedExerciseSrc(exercise.origen, exercise.imagenes) : null;
+              const thumb = media && exercise ? (
+                <ExerciseThumb images={exercise.imagenes} nombre={nombre} origen={exercise.origen} />
+              ) : null;
               return (
-                <li key={`${item.slot}-${item.exerciseId}`}>
-                  <span className="session-name">{nombre}</span>
+                <li key={`${item.slot}-${item.exerciseId}`} className={thumb ? 'has-media' : undefined}>
+                  {thumb}
+                  <Link className="session-name" to={`/biblioteca/${item.exerciseId}`}>
+                    {nombre}
+                  </Link>
                   <span className="session-dose">{dose}</span>
                 </li>
               );

@@ -1,6 +1,6 @@
 import { useState, type ReactElement } from 'react';
 import { useNavigate } from 'react-router';
-import { EQUIPMENT, type Equipment, type Goal, type Level, type RankId } from '../catalog/types';
+import { EQUIPMENT, PROFILE_GOALS, SESSION_MINUTES, type Equipment, type Goal, type Level, type RankId, type SessionMinutes } from '../catalog/types';
 import { COACHES, coachPortrait, type CoachId, type DarioTone } from '../domain/coach';
 import { createProfile } from '../db/db';
 import { defaultWeekdays } from '../domain/dates';
@@ -11,8 +11,8 @@ import { Avatar } from '../ui/Avatar';
 
 const FACE_RANKS = ['chispa', 'llama', 'nova'] as const satisfies readonly RankId[];
 
-const GOALS: Goal[] = ['fuerza', 'hipertrofia', 'resistencia', 'grasa'];
 const LEVELS: Level[] = ['principiante', 'intermedio', 'avanzado'];
+const EXCLUSION_CHIPS = ['Rodilla', 'Hombro', 'Espalda', 'Muñeca', 'Lumbar'] as const;
 const STEP_TITLES = ['Tu figura', 'Tu entrenador', 'Tu nivel', 'Tu objetivo', 'Tu equipo', 'Tus días', 'Tu punto de partida'] as const;
 
 export function OnboardingPage(): ReactElement {
@@ -32,6 +32,8 @@ export function OnboardingPage(): ReactElement {
   const [avatar, setAvatar] = useState<AvatarGender>('hombre');
   const [coach, setCoach] = useState<CoachId>('lino');
   const [darioTone, setDarioTone] = useState<DarioTone>('suave');
+  const [sessionMinutes, setSessionMinutes] = useState<SessionMinutes>(45);
+  const [exclusiones, setExclusiones] = useState('');
 
   function toggleEquipment(id: Equipment): void {
     setEquipError('');
@@ -79,6 +81,8 @@ export function OnboardingPage(): ReactElement {
       avatar,
       coach,
       darioTone,
+      sessionMinutes,
+      exclusiones: exclusiones.trim(),
       xpTotal: 0,
       ranksSeen: [],
       createdAt: new Date().toISOString(),
@@ -190,7 +194,7 @@ export function OnboardingPage(): ReactElement {
       ) : null}
       {step === 4 ? (
         <div className="choice-grid" role="radiogroup" aria-label="Objetivo">
-          {GOALS.map((item) => (
+          {PROFILE_GOALS.map((item) => (
             <button key={item} type="button" role="radio" aria-checked={goal === item} className={goal === item ? 'choice is-on' : 'choice'} onClick={() => setGoal(item)}>
               {labelGoal(item)}
             </button>
@@ -236,6 +240,42 @@ export function OnboardingPage(): ReactElement {
             })}
           </div>
           {!daysOk ? <strong className="error">Elige {count} días.</strong> : null}
+          <p className="kicker">Duración</p>
+          <div className="chips" role="radiogroup" aria-label="Duración">
+            {SESSION_MINUTES.map((minutes) => (
+              <button
+                key={minutes}
+                type="button"
+                role="radio"
+                aria-checked={sessionMinutes === minutes}
+                className={sessionMinutes === minutes ? 'chip is-on' : 'chip'}
+                onClick={() => setSessionMinutes(minutes)}
+              >
+                {minutes} min
+              </button>
+            ))}
+          </div>
+          <p className="kicker">Exclusiones o lesiones</p>
+          <div className="chips" role="group" aria-label="Exclusiones">
+            {EXCLUSION_CHIPS.map((chip) => {
+              const on = hasExclusion(exclusiones, chip);
+              return (
+                <button
+                  key={chip}
+                  type="button"
+                  aria-pressed={on}
+                  className={on ? 'chip is-on' : 'chip'}
+                  onClick={() => setExclusiones((current) => toggleExclusion(current, chip))}
+                >
+                  {chip}
+                </button>
+              );
+            })}
+          </div>
+          <label className="field">
+            <span>Otras exclusiones</span>
+            <input value={exclusiones} maxLength={160} onChange={(event) => setExclusiones(event.target.value)} />
+          </label>
         </div>
       ) : null}
       {step === 7 ? (
@@ -254,6 +294,8 @@ export function OnboardingPage(): ReactElement {
           <p>{labelGoal(goal)}</p>
           <p>{equipment.map((item) => (item === 'peso-corporal' ? 'Solo peso corporal' : labelEquipment(item))).join(', ')}</p>
           <p>{days.map((day) => labelWeekday(day)).join(', ')}</p>
+          <p>{sessionMinutes} min</p>
+          {exclusiones.trim() ? <p>{exclusiones.trim()}</p> : null}
           <p>{HEALTH_LINE}</p>
         </section>
       ) : null}
@@ -275,4 +317,22 @@ export function OnboardingPage(): ReactElement {
       </div>
     </main>
   );
+}
+
+function exclusionParts(text: string): string[] {
+  return text.split(/[,;\n]/).map((part) => part.trim()).filter((part) => part.length > 0);
+}
+
+function hasExclusion(text: string, word: string): boolean {
+  const needle = word.toLocaleLowerCase('es');
+  return exclusionParts(text).some((part) => part.toLocaleLowerCase('es') === needle);
+}
+
+function toggleExclusion(text: string, word: string): string {
+  const parts = exclusionParts(text);
+  const needle = word.toLocaleLowerCase('es');
+  const next = parts.some((part) => part.toLocaleLowerCase('es') === needle)
+    ? parts.filter((part) => part.toLocaleLowerCase('es') !== needle)
+    : [...parts, word];
+  return next.join(', ');
 }

@@ -7,7 +7,7 @@ import type { Arc, AvatarGender, BackupFile, BodyWeight, HeroLog, Plan, PlanDay,
 import { uid } from '../domain/model';
 import { generateWeek, type SlotPin } from '../domain/plan';
 import { rankForXp } from '../domain/ranks';
-import { RANK_IDS } from '../catalog/types';
+import { RANK_IDS, type SessionMinutes } from '../catalog/types';
 import { volumeOf, type PerformedSet } from '../domain/session';
 import { kgToLb } from '../domain/units';
 
@@ -79,12 +79,21 @@ function toneOf(value: unknown): DarioTone {
   return value === 'brusco' ? 'brusco' : 'suave';
 }
 
+function minutesOf(value: unknown): SessionMinutes {
+  return value === 20 || value === 30 || value === 45 || value === 60 ? value : 45;
+}
+
+function exclusionesOf(value: unknown): string {
+  return typeof value === 'string' ? value.slice(0, 160) : '';
+}
+
 export function normalizeProfile(profile: Profile): Profile {
   const avatar = avatarOf(profile.avatar);
   const coach = coachOf(profile.coach);
   const darioTone = toneOf(profile.darioTone);
-  if (profile.avatar === avatar && profile.coach === coach && profile.darioTone === darioTone) return profile;
-  return { ...profile, avatar, coach, darioTone };
+  const sessionMinutes = minutesOf(profile.sessionMinutes);
+  const exclusiones = exclusionesOf(profile.exclusiones);
+  return { ...profile, avatar, coach, darioTone, sessionMinutes, exclusiones };
 }
 
 export async function getProfile(): Promise<Profile | null> {
@@ -133,10 +142,12 @@ export async function createProfile(profile: Profile): Promise<void> {
     active: true,
     days: withIds(
       generateWeek({
-        level: profile.level,
-        goal: profile.goal,
-        equipment: profile.equipment,
-        weekdays: profile.weekdays,
+        level: stored.level,
+        goal: stored.goal,
+        equipment: stored.equipment,
+        weekdays: stored.weekdays,
+        sessionMinutes: stored.sessionMinutes,
+        exclusiones: stored.exclusiones,
         weekInArc: 1,
         variantBase: 0,
         weekStart,
@@ -282,6 +293,8 @@ export async function writeGeneratedPlan(arc: Arc, profile: Profile, carryPins: 
       goal: profile.goal,
       equipment: profile.equipment,
       weekdays: profile.weekdays,
+      sessionMinutes: profile.sessionMinutes,
+      exclusiones: profile.exclusiones,
       weekInArc: arc.weekInArc,
       variantBase: arc.variantBase,
       weekStart,
@@ -352,6 +365,8 @@ export async function regenerateActivePlan(options: { futureOnly: boolean }): Pr
     goal: profile.goal,
     equipment: profile.equipment,
     weekdays: profile.weekdays,
+    sessionMinutes: profile.sessionMinutes,
+    exclusiones: profile.exclusiones,
     weekInArc: arc.weekInArc,
     variantBase: arc.variantBase,
     weekStart: plan.weekStart,

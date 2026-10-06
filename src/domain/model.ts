@@ -1,4 +1,4 @@
-import type { DayKind, Equipment, Exercise, Goal, Level, Muscle, Pattern, RankId } from '../catalog/types';
+import type { DayKind, Equipment, Exercise, Goal, Level, Muscle, Pattern, RankId, SessionMinutes } from '../catalog/types';
 import type { PlanExerciseItem } from './plan';
 import type { Unit } from './units';
 import type { SessionXpParts } from './xp';
@@ -15,6 +15,8 @@ export interface Profile {
   goal: Goal;
   equipment: Equipment[];
   daysPerWeek: number;
+  sessionMinutes: SessionMinutes;
+  exclusiones: string;
   weekdays: number[];
   unit: Unit;
   increment: number;

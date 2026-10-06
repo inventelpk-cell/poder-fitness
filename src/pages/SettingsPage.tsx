@@ -1,6 +1,6 @@
 import { useState, type ReactElement } from 'react';
 import { useNavigate } from 'react-router';
-import { EQUIPMENT, GOALS, LEVELS, type Equipment, type Goal, type Level } from '../catalog/types';
+import { EQUIPMENT, GOALS, LEVELS, PROFILE_GOALS, SESSION_MINUTES, type Equipment, type Goal, type Level } from '../catalog/types';
 import licenseText from '../../data/exercises/LICENSE-SOURCE.txt?raw';
 import {
   exportBackup,
@@ -66,7 +66,9 @@ export function SettingsPage(): ReactElement {
       currentDraft.goal !== currentProfile.goal ||
       currentDraft.daysPerWeek !== currentProfile.daysPerWeek ||
       currentDraft.equipment.join() !== currentProfile.equipment.join() ||
-      currentDraft.weekdays.join() !== currentProfile.weekdays.join();
+      currentDraft.weekdays.join() !== currentProfile.weekdays.join() ||
+      currentDraft.sessionMinutes !== currentProfile.sessionMinutes ||
+      currentDraft.exclusiones.trim() !== currentProfile.exclusiones.trim();
     if (changed) setRegenAsk(true);
     else void saveProfileEdit(false);
   }
@@ -170,8 +172,42 @@ export function SettingsPage(): ReactElement {
         <label className="field">
           <span>Objetivo</span>
           <select value={draft.goal} onChange={(event) => setDraft({ ...draft, goal: event.target.value as Goal })}>
-            {GOALS.map((goal) => <option key={goal} value={goal}>{labelGoal(goal)}</option>)}
+            {profileGoals(draft.goal).map((goal) => <option key={goal} value={goal}>{labelGoal(goal)}</option>)}
           </select>
+        </label>
+        <div className="chips" role="radiogroup" aria-label="Duración">
+          {SESSION_MINUTES.map((minutes) => (
+            <button
+              key={minutes}
+              type="button"
+              role="radio"
+              aria-checked={draft.sessionMinutes === minutes}
+              className={draft.sessionMinutes === minutes ? 'chip is-on' : 'chip'}
+              onClick={() => setDraft({ ...draft, sessionMinutes: minutes })}
+            >
+              {minutes} min
+            </button>
+          ))}
+        </div>
+        <div className="chips" role="group" aria-label="Exclusiones">
+          {EXCLUSION_CHIPS.map((chip) => {
+            const on = hasExclusion(draft.exclusiones, chip);
+            return (
+              <button
+                key={chip}
+                type="button"
+                aria-pressed={on}
+                className={on ? 'chip is-on' : 'chip'}
+                onClick={() => setDraft({ ...draft, exclusiones: toggleExclusion(draft.exclusiones, chip) })}
+              >
+                {chip}
+              </button>
+            );
+          })}
+        </div>
+        <label className="field">
+          <span>Exclusiones o lesiones</span>
+          <input value={draft.exclusiones} maxLength={160} onChange={(event) => setDraft({ ...draft, exclusiones: event.target.value })} />
         </label>
         <div className="chips" role="group" aria-label="Equipo">
           {EQUIPMENT.map((item) => (
@@ -242,7 +278,7 @@ export function SettingsPage(): ReactElement {
         <p>Licencia: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
         <p>https://creativecommons.org/licenses/by-sa/4.0/deed.es</p>
         <p>Poder Fitness tradujo al español los nombres, los resúmenes, las instrucciones y los consejos, unificó el vocabulario de músculos y equipo, y empaquetó las ilustraciones para uso offline. Los archivos SVG de origen no se han editado. En pantalla, esas figuras llevan un tinte de color para leerse sobre el fondo oscuro. Esa presentación es una modificación visual. Una exportación de esa vista es una obra derivada y sigue en CC BY-SA 4.0.</p>
-        <p>Sentadilla, Zancada y Curl femoral deslizante no son de Everkinetic. Si hay un dibujo original, se usa ese archivo. Si no, el hueco lo cubre el avatar.</p>
+        <p>Sentadilla, Zancada y Curl femoral deslizante no son de Everkinetic. No llevan miniatura: un dibujo de otro estilo no entra en el catálogo.</p>
         <p>Esta base es una obra derivada y se mantiene bajo CC BY-SA 4.0.</p>
         <button type="button" className="btn" onClick={() => setShowLicense((value) => !value)}>
           {showLicense ? 'Ocultar licencia' : 'Ver la licencia completa'}
@@ -304,6 +340,31 @@ export function SettingsPage(): ReactElement {
       ) : null}
     </main>
   );
+}
+
+const EXCLUSION_CHIPS = ['Rodilla', 'Hombro', 'Espalda', 'Muñeca', 'Lumbar'] as const;
+
+function profileGoals(current: Goal): readonly Goal[] {
+  if (current === 'resistencia') return GOALS;
+  return PROFILE_GOALS;
+}
+
+function exclusionParts(text: string): string[] {
+  return text.split(/[,;\n]/).map((part) => part.trim()).filter((part) => part.length > 0);
+}
+
+function hasExclusion(text: string, word: string): boolean {
+  const needle = word.toLocaleLowerCase('es');
+  return exclusionParts(text).some((part) => part.toLocaleLowerCase('es') === needle);
+}
+
+function toggleExclusion(text: string, word: string): string {
+  const parts = exclusionParts(text);
+  const needle = word.toLocaleLowerCase('es');
+  const next = parts.some((part) => part.toLocaleLowerCase('es') === needle)
+    ? parts.filter((part) => part.toLocaleLowerCase('es') !== needle)
+    : [...parts, word];
+  return next.join(', ');
 }
 
 function toggleEquipment(current: Equipment[], item: Equipment): Equipment[] {

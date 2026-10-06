@@ -24,6 +24,8 @@ export function labelGoal(goal: Goal): string {
       return 'Resistencia';
     case 'grasa':
       return 'Pérdida de grasa';
+    case 'salud':
+      return 'Salud general';
     default:
       return assertNever(goal, 'objetivo');
   }

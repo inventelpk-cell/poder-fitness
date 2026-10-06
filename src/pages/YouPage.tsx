@@ -23,7 +23,9 @@ export function YouPage(): ReactElement {
       <section className="card">
         <p>{labelLevel(profile.level)}</p>
         <p>{labelGoal(profile.goal)}</p>
+        <p>{profile.sessionMinutes} min</p>
         <p>{profile.equipment.map((item) => labelEquipment(item)).join(', ')}</p>
+        {profile.exclusiones.trim() ? <p>{profile.exclusiones.trim()}</p> : null}
         <p>{profile.weekdays.map((day) => labelWeekday(day)).join(', ')}</p>
         <p>{HEALTH_LINE}</p>
       </section>

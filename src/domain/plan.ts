@@ -1,7 +1,8 @@
-import { equipmentCovers, levelAllows, type Exercise } from '../catalog';
-import type { DayKind, Equipment, Goal, Level, Muscle, Pattern } from '../catalog/types';
+import { equipmentCovers, levelAllows, normalizeSearch, type Exercise } from '../catalog';
+import type { DayKind, Equipment, Goal, Level, Muscle, Pattern, SessionMinutes } from '../catalog/types';
 import { assertNever } from './assert';
 import { dateForWeekday } from './dates';
+import { labelMuscle, labelPattern } from './labels';
 
 export interface SlotPin {
   weekday: number;
@@ -37,6 +38,8 @@ export interface GenerateInput {
   goal: Goal;
   equipment: Equipment[];
   weekdays: number[];
+  sessionMinutes?: SessionMinutes;
+  exclusiones?: string;
   weekInArc: 1 | 2 | 3 | 4;
   variantBase: number;
   weekStart: string;
@@ -52,7 +55,7 @@ export function daySequence(days: number, level: Level, goal: Goal): DayKind[] {
   if (days === 3) {
     if (level === 'principiante' || goal === 'fuerza') return ['cuerpo', 'cuerpo', 'cuerpo'];
     if (goal === 'resistencia') return ['cuerpo', 'pulso', 'cuerpo'];
-    if (goal === 'hipertrofia' || goal === 'grasa') return ['empuje', 'traccion', 'pierna'];
+    if (goal === 'hipertrofia' || goal === 'grasa' || goal === 'salud') return ['empuje', 'traccion', 'pierna'];
     return assertNever(goal, 'objetivo');
   }
   if (days === 4) return ['torso', 'pierna', 'torso', 'pierna'];
@@ -63,6 +66,7 @@ export function daySequence(days: number, level: Level, goal: Goal): DayKind[] {
         return ['empuje', 'traccion', 'pierna', 'torso', 'pierna'];
       case 'resistencia':
       case 'grasa':
+      case 'salud':
         return ['empuje', 'traccion', 'pierna', 'cuerpo', 'pulso'];
       default:
         return assertNever(goal, 'objetivo');
@@ -79,7 +83,7 @@ function slotsFor(kind: DayKind, level: Level, goal: Goal, dayIndex: number): Pa
   switch (kind) {
     case 'cuerpo':
       slots = ['rodilla', 'empuje-horizontal', 'traccion-horizontal', 'cadera', 'core'];
-      if (max >= 6) slots.push(goal === 'grasa' || goal === 'resistencia' ? 'acondicionamiento' : rotate);
+      if (max >= 6) slots.push(goal === 'grasa' || goal === 'resistencia' || goal === 'salud' ? 'acondicionamiento' : rotate);
       break;
     case 'torso':
       slots = ['empuje-horizontal', 'traccion-horizontal', 'empuje-vertical', 'traccion-vertical', rotate];
@@ -95,7 +99,7 @@ function slotsFor(kind: DayKind, level: Level, goal: Goal, dayIndex: number): Pa
       break;
     case 'pierna':
       slots = ['rodilla', 'cadera', 'rodilla-unilateral', 'femoral', 'gemelo'];
-      if (max >= 6) slots.push(goal === 'grasa' || goal === 'resistencia' ? 'acondicionamiento' : 'core');
+      if (max >= 6) slots.push(goal === 'grasa' || goal === 'resistencia' || goal === 'salud' ? 'acondicionamiento' : 'core');
       break;
     case 'pulso':
       slots = ['movilidad', 'core', 'core', 'acondicionamiento', 'acondicionamiento'];
@@ -142,6 +146,8 @@ function tablePrescription(goal: Goal, level: Level): Prescription {
     case 'grasa':
       if (level === 'principiante') return { series: 3, repMin: 10, repMax: 15, descanso: 60 };
       return { series: 3, repMin: 8, repMax: 15, descanso: 60 };
+    case 'salud':
+      return { series: 3, repMin: 8, repMax: 12, descanso: 75 };
     default:
       return assertNever(goal, 'objetivo');
   }
@@ -191,7 +197,7 @@ function prescribe(exercise: Exercise, goal: Goal, level: Level, weekInArc: 1 | 
       repMin = 12;
       repMax = 20;
       descanso = 45;
-    } else {
+    } else if (goal === 'grasa') {
       const grasa = tablePrescription('grasa', level);
       series = grasa.series;
       repMin = grasa.repMin;
@@ -218,6 +224,53 @@ function prescribe(exercise: Exercise, goal: Goal, level: Level, weekInArc: 1 | 
   };
 }
 
+export function exerciseBudget(minutes: SessionMinutes): number {
+  switch (minutes) {
+    case 20:
+      return 3;
+    case 30:
+      return 4;
+    case 45:
+      return 5;
+    case 60:
+      return 6;
+    default:
+      return assertNever(minutes, 'duracion');
+  }
+}
+
+function exclusionTokens(text: string): string[] {
+  return text
+    .split(/[,;\n]/)
+    .map((part) => normalizeSearch(part))
+    .filter((part) => part.length >= 3);
+}
+
+function isExcluded(exercise: Exercise, text: string): boolean {
+  const tokens = exclusionTokens(text);
+  if (tokens.length === 0) return false;
+  const blob = normalizeSearch(
+    [
+      exercise.nombre,
+      ...exercise.alias,
+      exercise.musculo ?? '',
+      exercise.patron ?? '',
+      exercise.musculo ? labelMuscle(exercise.musculo) : '',
+      exercise.patron ? labelPattern(exercise.patron) : '',
+      ...(exercise.musculosTexto ?? []),
+      ...(exercise.equipoTexto ?? []),
+    ].join(' '),
+  );
+  return tokens.some((token) => blob.includes(token));
+}
+
+function preferOwnedGear(list: Exercise[], equipment: readonly Equipment[]): Exercise[] {
+  const specific = equipment.filter((item) => item !== 'peso-corporal');
+  if (specific.length === 0) return list;
+  const fitted = list.filter((exercise) => exercise.equipo.some((item) => specific.some((owned) => owned === item)));
+  return fitted.length > 0 ? fitted : list;
+}
+
 function candidatesFor(pattern: Pattern, input: GenerateInput): Exercise[] {
   const matching = input.exercises
     .filter(
@@ -227,11 +280,12 @@ function candidatesFor(pattern: Pattern, input: GenerateInput): Exercise[] {
         exercise.patron === pattern &&
         exercise.nivel !== null &&
         levelAllows(input.level, exercise.nivel) &&
-        equipmentCovers(input.equipment, exercise.equipo),
+        equipmentCovers(input.equipment, exercise.equipo) &&
+        !isExcluded(exercise, input.exclusiones ?? ''),
     )
     .sort((a, b) => a.prioridad - b.prioridad || a.id.localeCompare(b.id));
   const fromCatalog = matching.filter((exercise) => exercise.origen !== 'semilla');
-  return fromCatalog.length > 0 ? fromCatalog : matching;
+  return preferOwnedGear(fromCatalog.length > 0 ? fromCatalog : matching, input.equipment);
 }
 
 function pickExercise(
@@ -334,7 +388,8 @@ export function generateWeek(input: GenerateInput): GeneratedDay[] {
       if (knee) firstKnee.add(knee.exerciseId);
     }
     const items: PlanExerciseItem[] = [];
-    for (const slot of slotsFor(kind, input.level, input.goal, index)) {
+    const budget = exerciseBudget(input.sessionMinutes ?? 45);
+    for (const slot of slotsFor(kind, input.level, input.goal, index).slice(0, budget)) {
       const pin = input.pins?.find((item) => item.weekday === weekday && item.slot === slot);
       const pool = candidatesFor(slot, input).filter((exercise) => !used.has(exercise.id));
       const pinned = pin ? input.exercises.find((exercise) => exercise.id === pin.exerciseId && !exercise.archivado) : undefined;

@@ -1,8 +1,14 @@
 export const LEVELS = ['principiante', 'intermedio', 'avanzado'] as const;
 export type Level = (typeof LEVELS)[number];
 
-export const GOALS = ['fuerza', 'hipertrofia', 'resistencia', 'grasa'] as const;
+export const GOALS = ['fuerza', 'hipertrofia', 'resistencia', 'grasa', 'salud'] as const;
 export type Goal = (typeof GOALS)[number];
+
+/** Objetivos que se eligen en el perfil. Resistencia se conserva para planes ya guardados. */
+export const PROFILE_GOALS = ['hipertrofia', 'fuerza', 'grasa', 'salud'] as const;
+
+export const SESSION_MINUTES = [20, 30, 45, 60] as const;
+export type SessionMinutes = (typeof SESSION_MINUTES)[number];
 
 export const EQUIPMENT = [
   'peso-corporal',
