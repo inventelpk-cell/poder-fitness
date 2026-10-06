@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="t d">
+  <title id="t">Mito · Mítico</title>
+  <desc id="d">La cima del arco personal. Leyenda propia.</desc>
+  
+  <circle cx="64" cy="64" r="52" fill="#FFC43A" opacity="0.42"/>
+  <circle cx="64" cy="64" r="55" fill="#3B82FF" opacity="0.08"/>
+  <polygon points="64.0,10.0 110.8,37.0 110.8,91.0 64.0,118.0 17.2,91.0 17.2,37.0" fill="#090B10" stroke="#FFF6E4" stroke-width="4" stroke-linejoin="round"/>
+  <polygon points="64.0,20.0 102.1,42.0 102.1,86.0 64.0,108.0 25.9,86.0 25.9,42.0" fill="#141821" stroke="#3B82FF" stroke-width="2.25" stroke-linejoin="round" opacity="0.95"/>
+  <polygon points="64.0,28.0 95.2,46.0 95.2,82.0 64.0,100.0 32.8,82.0 32.8,46.0" fill="none" stroke="#3B82FF" stroke-width="1.75" stroke-linejoin="round" opacity="0.85"/>
+  <path d="M 119.16 81.92 A 58.00 58.00 0 0 1 8.84 81.92" fill="none" stroke="#FFC43A" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="64.0" y1="44.0" x2="64.0" y2="30.0" stroke="#FF6A1A" stroke-width="5" stroke-linecap="round"/>
+  <line x1="75.3" y1="48.7" x2="85.2" y2="38.8" stroke="#3B82FF" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="80.0" y1="60.0" x2="94.0" y2="60.0" stroke="#FF6A1A" stroke-width="5" stroke-linecap="round"/>
+  <line x1="75.3" y1="71.3" x2="85.2" y2="81.2" stroke="#3B82FF" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="64.0" y1="76.0" x2="64.0" y2="90.0" stroke="#FF6A1A" stroke-width="5" stroke-linecap="round"/>
+  <line x1="52.7" y1="71.3" x2="42.8" y2="81.2" stroke="#3B82FF" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="48.0" y1="60.0" x2="34.0" y2="60.0" stroke="#FF6A1A" stroke-width="5" stroke-linecap="round"/>
+  <line x1="52.7" y1="48.7" x2="42.8" y2="38.8" stroke="#3B82FF" stroke-width="3.5" stroke-linecap="round"/>
+  <polygon points="64.0,47.0 75.3,53.5 75.3,66.5 64.0,73.0 52.7,66.5 52.7,53.5" fill="#FFF6E4" stroke="#FFC43A" stroke-width="2"/>
+  <polygon points="64.0,54.0 68.0,60.0 64.0,66.0 60.0,60.0" fill="#FF6A1A"/>
+</svg>

@@ -1,0 +1,134 @@
+@import "./tokens.css";
+
+.pf-surface {
+  background: var(--pf-color-bg);
+  color: var(--pf-color-text);
+  font-family: var(--pf-font-body);
+}
+
+.pf-display {
+  font-family: var(--pf-font-display);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.pf-kicker {
+  margin: 0;
+  font-family: var(--pf-font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--pf-color-amber);
+}
+
+.pf-kicker::before {
+  content: "";
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-right: 0.55rem;
+  background: var(--pf-color-orange);
+  transform: rotate(45deg);
+  vertical-align: 0.08em;
+}
+
+.pf-layer-aura,
+.pf-layer-aura-myth,
+.pf-layer-speed,
+.pf-layer-grid,
+.pf-layer-vignette,
+.pf-layer-impact {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.pf-layer-aura {
+  background-image: url("/art/backgrounds/aura-radial.svg");
+  background-size: cover;
+}
+
+.pf-layer-aura-myth {
+  background-image: url("/art/backgrounds/aura-myth.svg");
+}
+
+.pf-layer-speed {
+  background-image: url("/art/backgrounds/speed-lines.svg");
+  background-position: left center;
+  background-size: 140% 100%;
+}
+
+.pf-layer-grid {
+  background-image: url("/art/backgrounds/hex-grid.svg");
+  background-repeat: repeat;
+  background-size: 220px auto;
+  opacity: 0.45;
+}
+
+.pf-layer-vignette {
+  background-image: url("/art/backgrounds/vignette.svg");
+  background-size: cover;
+}
+
+.pf-layer-impact {
+  background-image: url("/art/backgrounds/impact-frame.svg");
+  background-size: 100% 100%;
+}
+
+.pf-glow-orange {
+  filter: drop-shadow(0 0 16px rgba(255, 106, 26, 0.55));
+}
+
+.pf-glow-blue {
+  filter: drop-shadow(0 0 16px rgba(59, 130, 255, 0.5));
+}
+
+.pf-glow-amber {
+  filter: drop-shadow(0 0 16px rgba(255, 196, 58, 0.5));
+}
+
+.pf-aura-live {
+  animation: pf-aura-pulse var(--pf-motion-aura) var(--pf-ease-standard) infinite;
+}
+
+.pf-speed-live {
+  animation: pf-speed-drift 900ms var(--pf-ease-impact) both;
+}
+
+@keyframes pf-aura-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.82;
+  }
+
+  50% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
+@keyframes pf-speed-drift {
+  from {
+    opacity: 0;
+    transform: translateX(-12%);
+  }
+
+  to {
+    opacity: 0.8;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-aura-live,
+  .pf-speed-live {
+    animation: none;
+  }
+}

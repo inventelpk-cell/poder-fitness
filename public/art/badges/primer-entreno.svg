@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="t d">
+  <title id="t">Primer entreno</title>
+  <desc id="d">La primera sesión cerrada del arco.</desc>
+  
+  <circle cx="64" cy="64" r="58" fill="#090B10" stroke="#FF6A1A" stroke-width="4"/>
+  <circle cx="64" cy="64" r="47" fill="#141821" stroke="#FFC43A" stroke-width="1.75" opacity="0.9"/>
+  <polygon points="64.0,38.0 86.5,51.0 86.5,77.0 64.0,90.0 41.5,77.0 41.5,51.0" fill="none" stroke="#F4F0E6" stroke-width="3.5"/>
+  <polyline points="48.0,76.0 64.0,46.0 80.0,76.0" fill="none" stroke="#FF6A1A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+</svg>

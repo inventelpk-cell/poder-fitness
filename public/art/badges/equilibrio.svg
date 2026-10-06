@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="t d">
+  <title id="t">Equilibrio</title>
+  <desc id="d">Un bloque de equilibrio completado con control.</desc>
+  
+  <circle cx="64" cy="64" r="58" fill="#090B10" stroke="#9EC0FF" stroke-width="4"/>
+  <circle cx="64" cy="64" r="47" fill="#141821" stroke="#C8C2B6" stroke-width="1.75" opacity="0.9"/>
+  <path d="M24 62 H104" stroke="#F4F0E6" stroke-width="5" stroke-linecap="round"/>
+  <polygon points="64,62 50,90 78,90" fill="#F4F0E6"/>
+  <path d="M32 62 V50" stroke="#3B82FF" stroke-width="4" stroke-linecap="round"/>
+  <path d="M96 62 V50" stroke="#FF6A1A" stroke-width="4" stroke-linecap="round"/>
+  <polygon points="32.0,36.0 38.0,44.0 32.0,52.0 26.0,44.0" fill="#3B82FF"/>
+  <polygon points="96.0,36.0 102.0,44.0 96.0,52.0 90.0,44.0" fill="#FF6A1A"/>
+</svg>
