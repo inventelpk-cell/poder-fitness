@@ -162,7 +162,7 @@ test('capturas de la app en marcha', async ({ page }) => {
   expect(hoyArt.some((item) => item.name === stageName)).toBeTruthy();
   await expect(page.locator('.player-hero img')).toBeVisible();
   await expect(page.locator('.rest-ring')).toBeVisible();
-  await page.getByRole('button', { name: 'Más opciones' }).click();
+  await page.locator('summary.more-icon').click();
   await expect(page.locator('.switch-ui').first()).toBeVisible();
   await expect(page.locator('.set-line.is-current input').last()).toBeEnabled();
   await expect(page.locator('.thumb-fallback')).toHaveCount(0);
