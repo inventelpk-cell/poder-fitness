@@ -767,7 +767,13 @@ a { color: #f4f1ea; }
   margin: 0;
   font-size: 22px;
   line-height: 28px;
-  padding-right: 76px;
+}
+
+.player-title-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
 }
 
 .player-title .text-link {
@@ -908,7 +914,7 @@ a { color: #f4f1ea; }
 
 .player-fit .player-now > .btn { width: 100%; }
 
-.player-more { color: #b7b1a8; font-size: 13px; }
+.player-more { color: #b7b1a8; font-size: 13px; position: relative; }
 
 .player-more summary.more-icon {
   cursor: pointer;
@@ -916,11 +922,27 @@ a { color: #f4f1ea; }
   place-items: center;
   width: 36px;
   min-height: 32px;
-  margin-left: auto;
   color: #b7b1a8;
   font-size: 22px;
   line-height: 1;
   list-style: none;
+}
+
+.player-more summary.more-icon::-webkit-details-marker { display: none; }
+
+.player-more[open] > .more-panel {
+  position: fixed;
+  z-index: 6;
+  left: 20px;
+  right: 20px;
+  top: 96px;
+  width: auto;
+  max-height: 60dvh;
+  overflow: auto;
+  background: #12151c;
+  border: 1px solid #2a3142;
+  border-radius: 16px;
+  padding: 12px;
 }
 
 .transform-screen {

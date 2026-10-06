@@ -353,7 +353,44 @@ export function PlayerPage(): ReactElement {
           <h1>{current?.nombre ?? session.nombre}</h1>
           {current && set ? <p className="kicker">Serie {serieNumero} de {serieTotal}</p> : null}
         </div>
-        <button type="button" className="text-link" onClick={askFinish}>Terminar</button>
+        <div className="player-title-actions">
+          {current ? (
+            <details className="player-more">
+              <summary className="more-icon"><span className="sr">Más opciones</span><span aria-hidden="true">⋯</span></summary>
+              <div className="more-panel">
+              <div className="camera-row">
+                <Switch
+                  checked={session.camaraGravedad}
+                  disabled={!cameraReady || locked}
+                  label="Cámara de gravedad"
+                  onChange={(checked) => {
+                    const next = toggleCamera(session, checked);
+                    void persist(next, session);
+                  }}
+                />
+                {session.weekInArc === 4 ? <small>Esta semana es templo. La cámara espera.</small> : null}
+                {cameraReady ? null : <small>Se abre en el rango Llama.</small>}
+              </div>
+              <button type="button" className="btn" onClick={() => setDetailId(current.exerciseId)}>Ver ficha</button>
+              <button type="button" className="btn" onClick={() => setSubstituteOpen(true)}>Sustituir ejercicio</button>
+              <ul className="plain">
+                {session.exercises.filter((exercise) => exercise.estado === 'pendiente').map((exercise) => (
+                  <li key={exercise.instanceId} className="queue-row">
+                    <strong>{exercise.nombre}</strong>
+                    <button type="button" className="icon-btn" aria-label={`Subir ${exercise.nombre}`} onClick={() => void persist(moveExercise(session, exercise.instanceId, -1), session)}>
+                      <span aria-hidden="true">↑</span>
+                    </button>
+                    <button type="button" className="icon-btn" aria-label={`Bajar ${exercise.nombre}`} onClick={() => void persist(moveExercise(session, exercise.instanceId, 1), session)}>
+                      <span aria-hidden="true">↓</span>
+                    </button>
+                </li>
+              ))}
+            </ul>
+              </div>
+            </details>
+          ) : null}
+          <button type="button" className="text-link" onClick={askFinish}>Terminar</button>
+        </div>
       </header>
       {saveError ? <strong className="error">{saveError}</strong> : null}
       {current ? (
@@ -460,37 +497,6 @@ export function PlayerPage(): ReactElement {
           {error ? <strong className="error">{error}</strong> : null}
           <button type="button" className="btn btn-primary" onClick={() => void onComplete()}>Completar serie</button>
           <button type="button" className="btn btn-danger" onClick={() => void onSkip()}>Saltar</button>
-          <details className="player-more">
-            <summary className="more-icon" aria-label="Más opciones"><span aria-hidden="true">⋯</span></summary>
-            <div className="camera-row">
-              <Switch
-                checked={session.camaraGravedad}
-                disabled={!cameraReady || locked}
-                label="Cámara de gravedad"
-                onChange={(checked) => {
-                  const next = toggleCamera(session, checked);
-                  void persist(next, session);
-                }}
-              />
-              {session.weekInArc === 4 ? <small>Esta semana es templo. La cámara espera.</small> : null}
-              {cameraReady ? null : <small>Se abre en el rango Llama.</small>}
-            </div>
-            <button type="button" className="btn" onClick={() => setDetailId(current.exerciseId)}>Ver ficha</button>
-            <button type="button" className="btn" onClick={() => setSubstituteOpen(true)}>Sustituir ejercicio</button>
-            <ul className="plain">
-              {session.exercises.filter((exercise) => exercise.estado === 'pendiente').map((exercise) => (
-                <li key={exercise.instanceId} className="queue-row">
-                  <strong>{exercise.nombre}</strong>
-                  <button type="button" className="icon-btn" aria-label={`Subir ${exercise.nombre}`} onClick={() => void persist(moveExercise(session, exercise.instanceId, -1), session)}>
-                    <span aria-hidden="true">↑</span>
-                  </button>
-                  <button type="button" className="icon-btn" aria-label={`Bajar ${exercise.nombre}`} onClick={() => void persist(moveExercise(session, exercise.instanceId, 1), session)}>
-                    <span aria-hidden="true">↓</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </details>
         </section>
       ) : (
         <p>No queda ningún ejercicio pendiente.</p>
