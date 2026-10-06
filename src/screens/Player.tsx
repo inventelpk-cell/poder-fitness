@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router'
 import { playBeep, playEnd, unlockAudio } from '../audio/engine'
+import { cuesForSecond } from '../ui/restCue'
 import { isLoadEquipment } from '../domain/labels'
 import { formatLastTime } from '../domain/progression'
 import type { LibraryExercise, SessionExercise, WorkoutSession, WorkoutSet } from '../domain/types'
@@ -194,9 +195,10 @@ export function Player() {
 
   const candidates = poder.profile && block ? poder.exercises.filter((exercise) => {
     if (exercise.id === block.exerciseId) return false
-    const muscleOk = block.musculosPrimarios.length === 0
-      ? exercise.muscleGroup === block.muscleGroup
-      : exercise.musculosPrimarios.some((muscle) => block.musculosPrimarios.includes(muscle)) || exercise.muscleGroup === block.muscleGroup
+    const primary = block.musculosPrimarios[0]
+    const muscleOk = primary
+      ? exercise.musculosPrimarios[0] === primary
+      : false
     const covered = equipmentCovered(profileEquip(exercise), poder.profile?.equipment ?? [])
     const text = query.trim().toLowerCase()
     const named = text.length === 0 || exercise.nombre.toLowerCase().includes(text)
@@ -233,7 +235,8 @@ export function Player() {
                           const shown = (poder.settings.unit === 'lb' ? Number(kgToField(current, 'lb').replace(',', '.')) : current) - step
                           editSet(set.id, { weightKg: fieldToKg(String(Math.max(0, shown)), poder.settings.unit) })
                         }}>−</button>
-                        <input className="field" inputMode="decimal" aria-label="Peso" value={kgToField(set.weightKg, poder.settings.unit)} onChange={(event) => editSet(set.id, { weightKg: event.target.value.trim() === '' ? null : fieldToKg(event.target.value, poder.settings.unit) })} />
+                        <input className="field" inputMode="decimal" aria-label={poder.settings.unit === 'lb' ? 'Peso en lb' : 'Peso en kg'} value={kgToField(set.weightKg, poder.settings.unit)} onChange={(event) => editSet(set.id, { weightKg: event.target.value.trim() === '' ? null : fieldToKg(event.target.value, poder.settings.unit) })} />
+                        <span aria-hidden="true">{poder.settings.unit === 'lb' ? 'lb' : 'kg'}</span>
                         <button className="btn ghost" type="button" aria-label="Subir peso" onClick={() => {
                           const current = set.weightKg ?? 0
                           const step = weightStep(poder.settings.unit, heavy)
@@ -342,8 +345,10 @@ function RestBar({ endsAt, hold, volume, onHold, onShift, onClear }: {
   onClear: () => void
 }) {
   const [now, setNow] = useState(() => Date.now())
+  const [cues, setCues] = useState<string[]>([])
   const sounded = useRef(false)
   const lastBeep = useRef(99)
+  const previousSeconds = useRef<number | null>(null)
   useEffect(() => {
     let frame = 0
     const tick = () => {
@@ -354,6 +359,16 @@ function RestBar({ endsAt, hold, volume, onHold, onShift, onClear }: {
     return () => cancelAnimationFrame(frame)
   }, [])
   const left = hold != null ? hold : Math.max(0, endsAt - now)
+  const seconds = Math.ceil(left / 1000)
+  useEffect(() => {
+    const next = cuesForSecond(previousSeconds.current, seconds)
+    previousSeconds.current = seconds
+    next.forEach((cue, index) => {
+      window.setTimeout(() => {
+        setCues((current) => current.includes(cue) ? current : [...current, cue])
+      }, index * 60)
+    })
+  }, [seconds])
   useEffect(() => {
     if (hold != null) return
     const seconds = Math.ceil(left / 1000)
@@ -388,9 +403,12 @@ function RestBar({ endsAt, hold, volume, onHold, onShift, onClear }: {
   const finished = left <= 0
   return (
     <div className={finished ? 'rest finished' : 'rest'} role="timer" aria-label="Descanso">
+      <div className="sr" aria-live="polite" aria-atomic="false">
+        {cues.map((cue) => <span key={cue}>{cue}. </span>)}
+      </div>
       <p className="tabular" style={{ fontSize: '2.4rem', margin: 0 }}>{clock(left)}</p>
       <div className="split">
-        <button className="btn ghost" type="button" onClick={() => onHold(hold == null ? left : null)}>{hold == null ? 'Pausa' : 'Seguir'}</button>
+        <button className="btn ghost" type="button" onClick={() => onHold(hold == null ? left : null)}>{hold == null ? 'Pausa' : 'Reanudar'}</button>
         <button className="btn ghost" type="button" onClick={() => onShift(30_000)}>+30 s</button>
         <button className="btn ghost" type="button" onClick={() => onShift(-15_000)}>−15 s</button>
         <button className="btn ghost" type="button" onClick={onClear}>Saltar</button>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { unlockAudio, playEnd } from '../audio/engine'
 import { GOAL_COPY, LEVEL_COPY, PROFILE_EQUIPMENT, WEEKDAY_LABELS, validateName } from '../domain/labels'
@@ -11,6 +11,11 @@ export function Settings() {
   const profile = poder.profile
   const [draft, setDraft] = useState<Profile | null>(profile)
   const [bar, setBar] = useState(kgToField(poder.settings.barWeightKg, poder.settings.unit))
+  const barDirty = useRef(false)
+  useEffect(() => {
+    setBar(kgToField(poder.settings.barWeightKg, poder.settings.unit))
+    barDirty.current = false
+  }, [poder.settings.unit, poder.settings.barWeightKg])
   if (!profile || !draft) return null
 
   function saveProfile() {
@@ -32,10 +37,13 @@ export function Settings() {
           </label>
         ))}
       </fieldset>
-      <label htmlFor="barra">Peso de la barra
-        <input id="barra" className="field" inputMode="decimal" value={bar} onChange={(event) => setBar(event.target.value)} onBlur={() => {
-          const kg = fieldToKg(bar, poder.settings.unit)
+      <label htmlFor="barra">Peso de la barra ({poder.settings.unit === 'lb' ? 'lb' : 'kg'})
+        <input id="barra" className="field" inputMode="decimal" value={bar} onChange={(event) => { barDirty.current = true; setBar(event.target.value) }} onBlur={(event) => {
+          if (!barDirty.current) return
+          barDirty.current = false
+          const kg = fieldToKg(event.currentTarget.value, poder.settings.unit)
           if (kg == null || kg <= 0) return
+          if (Math.abs(kg - poder.settings.barWeightKg) < 0.0001) return
           void poder.updateSettings({ ...poder.settings, barWeightKg: kg })
         }} />
       </label>

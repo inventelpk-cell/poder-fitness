@@ -2,20 +2,21 @@ export interface Rank {
   min: number
   id: string
   name: string
-  title: string
   line: string
 }
 
 export const RANKS: Rank[] = [
-  { min: 1, id: 'chispa', name: 'Chispa', title: 'Novato', line: 'El arco reconoce el primer entreno.' },
-  { min: 4, id: 'brasa', name: 'Brasa', title: 'Encendido', line: 'Ya hay constancia suficiente para notar el calor.' },
-  { min: 8, id: 'pulso', name: 'Pulso', title: 'Constante', line: 'La marca sube aunque el día sea normal.' },
-  { min: 12, id: 'forja', name: 'Forja', title: 'Templado', line: 'El trabajo de estas semanas ya se ve.' },
-  { min: 18, id: 'impulso', name: 'Impulso', title: 'Impulsor', line: 'El esfuerzo sale hacia la siguiente serie.' },
-  { min: 25, id: 'ascenso', name: 'Ascenso', title: 'Ascendido', line: 'El centro del plan ya no depende del ánimo de un día.' },
-  { min: 45, id: 'vortice', name: 'Vórtice', title: 'Vorticial', line: 'El arco gira y tú sigues dentro.' },
-  { min: 80, id: 'corona', name: 'Corona', title: 'Soberano', line: 'Casi todo el camino está a tus espaldas.' },
-  { min: 100, id: 'mito', name: 'Mito', title: 'Mítico', line: 'Este nivel no se presta. Se entrena.' },
+  { min: 1, id: 'chispa', name: 'Chispa', line: 'El arco reconoce el primer entreno.' },
+  { min: 4, id: 'brasa', name: 'Brasa', line: 'Ya hay constancia suficiente para notar el calor.' },
+  { min: 8, id: 'llama', name: 'Llama', line: 'El trabajo de estas semanas ya se ve.' },
+  { min: 12, id: 'hoguera', name: 'Hoguera', line: 'Cuatro bloques cortos caben en este fuego.' },
+  { min: 18, id: 'nucleo', name: 'Núcleo', line: 'El centro del plan ya no depende del ánimo de un día.' },
+  { min: 25, id: 'pulso', name: 'Pulso', line: 'La marca sube aunque el día sea normal.' },
+  { min: 35, id: 'onda', name: 'Onda', line: 'El esfuerzo sale hacia la siguiente serie.' },
+  { min: 45, id: 'cresta', name: 'Cresta', line: 'Los récords ya tienen sitio propio.' },
+  { min: 60, id: 'vortice', name: 'Vórtice', line: 'El arco gira y tú sigues dentro.' },
+  { min: 80, id: 'eclipse', name: 'Eclipse interior', line: 'Casi todo el camino está a tus espaldas.' },
+  { min: 100, id: 'singularidad', name: 'Singularidad', line: 'Este nivel no se presta. Se entrena.' },
 ]
 
 export function rankForLevel(level: number): Rank {

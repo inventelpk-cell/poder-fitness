@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router'
-import { filterLibrary } from '../domain/library'
+import { filterLibrary, normalizeSearch } from '../domain/library'
 import { usePoder } from '../state/store'
 import { asset } from '../ui/asset'
 import { CATEGORIES, EQUIPMENT, LEVELS, MUSCLES, categoryLabel, equipmentLabel, muscleLabel } from '../ui/catalog'
@@ -17,13 +17,17 @@ export function Library() {
     const timer = window.setTimeout(() => setDebounced(query), 150)
     return () => window.clearTimeout(timer)
   }, [query])
-  const filtered = useMemo(() => filterLibrary(poder.exercises, {
-    query: debounced,
-    muscles,
-    equipment,
-    categories,
-    levels,
-  }), [poder.exercises, debounced, muscles, equipment, categories, levels])
+  const filtered = useMemo(() => {
+    const rows = filterLibrary(poder.exercises, {
+      query: debounced,
+      muscles,
+      equipment,
+      categories,
+      levels,
+    })
+    const query = normalizeSearch(debounced.trim())
+    return rows.sort((a, b) => rankHit(a, query) - rankHit(b, query) || a.nombre.localeCompare(b.nombre, 'es'))
+  }, [poder.exercises, debounced, muscles, equipment, categories, levels])
   const dirty = query.length > 0 || muscles.length + equipment.length + categories.length + levels.length > 0
 
   function toggle(list: string[], value: string, set: (next: string[]) => void) {
@@ -69,6 +73,17 @@ export function Library() {
   )
 }
 
+function rankHit(exercise: { nombre: string; pool: unknown }, query: string): number {
+  if (!query) return exercise.pool ? 0 : 1
+  const name = normalizeSearch(exercise.nombre)
+  if (name === query && exercise.pool) return 0
+  if (name === query) return 1
+  if (exercise.pool && name.startsWith(query)) return 2
+  if (exercise.pool && name.includes(query)) return 3
+  if (name.startsWith(query)) return 4
+  return 5
+}
+
 function ChipRow({ label, options, selected, nameOf, onToggle }: {
   label: string
   options: string[]
@@ -77,7 +92,7 @@ function ChipRow({ label, options, selected, nameOf, onToggle }: {
   onToggle: (id: string) => void
 }) {
   return (
-    <div className="chips" aria-label={label}>
+    <div className="chips chip-scroll" aria-label={label}>
       {options.map((id) => (
         <button key={id} type="button" className="chip" aria-pressed={selected.includes(id)} onClick={() => onToggle(id)}>
           {nameOf(id)}

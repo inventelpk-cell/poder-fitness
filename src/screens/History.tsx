@@ -74,7 +74,7 @@ export function History() {
       </div>
       {!monthHas ? <p>Este mes todavía no tiene marcas</p> : null}
       <article className="card stack">
-        <h2>{selected}</h2>
+        <h2>{longDate(selected)}</h2>
         {daySessions.length === 0 ? <p className="muted">Sin sesión cerrada</p> : daySessions.map((session) => (
           <Link key={session.id} to={`/historial/${session.id}`}>{session.xp} XP · {session.exercises.length} ejercicios</Link>
         ))}
@@ -88,7 +88,7 @@ export function History() {
         <h2>Volumen semanal</h2>
         {volumeEmpty ? <p>Cierra una sesión con carga para ver el volumen.</p> : (
           <>
-            <div style={{ width: '100%', height: 260 }}>
+            <div className="table-scroll" role="img" aria-label="Volumen de las últimas 12 semanas" style={{ height: 260 }}>
               <ResponsiveContainer>
                 <BarChart data={volume}>
                   <XAxis dataKey="semana" />
@@ -98,6 +98,7 @@ export function History() {
                 </BarChart>
               </ResponsiveContainer>
             </div>
+            <div className="table-scroll">
             <table className="data">
               <caption>Volumen semanal en kg por grupo</caption>
               <thead><tr><th>Semana</th>{GROUPS.map((group) => <th key={group}>{MUSCLE_GROUP_LABEL[group]}</th>)}</tr></thead>
@@ -107,6 +108,7 @@ export function History() {
                 ))}
               </tbody>
             </table>
+            </div>
           </>
         )}
       </article>
@@ -115,7 +117,7 @@ export function History() {
         <label htmlFor="e1rm">Ejercicio</label>
         <select id="e1rm" className="select" value={exerciseId} onChange={(event) => setExerciseId(event.target.value)}>
           <option value="">Elige</option>
-          {poder.memory.filter((item) => item.bestE1rmKg).map((item) => <option key={item.exerciseId} value={item.exerciseId}>{item.exerciseId}</option>)}
+          {poder.memory.filter((item) => item.bestE1rmKg).map((item) => <option key={item.exerciseId} value={item.exerciseId}>{exerciseName(item.exerciseId, poder.exercises, poder.sessions)}</option>)}
         </select>
         {e1rmRows.length === 0 ? <p>Los récords aparecen al repetir un ejercicio</p> : (
           <>
@@ -146,14 +148,26 @@ export function History() {
           </label>
           <button className="btn primary" type="submit">Anotar peso</button>
         </form>
-        {weightRows.length === 0 ? <p>Anota un peso entre 30 y 300 kg.</p> : (
-          <div style={{ width: '100%', height: 220 }}>
-            <ResponsiveContainer>
-              <LineChart data={weightRows}><XAxis dataKey="fecha" /><YAxis domain={[30, 300]} /><Tooltip /><Line dataKey="kg" stroke="#3b82ff" /></LineChart>
-            </ResponsiveContainer>
-          </div>
+        {weights.length === 0 ? <p>Anota un peso entre 30 y 300 kg.</p> : (
+          <>
+            {weightRows.length > 0 ? (
+              <div style={{ width: '100%', height: 220 }}>
+                <ResponsiveContainer>
+                  <LineChart data={weightRows}><XAxis dataKey="fecha" /><YAxis domain={[30, 300]} /><Tooltip /><Line dataKey="kg" stroke="#3b82ff" /></LineChart>
+                </ResponsiveContainer>
+              </div>
+            ) : null}
+            <table className="data">
+              <caption>Peso corporal</caption>
+              <thead><tr><th>Fecha</th><th>Peso</th></tr></thead>
+              <tbody>
+                {weights.map((entry) => (
+                  <tr key={entry.id}><td>{longDate(entry.date)}</td><td>{formatWeight(entry.kg, poder.settings.unit)}</td></tr>
+                ))}
+              </tbody>
+            </table>
+          </>
         )}
-        <ul>{weights.map((entry) => <li key={entry.id}>{entry.date}: {formatWeight(entry.kg, poder.settings.unit)}</li>)}</ul>
       </article>
       <article className="card stack">
         <h2>Récords</h2>
@@ -163,11 +177,32 @@ export function History() {
             <p>Los récords aparecen al repetir un ejercicio</p>
           </>
         ) : poder.memory.map((item) => (
-          <p key={item.exerciseId}>{item.exerciseId}{item.bestE1rmKg ? ` · ${formatWeight(item.bestE1rmKg, 'kg')} estimados` : ''}</p>
+          <p key={item.exerciseId}>{exerciseName(item.exerciseId, poder.exercises, poder.sessions)}{item.bestE1rmKg ? ` · ${formatWeight(item.bestE1rmKg, 'kg')} estimados` : ''}</p>
         ))}
       </article>
     </section>
   )
+}
+
+function longDate(iso: string): string {
+  const [year, month, day] = iso.split('-').map(Number)
+  return `${day} de ${MONTHS[(month ?? 1) - 1]} de ${year}`
+}
+
+function exerciseName(
+  id: string,
+  exercises: { id: string; nombre: string }[],
+  sessions: { exerciseE1rm: { exerciseId: string; nombre: string }[]; records: { exerciseId: string; nombre: string }[] }[],
+): string {
+  const known = exercises.find((exercise) => exercise.id === id)
+  if (known) return known.nombre
+  for (const session of sessions) {
+    const estimated = session.exerciseE1rm.find((item) => item.exerciseId === id)
+    if (estimated) return estimated.nombre
+    const record = session.records.find((item) => item.exerciseId === id)
+    if (record) return record.nombre
+  }
+  return 'Ejercicio'
 }
 
 function monthCells(year: number, month: number): (string | null)[] {

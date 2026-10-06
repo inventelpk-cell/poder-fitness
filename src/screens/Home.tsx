@@ -10,6 +10,7 @@ import { activeArc, weekSessionCount } from '../domain/view'
 import { unlockAudio } from '../audio/engine'
 import { usePoder } from '../state/store'
 import { asset } from '../ui/asset'
+import { rankArtId } from '../ui/rankArt'
 import { useStart } from '../ui/useStart'
 import type { PlannedExercise } from '../domain/types'
 
@@ -57,7 +58,7 @@ export function Home() {
   return (
     <section className="stack">
       <div className="row">
-        <img className="rank-mark" src={asset(`art/ranks/${rank.id}.svg`)} alt="" />
+        <img className="rank-mark" src={asset(`art/ranks/${rankArtId(rank.id)}.svg`)} alt="" />
         <div className="grow">
           <h1 className="screen-title">Hola, {profile.name}</h1>
           <p className="muted">{rank.name}</p>
@@ -118,7 +119,7 @@ export function Home() {
       </Link>
       {anyDone ? null : (
         <article className="card">
-          <img className="empty-art" src={asset('art/onboarding/despierta.svg')} alt="" />
+          <img className="empty-art" src={asset('art/empty/historial.svg')} alt="" />
           <p>Tu primera sesión está en el plan de hoy</p>
         </article>
       )}

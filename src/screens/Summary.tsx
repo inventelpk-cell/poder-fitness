@@ -22,10 +22,10 @@ export function Summary() {
       <p className="tabular" style={{ fontSize: '2rem' }}>+{session.xp} XP</p>
       {breakdown ? (
         <ul>
-          <li>Series: {breakdown.series}</li>
-          <li>Volumen: {breakdown.volumen}</li>
-          <li>Récords: {breakdown.records}</li>
-          <li>Sesión completa: {breakdown.sesion}</li>
+          <li>XP de series: {breakdown.series}</li>
+          <li>XP de volumen: {breakdown.volumen}</li>
+          <li>XP de récords: {breakdown.records}</li>
+          <li>XP de la sesión completa: {breakdown.sesion}</li>
         </ul>
       ) : null}
       {session.records.map((record) => (

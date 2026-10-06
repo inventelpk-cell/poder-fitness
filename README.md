@@ -67,3 +67,5 @@ Antes de cambiar de navegador o de máquina: Ajustes → Datos → Exportar. Se 
 ## Licencia y créditos
 
 El código de la app está en este repositorio. La base de ejercicios y sus fotos son una copia local de [free-exercise-db](https://github.com/yuhonas/free-exercise-db) (commit `f00c92c`), licencia [The Unlicense](data/exercises/LICENSE). El detalle, incluida la traducción al español, está en `data/exercises/CREDITS.md`. La pantalla Acerca de lo muestra dentro de la app.
+
+Los pasos de los 873 ejercicios están en español, también fuera del pool del plan. Por eso la ficha no muestra la frase «Pasos en el idioma de la ficha»: no queda ninguna ficha cuyo texto útil esté solo en inglés. No hay un cambio de idioma.

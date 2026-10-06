@@ -11,8 +11,21 @@ const categoryName = new Map(CATEGORIES.map((item) => [item.id, item.nombre]))
 const levelName = new Map(LEVELS.map((item) => [item.id, item.nombre]))
 const mechanicName = new Map(catalogs.mecanica.map((item) => [item.id, item.nombre]))
 
+const MUSCLE_SPEC: Record<string, string> = {
+  dorsales: 'Dorsal',
+  lumbares: 'Espalda baja',
+  isquiotibiales: 'Isquios',
+  antebrazos: 'Antebrazo',
+}
+
+const CATEGORY_SPEC: Record<string, string> = {
+  cardio: 'Aeróbico',
+  powerlifting: 'Potencia',
+  strongman: 'Fuerza bruta',
+}
+
 export function muscleLabel(id: string): string {
-  return muscleName.get(id) ?? id
+  return MUSCLE_SPEC[id] ?? muscleName.get(id) ?? id
 }
 
 export function equipmentLabel(id: string): string {
@@ -21,7 +34,7 @@ export function equipmentLabel(id: string): string {
 }
 
 export function categoryLabel(id: string): string {
-  return categoryName.get(id) ?? id
+  return CATEGORY_SPEC[id] ?? categoryName.get(id) ?? id
 }
 
 export function levelLabel(id: string): string {

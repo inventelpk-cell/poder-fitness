@@ -58,7 +58,6 @@ export function ExerciseCard() {
   return (
     <article className="stack">
       <h1 className="screen-title">{item.nombre}</h1>
-      <p className="muted">{item.nombreOriginal}</p>
       <div className="pair">
         {images.length === 0 ? <div className="fallback-shot">Sin foto</div> : images.map((src, index) => (
           broken[index] ? (

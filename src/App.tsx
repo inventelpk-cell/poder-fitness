@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { NavLink, Navigate, Outlet, Route, Routes, useLocation } from 'react-router'
 import { useReducedMotion } from 'motion/react'
 import { rankForLevel, RANKS } from './domain/ranks'
-import { TransformationScreen } from './visual'
 import { usePoder } from './state/store'
 import { asset } from './ui/asset'
+import { rankArtId } from './ui/rankArt'
 import { Onboarding } from './screens/Onboarding'
 import { Home } from './screens/Home'
 import { Plan } from './screens/Plan'
@@ -35,7 +35,10 @@ function RankOverlay() {
   const reduced = useReducedMotion()
   const reveal = poder.rankReveal ?? poder.replay
   const [ready, setReady] = useState(false)
+  const [emblemOk, setEmblemOk] = useState(true)
+  const buttonRef = useRef<HTMLButtonElement>(null)
   useEffect(() => {
+    setEmblemOk(true)
     if (!reveal) {
       setReady(false)
       return
@@ -47,18 +50,25 @@ function RankOverlay() {
     const timer = window.setTimeout(() => setReady(true), 400)
     return () => window.clearTimeout(timer)
   }, [reveal, reduced])
+  useEffect(() => {
+    if (ready) buttonRef.current?.focus()
+  }, [ready])
   if (!reveal) return null
   const dest = RANKS.find((rank) => rank.id === reveal.to) ?? rankForLevel(poder.streaks.level)
   const continueRank = poder.rankReveal ? () => { void poder.dismissRank() } : poder.dismissReplay
   return (
     <div className="rank-overlay">
-      <TransformationScreen
-        rankName={dest.name}
-        rankTitle={dest.title}
-        fromRank={reveal.from}
-        toRank={reveal.to}
-        onContinue={ready ? continueRank : undefined}
-      />
+      <section className="stack" role="dialog" aria-modal="true" aria-labelledby="rank-name" style={{ minHeight: '100dvh', display: 'grid', alignContent: 'center', justifyItems: 'center', padding: '1.5rem', textAlign: 'center' }}>
+        {emblemOk ? (
+          <img className="rank-mark" src={asset(`art/ranks/${rankArtId(dest.id)}.svg`)} alt="" style={{ width: 168, height: 168 }} onError={() => setEmblemOk(false)} />
+        ) : (
+          <div className="rank-mark fallback-shot">Rango</div>
+        )}
+        <p className="pf-kicker">Rango</p>
+        <h1 id="rank-name" className="screen-title">{dest.name}</h1>
+        <p>{dest.line}</p>
+        {ready ? <button ref={buttonRef} className="btn primary" type="button" onClick={continueRank}>Seguir</button> : null}
+      </section>
     </div>
   )
 }
@@ -85,7 +95,7 @@ function Frame() {
   const player = location.pathname.startsWith('/entreno/')
   const onboard = location.pathname.startsWith('/onboarding')
   const rank = rankForLevel(poder.streaks.level)
-  const myth = rank.id === 'mito'
+  const myth = rank.id === 'singularidad'
   useEffect(() => {
     document.documentElement.dataset.intensity = poder.settings.themeIntensity
   }, [poder.settings.themeIntensity])
@@ -98,9 +108,11 @@ function Frame() {
   }, [poder])
   return (
     <div className="app-shell pf-surface">
-      <div className="pf-layer-grid" />
-      <div className={myth ? 'pf-layer-aura pf-layer-aura-myth pf-aura-live' : 'pf-layer-aura pf-aura-live'} />
-      <div className="pf-layer-vignette" />
+      <div className="shell-bg" aria-hidden="true">
+        <div className="pf-layer-grid" />
+        <div className={myth ? 'pf-layer-aura pf-layer-aura-myth pf-aura-live' : 'pf-layer-aura pf-aura-live'} />
+        <div className="pf-layer-vignette" />
+      </div>
       {!player && !onboard ? (
         <aside className="shell-bar">
           <NavLink to="/" end><img className="brand" src={asset('brand/logo.svg')} alt="Poder Fitness" /></NavLink>

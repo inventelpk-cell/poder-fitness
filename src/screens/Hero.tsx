@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { heroRepsFromSession } from '../domain/session'
 import { clampQuota, combinedTotals, defaultQuota } from '../domain/hero'
 import type { HeroQuota } from '../domain/types'
@@ -47,6 +47,7 @@ export function Hero() {
           <button className="btn ghost" type="button" onClick={() => bump('km', 0.1)}>+0,1 km</button>
           <button className="btn ghost" type="button" onClick={() => bump('km', 1)}>+1 km</button>
         </div>
+        <NumberField label="Kilómetros" value={totals.km} decimal onCommit={(next) => bump('km', Math.round((next - totals.km) * 10) / 10)} />
       </article>
       <button className="btn ghost" type="button" onClick={() => setOpen((value) => !value)}>Ajustar cuota</button>
       {open ? (
@@ -105,6 +106,39 @@ function Counter({ label, value, goal, onDelta }: { label: string; value: number
         <button className="btn ghost" type="button" aria-label={`+1 ${label.toLowerCase()}`} onClick={() => onDelta(1)}>+1</button>
         <button className="btn ghost" type="button" aria-label={`+10 ${label.toLowerCase()}`} onClick={() => onDelta(10)}>+10</button>
       </div>
+      <NumberField label={label} value={value} onCommit={(next) => onDelta(next - value)} />
     </article>
+  )
+}
+
+function NumberField({ label, value, decimal, onCommit }: {
+  label: string
+  value: number
+  decimal?: boolean
+  onCommit: (next: number) => void
+}): ReactNode {
+  const [text, setText] = useState(String(value))
+  const focused = useRef(false)
+  useEffect(() => {
+    if (!focused.current) setText(String(value))
+  }, [value])
+  return (
+    <input
+      className="field"
+      inputMode={decimal ? 'decimal' : 'numeric'}
+      aria-label={`Anotar ${label}`}
+      value={text}
+      onFocus={() => { focused.current = true }}
+      onChange={(event) => setText(event.target.value)}
+      onBlur={(event) => {
+        focused.current = false
+        const next = Number(event.currentTarget.value.replace(',', '.'))
+        if (!Number.isFinite(next) || next < 0) {
+          setText(String(value))
+          return
+        }
+        onCommit(next)
+      }}
+    />
   )
 }

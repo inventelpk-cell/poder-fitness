@@ -4,6 +4,7 @@ import { levelFromTotal } from '../domain/xp'
 import { usePoder } from '../state/store'
 import { asset } from '../ui/asset'
 import { badgeGallery } from '../ui/badges'
+import { rankArtId } from '../ui/rankArt'
 
 export function Poder() {
   const poder = usePoder()
@@ -14,9 +15,9 @@ export function Poder() {
   const width = Math.min(100, Math.round((xp.xpInLevel / xp.xpToNext) * 100))
   return (
     <section className="stack">
-      <p className="pf-kicker">{rank.title}</p>
+      <p className="pf-kicker">Nivel {poder.streaks.level}</p>
       <h1 className="screen-title">{rank.name}</h1>
-      <img className="rank-mark" src={asset(`art/ranks/${rank.id}.svg`)} alt="" style={{ width: 120, height: 120 }} />
+      <img className="rank-mark" src={asset(`art/ranks/${rankArtId(rank.id)}.svg`)} alt="" style={{ width: 120, height: 120 }} />
       <p>{rank.line}</p>
       <p className="tabular">Nivel {poder.streaks.level} · {xp.xpInLevel} / {xp.xpToNext}</p>
       <div className="bar" aria-hidden="true"><span style={{ width: `${width}%` }} /></div>
@@ -44,8 +45,8 @@ export function Poder() {
       <ul className="stack">
         {RANKS.map((item) => (
           <li key={item.id} className="row">
-            <img className="rank-mark" src={asset(item.id === rank.id || poder.streaks.level >= item.min ? `art/ranks/${item.id}.svg` : `art/ranks/${item.id}.svg`)} alt="" style={{ opacity: poder.streaks.level >= item.min ? 1 : 0.35 }} />
-            <span>{item.name} · {item.title}</span>
+            <img className="rank-mark" src={asset(`art/ranks/${rankArtId(item.id)}.svg`)} alt="" style={{ opacity: poder.streaks.level >= item.min ? 1 : 0.35 }} />
+            <span>{item.name}</span>
           </li>
         ))}
       </ul>

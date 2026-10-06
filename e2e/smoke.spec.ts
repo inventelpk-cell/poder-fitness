@@ -56,7 +56,7 @@ test('humo de onboarding, entreno, biblioteca, reto y datos', async ({ page }, i
 
   await page.goto('/biblioteca')
   await page.getByLabel('Buscar').fill('flexión')
-  await expect(page.getByRole('link', { name: /flexi/i }).first()).toBeVisible()
+  await expect(page.locator('main a.list-row').first()).toContainText('Flexión')
   if (!mobile) await shot(page, 'library-desktop')
   await page.getByRole('link', { name: /flexi/i }).first().click()
   await expect(page.getByRole('listitem').first()).toBeVisible()
@@ -77,9 +77,11 @@ test('humo de onboarding, entreno, biblioteca, reto y datos', async ({ page }, i
 
   await page.goto('/poder')
   await page.getByRole('button', { name: 'Volver a ver el rango' }).click()
-  await expect(page.getByRole('button', { name: 'Continuar' })).toBeVisible()
+  const rango = page.getByRole('dialog', { name: 'Chispa' })
+  await expect(rango.getByText('El arco reconoce el primer entreno.')).toBeVisible()
+  await expect(rango.getByRole('button', { name: 'Seguir' })).toBeVisible()
   if (!mobile) await shot(page, 'transformation-desktop')
-  await page.getByRole('button', { name: 'Continuar' }).click()
+  await rango.getByRole('button', { name: 'Seguir' }).click()
 
   await page.goto('/ajustes/datos')
   await expect(page.getByRole('button', { name: 'Exportar' })).toBeVisible()
