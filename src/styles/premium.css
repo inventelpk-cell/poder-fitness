@@ -222,6 +222,59 @@ a { color: #f4f1ea; }
   width: min(168px, 42vw);
 }
 
+@media (max-width: 420px) {
+  .screen.dashboard {
+    padding-top: 8px;
+  }
+
+  .dashboard .power-board {
+    grid-template-columns: 96px minmax(0, 1fr);
+    justify-items: start;
+    text-align: left;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dashboard .power-copy {
+    justify-items: start;
+    text-align: left;
+  }
+
+  .dashboard .avatar-frame,
+  .dashboard .avatar-frame img {
+    width: 96px;
+    height: 128px;
+  }
+
+  .dashboard .coach-bubble {
+    margin-bottom: 8px;
+  }
+
+  .dashboard .card {
+    padding: 8px 12px;
+  }
+
+  .dashboard h2 {
+    font-size: 17px;
+    line-height: 22px;
+    margin: 0;
+  }
+
+  .dashboard .hero-card {
+    margin-top: 8px;
+  }
+
+  .dashboard .ring svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .dashboard .ring-num {
+    top: 10px;
+    font-size: 10px;
+  }
+}
+
 .avatar-choice {
   align-items: stretch;
 }

@@ -24,6 +24,7 @@ test('capturas del paquete premium', async ({ page }) => {
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('button', { name: 'Solo peso corporal' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
+  await page.getByRole('button', { name: 'Más días' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('button', { name: 'Empezar' }).click();
   await expect(page.getByText('Chispa')).toBeVisible();
@@ -102,9 +103,11 @@ test('capturas del paquete premium', async ({ page }) => {
   await shot(page, 'reto');
 
   await page.goto('/historial');
+  await expect(page.getByRole('heading', { name: 'Historial' })).toBeVisible();
   await shot(page, 'historial');
 
   await page.goto('/poder');
+  await expect(page.getByRole('heading', { name: /Nivel/ })).toBeVisible();
   await shot(page, 'progreso');
 
   await page.goto('/historial/volumen');
