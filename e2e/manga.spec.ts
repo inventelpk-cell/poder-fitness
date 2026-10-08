@@ -63,9 +63,8 @@ test('capturas del avatar manga', async ({ page }) => {
 
   await onboard(page);
   await expect(page.locator('.dashboard .avatar-frame img')).toHaveAttribute('src', /\/avatar\/male\/chispa\.png$/);
-  for (const name of ['Sentadilla', 'Zancada', 'Curl femoral deslizante']) {
-    await expect(page.locator('.session-list li', { hasText: name })).toBeVisible();
-  }
+  await expect(page.locator('.session-list li')).toHaveCount(4);
+  await expect(page.locator('.session-list li.has-media img')).toHaveCount(4);
   await shot(page, 'hoy');
 
   await page.goto('/plan');

@@ -1,8 +1,7 @@
-import { everkineticExercises } from './everkinetic';
+import { gymVisualExercises } from './gym-visual';
 import { SEED_EXERCISES } from './seed';
 import {
   isReserveId,
-  RESERVE_IDS,
   type Equipment,
   type Exercise,
   type Level,
@@ -33,8 +32,7 @@ export function bundledExercises(): Exercise[] {
     equipo: [...exercise.equipo],
     pasos: [...exercise.pasos],
   }));
-  const taken = new Set<string>([...seed.map((exercise) => exercise.id), ...RESERVE_IDS]);
-  return [...seed, ...everkineticExercises(taken)];
+  return [...seed, ...gymVisualExercises()];
 }
 
 export function normalizeSearch(value: string): string {

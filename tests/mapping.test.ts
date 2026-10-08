@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { bundledExercises } from '../src/catalog';
+import { everkineticExercises } from '../src/catalog/everkinetic';
 import { mapEverkinetic } from '../src/catalog/map-everkinetic';
 import type { Equipment, Level, Pattern } from '../src/catalog/types';
 import raw from '../data/exercises/exercises.es.json';
@@ -36,7 +36,7 @@ describe('mapeo everkinetic', () => {
   });
 
   it('no reescribe instrucciones ni fotos', () => {
-    const list = bundledExercises().filter((item) => item.origen === 'everkinetic');
+    const list = everkineticExercises(new Set());
     expect(list).toHaveLength(290);
     for (const exercise of list) {
       const row = rows.find((item) => item.id === exercise.id);

@@ -58,7 +58,7 @@ export function PlanPage(): ReactElement {
                 const nombre = exercise?.nombre ?? item.exerciseId;
                 return (
                   <li key={`${item.slot}-${item.exerciseId}`} className="plan-exercise">
-                    <ExerciseThumb images={exercise?.imagenes} nombre={nombre} origen={exercise?.origen} />
+                    {exercise ? <ExerciseThumb exercise={exercise} nombre={nombre} /> : null}
                     <span>
                       {nombre}
                       <span className="muted"> · {item.series} × {item.repMin}–{item.repMax}{item.medida === 'segundos' ? ' s' : ''} · {item.descansoSegundos} s</span>

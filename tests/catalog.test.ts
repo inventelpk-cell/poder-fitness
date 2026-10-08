@@ -1,8 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { bundledExercises, filterExercises, isReserveId } from '../src/catalog';
-import { verifiedExerciseSrc } from '../src/catalog/everkinetic';
-
-const imageFiles = import.meta.glob('../data/exercises/images/*', { eager: true, query: '?raw', import: 'default' });
+import { exerciseTileMedia } from '../src/catalog/media';
 
 describe('catálogo', () => {
   const list = bundledExercises();
@@ -31,51 +29,37 @@ describe('catálogo', () => {
     );
   });
 
-  it('los 40 primeros solo muestran el trazo de ese ejercicio', () => {
+  it('los 40 primeros muestran gif o imagen verificada', () => {
     const first = filterExercises(list, { query: '', musculos: [], equipos: [], patrones: [], niveles: [] }).slice(0, 40);
-    const srcs = first.map((item) => verifiedExerciseSrc(item.origen, item.imagenes));
+    const srcs = first.map((item) => exerciseTileMedia(item));
     srcs.forEach((src, index) => {
       const item = first[index];
       if (!item) return;
-      if (item.origen !== 'everkinetic') {
+      if (item.origen === 'semilla') {
         expect(src).toBeNull();
         return;
       }
-      if (!src) {
-        expect(item.imagenes?.every((path) => !/\.(svg|png)$/i.test(path)) ?? true).toBe(true);
+      if (item.origen === 'gym-visual') {
+        expect(src).not.toBeNull();
+        expect(src?.includes('/gym-visual/')).toBe(true);
         return;
       }
-      expect(src.startsWith('/ejercicios/')).toBe(true);
-      expect(/\.(svg|png)$/i.test(src)).toBe(true);
-      expect(item.imagenes?.some((path) => src.endsWith(path))).toBe(true);
+      if (!src) return;
+      expect(src.startsWith('/ejercicios/') || src.includes('/gym-visual/')).toBe(true);
     });
     const shown = srcs.filter((src): src is string => src !== null);
     expect(new Set(shown).size).toBe(shown.length);
   });
 
-  it('los 290 de everkinetic quedan mapeados sin tocar fotos ni pasos', () => {
-    const illustrated = list.filter((item) => item.origen === 'everkinetic');
-    expect(illustrated).toHaveLength(290);
-    expect(illustrated.every((item) => item.patron !== null && item.musculo !== null && item.nivel !== null)).toBe(true);
-    const withoutArt = illustrated.filter((item) => (item.imagenes?.length ?? 0) === 0).map((item) => item.id).sort();
-    expect(withoutArt).toEqual([
-      'bent-over-row-with-barbell',
-      'incline-inner-biceps-curl-with-dumbbell',
-      'standing-calf-raise-with-dumbbell',
-    ]);
-    const known = new Map(
-      Object.entries(imageFiles).map(([key, raw]) => [key.slice(key.lastIndexOf('/') + 1), String(raw).length]),
-    );
-    for (const item of illustrated) {
-      for (const path of item.imagenes ?? []) {
-        const name = path.slice(path.lastIndexOf('/') + 1);
-        const size = known.get(name);
-        expect(size, path).toBeGreaterThan(200);
-      }
-    }
-    const push = illustrated.find((item) => item.id === 'push-ups');
-    expect(push?.pasos.length).toBeGreaterThan(2);
-    expect(push?.imagenes?.length).toBeGreaterThan(0);
+  it('el catálogo gym visual queda mapeado con gif e instrucciones en español', () => {
+    const catalog = list.filter((item) => item.origen === 'gym-visual');
+    expect(catalog.length).toBeGreaterThan(1300);
+    expect(catalog.every((item) => item.patron !== null && item.musculo !== null && item.nivel !== null)).toBe(true);
+    expect(catalog.every((item) => item.gif && item.pasos.length > 0)).toBe(true);
+    const bench = catalog.find((item) => item.id === 'gv-0025');
+    expect(bench?.nombre).toMatch(/press de banca/i);
+    expect(bench?.pasos[0]).toMatch(/Túmbate|Coloca|Agarra/i);
+    expect(exerciseTileMedia(bench!)?.endsWith('.gif')).toBe(true);
   });
 
   it('las reservas no se pueden tratar como borrables', () => {

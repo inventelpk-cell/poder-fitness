@@ -75,7 +75,7 @@ export const RANK_IDS = [
 ] as const;
 export type RankId = (typeof RANK_IDS)[number];
 
-export type Origin = 'semilla' | 'usuario' | 'everkinetic';
+export type Origin = 'semilla' | 'usuario' | 'everkinetic' | 'gym-visual';
 export type Measure = 'reps' | 'segundos';
 export type Mechanic = 'compuesto' | 'aislamiento' | 'isométrico' | 'mixto';
 
@@ -95,6 +95,9 @@ export interface Exercise {
   medida: Measure;
   cuentaEnVolumen: boolean;
   imagenes?: string[];
+  gif?: string;
+  mediaId?: string;
+  atribucion?: string;
   mecanica?: Mechanic;
   resumen?: string;
   consejos?: string[];

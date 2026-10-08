@@ -525,7 +525,7 @@ export function PlayerPage(): ReactElement {
             {substitutes.map((exercise) => (
               <li key={exercise.id}>
                 <button type="button" className="btn substitute-btn" onClick={() => void onSubstitute(exercise.id)}>
-                  <ExerciseThumb images={exercise.imagenes} nombre={exercise.nombre} origen={exercise.origen} />
+                  <ExerciseThumb exercise={exercise} nombre={exercise.nombre} />
                   <span>{exercise.nombre}{exercise.patron ? ` · ${labelPattern(exercise.patron)}` : ''}</span>
                 </button>
               </li>

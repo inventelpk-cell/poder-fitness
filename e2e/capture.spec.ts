@@ -71,8 +71,8 @@ test('capturas de la app en marcha', async ({ page }) => {
   await page.getByLabel('Buscar ejercicio').fill('press de banca');
   await expect(page.getByRole('link', { name: /Press de banca/ }).first()).toBeVisible();
   await shot(page, 'biblioteca');
-  await page.goto('/biblioteca/bench-press');
-  await expect(page.getByRole('heading', { name: 'Press de banca' })).toBeVisible();
+  await page.goto('/biblioteca/gv-0025');
+  await expect(page.getByRole('heading', { name: 'Press de banca con barra' })).toBeVisible();
   const exerciseUrl = page.url();
   await shot(page, 'ejercicio');
 
@@ -117,9 +117,9 @@ test('capturas de la app en marcha', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Hoy', exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Empezar entreno' })).toBeVisible();
-  for (const name of ['Sentadilla', 'Zancada', 'Curl femoral deslizante']) {
-    await expect(page.locator('.session-list li', { hasText: name })).toBeVisible();
-  }
+  const hoyItems = page.locator('.session-list li');
+  await expect(hoyItems).toHaveCount(4);
+  await expect(page.locator('.session-list li.has-media img')).toHaveCount(4);
   await expect(page.locator('.thumb-fallback')).toHaveCount(0);
   const startBox = await page.getByRole('button', { name: 'Empezar entreno' }).boundingBox();
   const heroBox = await page.locator('.hero-card').boundingBox();
@@ -144,7 +144,7 @@ test('capturas de la app en marcha', async ({ page }) => {
   await expect(page.locator('.thumb-fallback')).toHaveCount(0);
   await shot(page, 'biblioteca-movil', false);
   await page.goto(exerciseUrl);
-  await expect(page.getByRole('heading', { name: 'Press de banca' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Press de banca con barra' })).toBeVisible();
   await shot(page, 'ejercicio-movil');
   await page.goto('/');
   await page.getByRole('button', { name: 'Empezar entreno' }).click();

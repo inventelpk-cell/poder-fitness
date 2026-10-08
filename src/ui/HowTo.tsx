@@ -1,10 +1,10 @@
 import type { ReactElement } from 'react';
-import { verifiedExerciseSrc } from '../catalog/everkinetic';
+import { exerciseStageMedia, GYM_VISUAL_ATTRIBUTION } from '../catalog/media';
 import type { Exercise } from '../catalog/types';
 import { labelEquipment, labelMuscle } from '../domain/labels';
 
 export function HowTo({ exercise }: { exercise: Exercise }): ReactElement {
-  const src = verifiedExerciseSrc(exercise.origen, exercise.imagenes);
+  const src = exerciseStageMedia(exercise);
   const muscles =
     exercise.musculosTexto && exercise.musculosTexto.length > 0
       ? exercise.musculosTexto.join(', ')
@@ -28,8 +28,8 @@ export function HowTo({ exercise }: { exercise: Exercise }): ReactElement {
         {gear}
       </p>
       {src ? (
-        <span className="exercise-thumb is-stage pf-ek">
-          <img src={src} alt="" />
+        <span className={`exercise-thumb is-stage ${exercise.origen === 'everkinetic' ? 'pf-ek' : 'gv-media'}`}>
+          <img src={src} alt="" loading="lazy" />
         </span>
       ) : null}
       {exercise.pasos.length > 0 ? (
@@ -51,6 +51,9 @@ export function HowTo({ exercise }: { exercise: Exercise }): ReactElement {
             ))}
           </ul>
         </div>
+      ) : null}
+      {exercise.origen === 'gym-visual' ? (
+        <p className="muted attribution">{exercise.atribucion ?? GYM_VISUAL_ATTRIBUTION}</p>
       ) : null}
     </section>
   );

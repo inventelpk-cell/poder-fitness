@@ -142,7 +142,7 @@ export function BuilderPage(): ReactElement {
           return (
             <li key={`${item.exerciseId}-${index}`} className="card">
               <div className="plan-exercise">
-                <ExerciseThumb images={exercise?.imagenes} nombre={exercise?.nombre ?? item.exerciseId} origen={exercise?.origen} />
+                {exercise ? <ExerciseThumb exercise={exercise} nombre={exercise.nombre} /> : null}
                 <strong>{exercise?.nombre ?? item.exerciseId}</strong>
               </div>
               <label className="field"><span>Series</span><input inputMode="numeric" value={item.series} onChange={(event) => update(index, { series: Number(event.target.value) })} /></label>

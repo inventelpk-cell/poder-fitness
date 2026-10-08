@@ -37,13 +37,13 @@ describe('generador de planes', () => {
         expect(exercise?.equipo.every((piece) => piece === 'peso-corporal')).toBe(true);
         const samePattern = exercises.filter(
           (item) =>
-            item.origen === 'everkinetic' &&
+            item.origen === 'gym-visual' &&
             item.entraEnPlan !== false &&
             item.patron === exercise?.patron &&
             item.nivel === 'principiante' &&
             item.equipo.every((piece) => piece === 'peso-corporal'),
         );
-        if (samePattern.length > 0) expect(exercise?.origen).toBe('everkinetic');
+        if (samePattern.length > 0) expect(exercise?.origen).toBe('gym-visual');
       }
     }
     const again = generateWeek(

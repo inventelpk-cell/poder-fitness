@@ -89,7 +89,7 @@ export function LibraryPage(): ReactElement {
           {visible.map((exercise) => (
             <li key={exercise.id}>
               <Link className="exercise-row" to={`/biblioteca/${exercise.id}`}>
-                <ExerciseThumb images={exercise.imagenes} nombre={exercise.nombre} origen={exercise.origen} />
+                <ExerciseThumb exercise={exercise} nombre={exercise.nombre} />
                 <span className="exercise-copy">
                   <strong>{exercise.nombre}</strong>
                   <span>{exerciseMeta(exercise)}</span>

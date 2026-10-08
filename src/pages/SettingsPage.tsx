@@ -1,7 +1,7 @@
 import { useState, type ReactElement } from 'react';
 import { useNavigate } from 'react-router';
 import { EQUIPMENT, GOALS, LEVELS, PROFILE_GOALS, SESSION_MINUTES, type Equipment, type Goal, type Level } from '../catalog/types';
-import licenseText from '../../data/exercises/LICENSE-SOURCE.txt?raw';
+import licenseText from '../../data/exercises/LEGAL-NOTICES.txt?raw';
 import {
   exportBackup,
   parseBackup,
@@ -273,15 +273,13 @@ export function SettingsPage(): ReactElement {
       </section>
       <section className="card" id="acerca">
         <h2>Acerca de</h2>
-        <p>Datos de ejercicios: Everkinetic, creados por Greg Priday.</p>
-        <p>https://github.com/everkinetic/data</p>
-        <p>Licencia: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
-        <p>https://creativecommons.org/licenses/by-sa/4.0/deed.es</p>
-        <p>Poder Fitness tradujo al español los nombres, los resúmenes, las instrucciones y los consejos, unificó el vocabulario de músculos y equipo, y empaquetó las ilustraciones para uso offline. Los archivos SVG de origen no se han editado. En pantalla, esas figuras llevan un tinte de color para leerse sobre el fondo oscuro. Esa presentación es una modificación visual. Una exportación de esa vista es una obra derivada y sigue en CC BY-SA 4.0.</p>
-        <p>Sentadilla, Zancada y Curl femoral deslizante no son de Everkinetic. No llevan miniatura: un dibujo de otro estilo no entra en el catálogo.</p>
-        <p>Esta base es una obra derivada y se mantiene bajo CC BY-SA 4.0.</p>
+        <p>Animaciones e imágenes de ejercicios: © Gym visual — https://gymvisual.com/</p>
+        <p>Datos de ejercicios (nombres, categorías, instrucciones): MIT License — https://github.com/hasaneyldrm/exercises-dataset</p>
+        <p>Poder Fitness tradujo al español los nombres y empaquetó medios e instrucciones para uso offline. Cada ficha de ejercicio del catálogo Gym visual lleva la atribución © Gym visual.</p>
+        <p>Ilustraciones Everkinetic (Greg Priday, CC BY-SA 4.0) se conservan solo como respaldo cuando un ejercicio no tiene medio Gym visual.</p>
+        <p>Sentadilla, Zancada y Curl femoral deslizante son ejercicios propios de la semilla. No llevan animación Gym visual.</p>
         <button type="button" className="btn" onClick={() => setShowLicense((value) => !value)}>
-          {showLicense ? 'Ocultar licencia' : 'Ver la licencia completa'}
+          {showLicense ? 'Ocultar avisos legales' : 'Ver avisos legales'}
         </button>
         {showLicense ? <pre className="license">{licenseText}</pre> : null}
       </section>
