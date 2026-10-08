@@ -28,7 +28,7 @@ export function HowTo({ exercise }: { exercise: Exercise }): ReactElement {
         {gear}
       </p>
       {src ? (
-        <span className={`exercise-thumb is-stage ${exercise.origen === 'everkinetic' ? 'pf-ek' : 'gv-media'}`}>
+        <span className={`exercise-thumb is-stage ${exercise.origen === 'everkinetic' ? 'pf-ek' : 'gv-media is-stage'}`}>
           <img src={src} alt="" loading="lazy" />
         </span>
       ) : null}

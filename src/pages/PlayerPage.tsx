@@ -41,6 +41,7 @@ import type { CoachEvent } from '../domain/coach';
 import { Avatar } from '../ui/Avatar';
 import { CoachBubble } from '../ui/CoachBubble';
 import { Dialog } from '../ui/Dialog';
+import { exerciseStageMedia } from '../catalog/media';
 import { ExerciseThumb } from '../ui/ExerciseThumb';
 import { HowTo } from '../ui/HowTo';
 import { Switch } from '../ui/Switch';
@@ -148,6 +149,8 @@ export function PlayerPage(): ReactElement {
   const restTotal = Math.max(left, current?.descansoSegundos ?? 0, 1);
   const restRatio = left / restTotal;
   const catalogExercise = exercises.find((exercise) => exercise.id === detailId);
+  const currentCatalog = current ? exercises.find((exercise) => exercise.id === current.exerciseId) : null;
+  const currentMedia = currentCatalog ? exerciseStageMedia(currentCatalog) : null;
   const substitutes = current ? allowedSubstitutes(exercises, session, current, profile) : [];
 
   async function persist(next: WorkoutSession, previous: WorkoutSession): Promise<boolean> {
@@ -376,8 +379,8 @@ export function PlayerPage(): ReactElement {
               <button type="button" className="btn" onClick={() => setSubstituteOpen(true)}>Sustituir ejercicio</button>
               <ul className="plain">
                 {session.exercises.filter((exercise) => exercise.estado === 'pendiente').map((exercise) => (
-                  <li key={exercise.instanceId} className="queue-row">
-                    <strong>{exercise.nombre}</strong>
+                  <li key={exercise.instanceId} className="queue-row queue-row--reorder">
+                    <strong title={exercise.nombre}>{exercise.nombre}</strong>
                     <button type="button" className="icon-btn" aria-label={`Subir ${exercise.nombre}`} onClick={() => void persist(moveExercise(session, exercise.instanceId, -1), session)}>
                       <span aria-hidden="true">↑</span>
                     </button>
@@ -397,6 +400,11 @@ export function PlayerPage(): ReactElement {
       {current ? (
         <section className="player-now">
           <div className="player-hero">
+            {currentMedia ? (
+              <div className="player-exercise-media gv-media is-player" aria-hidden="true">
+                <img src={currentMedia} alt="" loading="eager" />
+              </div>
+            ) : null}
             <Avatar gender={profile.avatar} rank={rankId} pose="entrenando" />
             {impact ? <p className="zas" aria-hidden="true">¡ZAS!</p> : null}
           </div>

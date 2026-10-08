@@ -15,6 +15,7 @@ async function onboard(page: Page): Promise<void> {
   await page.getByRole('button', { name: 'Continuar' }).click();
   await expect(page.getByText('Paso 6 de 7')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Tus días' })).toBeVisible();
+  await page.getByRole('radio', { name: '30 min' }).click();
   await page.getByRole('button', { name: 'Más días' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
   await expect(page.getByText('Paso 7 de 7')).toBeVisible();
@@ -160,13 +161,14 @@ test('capturas de la app en marcha', async ({ page }) => {
   }
   const stageName = (await page.locator('.player-title h1').innerText()).trim();
   expect(hoyArt.some((item) => item.name === stageName)).toBeTruthy();
-  await expect(page.locator('.player-hero img')).toBeVisible();
+  await expect(page.locator('.player-exercise-media img[src$=".gif"]')).toBeVisible();
+  await expect(page.locator('.player-hero .avatar-frame img')).toBeVisible();
   await expect(page.locator('.rest-ring')).toBeVisible();
   await page.locator('summary.more-icon').click();
-  await expect(page.locator('.switch-ui').first()).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Ver ficha' })).toBeVisible();
   await expect(page.locator('.set-line.is-current input').last()).toBeEnabled();
   await expect(page.locator('.thumb-fallback')).toHaveCount(0);
-  const avatarBox = await page.locator('.player-hero img').boundingBox();
+  const avatarBox = await page.locator('.player-hero .avatar-frame img').boundingBox();
   const ringBox = await page.locator('.rest-ring').boundingBox();
   expect(avatarBox && ringBox && ringBox.y >= avatarBox.y).toBeTruthy();
   await shot(page, 'reproductor-movil', false);

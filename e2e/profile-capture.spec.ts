@@ -13,6 +13,7 @@ async function onboard(page: Page): Promise<void> {
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('button', { name: 'Solo peso corporal' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
+  await page.getByRole('radio', { name: '30 min' }).click();
   await page.getByRole('button', { name: 'Más días' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByLabel('Nombre').fill('Antonio');
@@ -37,7 +38,7 @@ test('capturas perfil y medios gym visual', async ({ page }) => {
   await page.getByRole('link', { name: 'Biblioteca' }).click();
   await page.getByLabel('Buscar ejercicio').fill('press de banca');
   await expect(page.getByRole('link', { name: /Press de banca/ }).first()).toBeVisible();
-  await expect(page.locator('.gv-media img[src$=".gif"]').first()).toBeVisible();
+  await expect(page.locator('.gv-media img[src$=".jpg"]').first()).toBeVisible();
   await shot(page, 'biblioteca');
 
   await page.goto('/biblioteca/gv-0025');
@@ -66,5 +67,6 @@ test('capturas perfil y medios gym visual', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Empezar entreno' }).click();
   await expect(page.getByRole('button', { name: 'Completar serie' })).toBeVisible();
+  await expect(page.locator('.player-exercise-media img[src$=".gif"]')).toBeVisible();
   await shot(page, 'reproductor');
 });

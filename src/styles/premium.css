@@ -661,6 +661,59 @@ a { color: #f4f1ea; }
   display: block;
 }
 
+.gv-media.is-stage,
+.gv-media.is-player {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid #2a3142;
+  background: #12151c;
+}
+
+.gv-media.is-stage > img,
+.gv-media.is-player > img {
+  object-fit: contain;
+  filter: invert(0.92) hue-rotate(180deg) brightness(1.05) contrast(1.05);
+}
+
+.player-exercise-media {
+  width: min(280px, 78vw);
+  height: min(168px, 34vw);
+  flex: 0 0 auto;
+  pointer-events: none;
+}
+
+.player-fit .player-title {
+  position: relative;
+  z-index: 2;
+}
+
+.player-fit .player-hero .avatar-frame,
+.player-fit .player-hero .avatar-frame img,
+.player-exercise-media img {
+  pointer-events: none;
+}
+
+.queue-row--reorder {
+  grid-template-columns: minmax(0, 1fr) 40px 40px;
+  gap: 8px;
+  align-items: center;
+}
+
+.queue-row--reorder strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.queue-row--reorder .icon-btn {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
 .how-to .attribution,
 .screen .attribution {
   margin-top: 12px;
@@ -801,19 +854,22 @@ a { color: #f4f1ea; }
 
 .player-fit .player-hero {
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
   margin: 0;
   flex: 1 1 auto;
   min-height: 200px;
-  max-height: 300px;
+  max-height: min(420px, 52dvh);
+  position: relative;
 }
 
 .player-fit .player-hero .avatar-frame,
 .player-fit .player-hero .avatar-frame img {
-  width: min(300px, 86vw);
-  height: 100%;
-  max-height: 300px;
+  width: min(260px, 78vw);
+  height: auto;
+  max-height: min(220px, 34dvh);
   object-fit: contain;
   object-position: center bottom;
   background: transparent;
@@ -1506,9 +1562,12 @@ a { color: #f4f1ea; }
   line-height: 1;
 }
 
-.how-to .exercise-thumb.is-stage {
-  width: 120px;
-  height: 96px;
+.how-to .exercise-thumb.is-stage,
+.how-to .gv-media.is-stage {
+  width: min(100%, 320px);
+  height: min(220px, 42vw);
+  display: block;
+  margin: 8px 0 4px;
 }
 
 .how-to h2 {

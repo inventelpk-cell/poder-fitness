@@ -13,6 +13,7 @@ async function onboard(page: Page): Promise<void> {
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByRole('button', { name: 'Solo peso corporal' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
+  await page.getByRole('radio', { name: '30 min' }).click();
   await page.getByRole('button', { name: 'Más días' }).click();
   await page.getByRole('button', { name: 'Continuar' }).click();
   await page.getByLabel('Nombre').fill('Antonio');
@@ -64,7 +65,7 @@ test('capturas del avatar manga', async ({ page }) => {
   await onboard(page);
   await expect(page.locator('.dashboard .avatar-frame img')).toHaveAttribute('src', /\/avatar\/male\/chispa\.png$/);
   await expect(page.locator('.session-list li')).toHaveCount(4);
-  await expect(page.locator('.session-list li.has-media img')).toHaveCount(4);
+  await expect(page.locator('.session-list li.has-media img[src$=".jpg"]')).toHaveCount(4);
   await shot(page, 'hoy');
 
   await page.goto('/plan');
@@ -85,7 +86,8 @@ test('capturas del avatar manga', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'Empezar entreno' }).click();
   await expect(page.getByRole('button', { name: 'Completar serie' })).toBeVisible();
-  await expect(page.locator('.player-hero img')).toBeVisible();
+  await expect(page.locator('.player-exercise-media img[src$=".gif"]')).toBeVisible();
+  await expect(page.locator('.player-hero .avatar-frame img')).toBeVisible();
   await shot(page, 'reproductor');
 
   await page.locator('.set-line.is-current input').last().fill('8');
