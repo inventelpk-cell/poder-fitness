@@ -6,7 +6,7 @@
  */
 import { mkdir, copyFile, readFile, writeFile, access } from 'node:fs/promises';
 import path from 'node:path';
-import { nameQualityIssues, spanishName } from './gym-visual-names.mjs';
+import { disambiguationHint, exerciseSpanishIssues, spanishName } from './gym-visual-names.mjs';
 
 const root = path.resolve(process.argv[2] ?? '/tmp/exercises-dataset');
 const outJson = path.resolve('data/exercises/gym-visual.es.json');
@@ -56,31 +56,76 @@ const MUSCLE = {
 
 const MUSCLE_ES = {
   abs: 'abdomen',
+  abdominals: 'abdomen',
   pectorals: 'pectorales',
+  chest: 'pecho',
+  'upper chest': 'pecho superior',
   biceps: 'bíceps',
+  brachialis: 'braquial',
   glutes: 'glúteos',
   delts: 'deltoides',
+  deltoids: 'deltoides',
+  'rear deltoids': 'deltoides posteriores',
   triceps: 'tríceps',
   'upper back': 'espalda alta',
+  back: 'espalda',
   lats: 'dorsales',
+  'latissimus dorsi': 'dorsal ancho',
   calves: 'gemelos',
+  soleus: 'sóleo',
   quads: 'cuádriceps',
+  quadriceps: 'cuádriceps',
   forearms: 'antebrazos',
+  'wrist flexors': 'flexores de muñeca',
+  'wrist extensors': 'extensores de muñeca',
+  wrists: 'muñecas',
   'cardiovascular system': 'sistema cardiovascular',
   hamstrings: 'isquiotibiales',
   spine: 'columna',
   traps: 'trapecio',
+  trapezius: 'trapecio',
+  rhomboids: 'romboides',
   adductors: 'aductores',
   abductors: 'abductores',
+  'inner thighs': 'muslo interno',
   'serratus anterior': 'serrato',
   'levator scapulae': 'elevador de la escápula',
   'hip flexors': 'flexores de la cadera',
   'lower back': 'lumbar',
+  'lower abs': 'abdomen inferior',
   shoulders: 'hombros',
-  chest: 'pecho',
   core: 'core',
   obliques: 'oblicuos',
-  quadriceps: 'cuádriceps',
+  groin: 'ingle',
+  shins: 'espinillas',
+  ankles: 'tobillos',
+  'ankle stabilizers': 'estabilizadores de tobillo',
+  feet: 'pies',
+  hands: 'manos',
+  'grip muscles': 'músculos del agarre',
+  'rotator cuff': 'manguito rotador',
+  sternocleidomastoid: 'esternocleidomastoideo',
+};
+
+const EQUIPO_ES = {
+  'body weight': 'Peso corporal',
+  dumbbell: 'Mancuernas',
+  barbell: 'Barra',
+  'ez barbell': 'Barra Z',
+  'olympic barbell': 'Barra olímpica',
+  'trap bar': 'Barra hexagonal',
+  cable: 'Polea',
+  'leverage machine': 'Máquina',
+  'smith machine': 'Multipower',
+  'sled machine': 'Máquina de trineo',
+  assisted: 'Asistido',
+  band: 'Banda',
+  'resistance band': 'Banda elástica',
+  kettlebell: 'Kettlebell',
+  rope: 'Cuerda',
+  'stability ball': 'Fitball',
+  'exercise ball': 'Fitball',
+  'medicine ball': 'Balón medicinal',
 };
 
 function has(blob, ...needles) {
@@ -168,8 +213,6 @@ const mapped = rows.map((row) => {
   const compuesto = compoundFor(blob, patron);
   const pasos = (row.instruction_steps?.es ?? []).map((step) => step.trim()).filter(Boolean);
   const nombre = spanishName(row.name);
-  const issues = nameQualityIssues(nombre);
-  if (issues.length > 0) throw new Error(`Nombre inválido para ${row.name}: ${nombre} (${issues.join(', ')})`);
   const mediaId = row.media_id ?? path.basename(row.image).split('-').pop()?.replace(/\.\w+$/, '') ?? '';
   return {
     id: `gv-${row.id}`,
@@ -189,7 +232,7 @@ const mapped = rows.map((row) => {
     imagenes: [`gym-visual/images/${path.basename(row.image)}`],
     gif: row.gif_url ? `gym-visual/videos/${path.basename(row.gif_url)}` : null,
     resumen: pasos[0] ?? '',
-    equipoTexto: [row.equipment],
+    equipoTexto: [EQUIPO_ES[row.equipment] ?? row.equipment],
     musculosTexto: muscleText(row),
     entraEnPlan,
     atribucion: row.attribution || ATTRIBUTION,
@@ -249,6 +292,40 @@ for (const exercise of mapped) {
   await mkdir(path.dirname(gifTo), { recursive: true });
   await copyFile(gifFrom, gifTo);
   copiedGifs += 1;
+}
+
+const byName = new Map();
+for (const exercise of mapped) {
+  const key = exercise.nombre.toLowerCase();
+  const list = byName.get(key) ?? [];
+  list.push(exercise);
+  byName.set(key, list);
+}
+for (const group of byName.values()) {
+  if (group.length <= 1) continue;
+  for (const exercise of group) {
+    const hint = disambiguationHint(exercise._english);
+    if (hint) exercise.nombre = `${exercise.nombre} (${hint})`;
+  }
+  const seen = new Set();
+  for (const exercise of group) {
+    const key = exercise.nombre.toLowerCase();
+    if (!seen.has(key)) {
+      seen.add(key);
+      continue;
+    }
+    const tail = exercise._english.replace(/.*\(([^)]+)\).*/, '$1').trim();
+    exercise.nombre = `${exercise.nombre} — ${spanishName(tail) || tail}`;
+    seen.add(exercise.nombre.toLowerCase());
+  }
+}
+
+const qualityFailures = mapped.flatMap((exercise) =>
+  exerciseSpanishIssues(exercise).map((issue) => `${exercise._english}: ${issue}`),
+);
+if (qualityFailures.length > 0) {
+  console.error(qualityFailures.slice(0, 20).join('\n'));
+  throw new Error(`Calidad española: ${qualityFailures.length} incidencias`);
 }
 
 const clean = mapped.map((exercise) => {

@@ -39,6 +39,53 @@ const EXACT = new Map([
   ['suspended reverse crunch', 'Crunch inverso en suspensión'],
   ['suspended abdominal fallout', 'Fallout abdominal en suspensión'],
   ['stalder press', 'Press stalder'],
+  ['barbell one arm snatch', 'Arranque a una mano con barra'],
+  ['dumbbell rear lateral raise', 'Elevación lateral posterior con mancuernas'],
+  ['dumbbell rear lateral raise (support head)', 'Elevación lateral posterior con mancuernas, apoyo en la cabeza'],
+  ['jackknife sit-up', 'Abdominal en navaja'],
+  ['london bridge', 'Puente de Londres'],
+  ['clap push-up', 'Flexiones con palmada'],
+  ['plyometric squat', 'Sentadilla pliométrica'],
+  ['astride jumps', 'Saltos a horcajadas'],
+  ['cable twisting row', 'Remo con giro en polea'],
+  ['barbell full squat', 'Sentadilla completa con barra'],
+  ['barbell full squat (back pov)', 'Sentadilla completa con barra, vista trasera'],
+  ['barbell full squat (side pov)', 'Sentadilla completa con barra, vista lateral'],
+  ['bodyweight squatting row', 'Remo en sentadilla con peso corporal'],
+  ['bodyweight squatting row (with towel)', 'Remo en sentadilla con toalla'],
+  ['barbell sitted alternate leg raise', 'Elevación de piernas alterna sentado con barra'],
+  ['push-up', 'Flexiones'],
+  ['push-up (bosu ball)', 'Flexiones en bosu'],
+  ['push-up (on stability ball)', 'Flexiones en fitball'],
+  ['push-up (wall)', 'Flexiones en pared'],
+  ['pull-up', 'Dominadas'],
+  ['pull up (neutral grip)', 'Dominadas agarre neutro'],
+  ['muscle up', 'Muscle-up'],
+  ['muscle-up (on vertical bar)', 'Muscle-up en barra vertical'],
+  ['weighted muscle up', 'Muscle-up lastrado'],
+  ['weighted muscle up (on bar)', 'Muscle-up lastrado en barra'],
+  ['cable two arm curl incline bench', 'Curl en banco inclinado a dos brazos en polea'],
+  ['band one arm twisting seated row', 'Remo sentado con giro a una mano con banda'],
+  ['twin handle parallel grip lat pulldown', 'Jalón al pecho agarre paralelo con asas dobles'],
+  ['self assisted inverse leg curl', 'Curl femoral inverso asistido'],
+  ['self assisted inverse leg curl (on floor)', 'Curl femoral inverso asistido en el suelo'],
+  ['chest dip', 'Fondos de pecho'],
+  ['chest dip (on dip-pull-up cage)', 'Fondos de pecho en jaula'],
+  ['close-grip push-up', 'Flexiones agarre cerrado'],
+  ['close-grip push-up (on knees)', 'Flexiones agarre cerrado de rodillas'],
+  ['crunch', 'Crunch'],
+  ['crunch (hands overhead)', 'Crunch con brazos arriba'],
+  ['crunch (on stability ball)', 'Crunch en fitball'],
+  ['crunch (on stability ball, arms straight)', 'Crunch en fitball, brazos rectos'],
+  ['hyperextension', 'Hiperextensión'],
+  ['hyperextension (on bench)', 'Hiperextensión en banco'],
+  ['incline push-up', 'Flexiones inclinadas'],
+  ['incline push-up (on box)', 'Flexiones inclinadas en cajón'],
+  ['run', 'Carrera'],
+  ['run (equipment)', 'Carrera con equipo'],
+  ['triceps dip', 'Fondos de tríceps'],
+  ['triceps dip (bench leg)', 'Fondos de tríceps con pierna en banco'],
+  ['triceps dip (between benches)', 'Fondos de tríceps entre bancos'],
   ['band alternating biceps curl', 'Curl de bíceps alterno con banda'],
   ['band concentration curl', 'Curl concentrado con banda'],
   ['band one arm overhead biceps curl', 'Curl de bíceps a un brazo por encima de la cabeza con banda'],
@@ -220,6 +267,19 @@ const PHRASES = [
   ['single leg', 'a una pierna'],
   ['alternating', 'alterno'],
   ['alternate', 'alterno'],
+  ['one arm snatch', 'arranque a una mano'],
+  ['rear lateral raise', 'elevación lateral posterior'],
+  ['rear delt row', 'remo de deltoides posterior'],
+  ['jackknife sit-up', 'abdominal en navaja'],
+  ['london bridge', 'puente de Londres'],
+  ['clap push-up', 'flexiones con palmada'],
+  ['plyometric squat', 'sentadilla pliométrica'],
+  ['astride jumps', 'saltos a horcajadas'],
+  ['twisting row', 'remo con giro'],
+  ['full squat', 'sentadilla completa'],
+  ['squatting row', 'remo en sentadilla'],
+  ['two arm', 'a dos brazos'],
+  ['twin handle', 'asas dobles'],
   ['drag curl', 'curl arrastrado'],
   ['incline bench', 'banco inclinado'],
   ['decline bench', 'banco declinado'],
@@ -804,6 +864,50 @@ const WORDS = {
   stalder: 'stalder',
   wipers: 'limpiaparabrisas',
   overhead: 'por encima de la cabeza',
+  rear: 'posterior',
+  two: 'dos',
+  twin: 'doble',
+  handle: 'asa',
+  jackknife: 'navaja',
+  london: 'Londres',
+  astride: 'a horcajadas',
+  sitted: 'sentado',
+  plyometric: 'pliométrico',
+  pliométrico: 'pliométrico',
+  glutes: 'glúteos',
+  self: '',
+  auto: '',
+  inverse: 'inverso',
+  ting: '',
+  palmada: 'palmada',
+  clap: 'palmada',
+  complete: 'completa',
+  completo: 'completa',
+  muscle: 'muscle-up',
+  jumps: 'saltos',
+  jump: 'salto',
+  bridge: 'puente',
+  rhomboids: 'romboides',
+  deltoids: 'deltoides',
+  rotator: 'rotador',
+  cuff: 'manguito',
+  sternocleidomastoid: 'esternocleidomastoideo',
+  brachialis: 'braquial',
+  soleus: 'sóleo',
+  shins: 'espinillas',
+  groin: 'ingle',
+  thighs: 'muslos',
+  wrists: 'muñecas',
+  flexors: 'flexores',
+  extensors: 'extensores',
+  stabilizers: 'estabilizadores',
+  ankles: 'tobillos',
+  feet: 'pies',
+  hands: 'manos',
+  grip: 'agarre',
+  pov: 'vista',
+  female: '',
+  male: '',
   touchers: 'toques',
   touch: 'toque',
   throw: 'lanzamiento',
@@ -1167,9 +1271,181 @@ function finalizeSpanishName(name) {
     .replace(/^Inverso cerrado agarre (.+)$/i, (_, rest) => `${rest}, agarre cerrado inverso`)
     .replace(/^De pie deltoides posterior remo\b/i, 'Remo de deltoides posterior de pie')
     .replace(/\belbow\b/gi, 'codos')
-    .replace(/\boverhead\b/gi, 'por encima de la cabeza');
+    .replace(/\boverhead\b/gi, 'por encima de la cabeza')
+    .replace(/^Un brazo (.+)$/i, (_, rest) => `${rest} a una mano`)
+    .replace(/^Two brazo (.+)$/i, (_, rest) => `${rest} a dos manos`)
+    .replace(/^A un brazo (.+)$/i, (_, rest) => `${rest} a una mano`)
+    .replace(/^Rear elevación lateral(.*)$/i, 'Elevación lateral posterior$1')
+    .replace(/^Palmada flexiones$/i, 'Flexiones con palmada')
+    .replace(/^Jackknife abdominal$/i, 'Abdominal en navaja')
+    .replace(/^London puente$/i, 'Puente de Londres')
+    .replace(/^Pliométric[oa] sentadilla(.*)$/i, (_, tail) => `Sentadilla pliométrica${tail}`)
+    .replace(/^Completo sentadilla(.*)$/i, (_, tail) => `Sentadilla completa${tail}`)
+    .replace(/^Giro remo(.*)$/i, (_, tail) => `Remo con giro${tail}`)
+    .replace(/^Sentadilla ting remo$/i, 'Remo en sentadilla')
+    .replace(/^Two brazo (.+)$/i, (_, rest) => `${rest} a dos brazos`)
+    .replace(/^Twin asa (.+)$/i, (_, rest) => `${rest} con asas dobles`)
+    .replace(/^Auto inverso (.+)$/i, (_, rest) => `${rest} inverso asistido`)
+    .replace(/^Lastrado muscle$/i, 'Muscle-up lastrado')
+    .replace(/\bSitted\b/gi, 'sentado')
+    .replace(/\bRear\b/gi, 'posterior')
+    .replace(/\bTwo\b/gi, 'dos')
+    .replace(/\bTwin\b/gi, 'doble')
+    .replace(/\bGlutes\b/gi, 'glúteos')
+    .replace(/\bMuscle\b/gi, 'muscle-up')
+    .replace(/\bAuto\b/gi, '')
+    .replace(/\bInverse\b/gi, 'inverso')
+    .replace(/\bting\b/gi, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
 
   return cleanupSpanish(titleCase(n));
+}
+
+const HINT_MAP = {
+  'back pov': 'vista trasera',
+  'side pov': 'vista lateral',
+  'with towel': 'con toalla',
+  'on knees': 'de rodillas',
+  female: '',
+  male: '',
+  'with rope': 'con cuerda',
+  'with rope attachment': 'con cuerda',
+  'on stability ball': 'en fitball',
+  'parallel grip': 'agarre paralelo',
+  'neutral grip': 'agarre neutro',
+  'on floor': 'en el suelo',
+  'on bench': 'en banco',
+  'on box': 'en cajón',
+  wall: 'en pared',
+  'bosu ball': 'en bosu',
+  'pro lat bar': 'barra pro',
+  'v-bar': 'barra en V',
+  'with arm blaster': 'con arm blaster',
+  'up-down': 'arriba-abajo',
+  'on dip-pull-up cage': 'en jaula',
+  'support head': 'apoyo en la cabeza',
+  'bench leg': 'pierna en banco',
+  'between benches': 'entre bancos',
+  'on pull-up cable machine': 'en máquina de dominadas',
+  'chest pad': 'con apoyo de pecho',
+  'on vertical bar': 'en barra vertical',
+  'on bar': 'en barra',
+  'legs up': 'piernas arriba',
+  'tennis ball between ankles': 'pelota entre tobillos',
+  'tennis ball between knees': 'pelota entre rodillas',
+  'stirrups': 'con estribos',
+  'straight arm': 'brazos rectos',
+  'bent knee': 'rodilla flexionada',
+  'straight arm': 'brazos rectos',
+  'hands overhead': 'brazos arriba',
+  'arms straight': 'brazos rectos',
+};
+
+export function disambiguationHint(english) {
+  const hints = [];
+  const matches = english.match(/\(([^)]+)\)/g) ?? [];
+  for (const block of matches) {
+    const inner = block.slice(1, -1).toLowerCase();
+    const mapped = HINT_MAP[inner];
+    if (mapped) hints.push(mapped);
+  }
+  return [...new Set(hints.filter(Boolean))].join(', ');
+}
+
+export const ALLOWED_TERMS = new Set([
+  'pike',
+  'burpee',
+  'crunch',
+  'pallof',
+  'thruster',
+  'zottman',
+  'stalder',
+  'skier',
+  'muscle-up',
+  'landmine',
+  'pendlay',
+  'meadows',
+  'yates',
+  'jefferson',
+  'spoto',
+  'fitball',
+  'kettlebell',
+  'multipower',
+  'bosu',
+  'jm',
+  'nórdico',
+  'sissy',
+  'cosaca',
+  'pistol',
+  'rompecráneos',
+  'pullover',
+  'face pull',
+  'superman',
+  'molino',
+  'leñador',
+  'hidrante',
+  'oruga',
+  'cangrejo',
+  'swing',
+  'clean',
+  'snatch',
+  'jerk',
+  'arnold',
+  'bradford',
+  'spider',
+  'bayesiano',
+  'navaja',
+  'londres',
+]);
+
+const FORBIDDEN_EQUIPO =
+  /\b(body\s*weight|dumbbell|barbell|cable|leverage\s*machine|smith\s*machine|resistance\s*band|stability\s*ball|exercise\s*ball|medicine\s*ball|ez\s*barbell|olympic\s*barbell|trap\s*bar|sled\s*machine)\b/i;
+
+const FORBIDDEN_MUSCLE =
+  /\b(deltoids|rhomboids|pectorals|hamstrings|quadriceps|forearms|shoulders|glutes|abductors|adductors|trapezius|obliques|lats|traps|delts|quads|calves|biceps|triceps|upper\s*back|lower\s*back|hip\s*flexors|rear\s*deltoids|latissimus\s*dorsi|rotator\s*cuff|grip\s*muscles|ankle\s*stabilizers|inner\s*thighs|lower\s*abs|upper\s*chest|cardiovascular\s*system|sternocleidomastoid|brachialis|soleus|abdominals)\b/i;
+
+const FORBIDDEN_NAME =
+  /\b(bodyweight|body\s*weight|dumbbell|barbell|two\s+brazo|un\s+brazo\s+arranque|rear\s+elevación|london\s+puente|sitted|ting\s+remo|jackknife|astride|handle\s+parallel|auto\s+inverso|glutes|elbow\s+fondos|suspended\s+remo|two\s+arm|twin\s+handle|plyométrico\s+sentadilla|palmada\s+flexiones|completo\s+sentadilla|^giro\s+remo|de\s+pie\s+remo|standing|seated|lying|overhead|reverse\s+grip|close\s+grip|wide\s+grip|neutral\s+grip)\b/i;
+
+export function spanishEquipoIssues(text) {
+  if (!text) return [];
+  return FORBIDDEN_EQUIPO.test(text) ? [`equipo:${text}`] : [];
+}
+
+export function spanishMuscleIssues(text) {
+  if (!text) return [];
+  return FORBIDDEN_MUSCLE.test(text) ? [`musculo:${text}`] : [];
+}
+
+export function spanishNameIssues(name) {
+  const issues = [];
+  if (!name) return issues;
+  if (FORBIDDEN_NAME.test(name)) issues.push(`nombre:english`);
+  if (nameQualityIssues(name).length > 0) issues.push('nombre:calque');
+  return issues;
+}
+
+export function exerciseSpanishIssues(exercise) {
+  const issues = [...spanishNameIssues(exercise.nombre)];
+  for (const item of exercise.equipoTexto ?? []) issues.push(...spanishEquipoIssues(item));
+  for (const item of exercise.musculosTexto ?? []) issues.push(...spanishMuscleIssues(item));
+  return issues;
+}
+
+export function duplicateNameIssues(exercises) {
+  const groups = new Map();
+  for (const exercise of exercises) {
+    const key = exercise.nombre.toLowerCase();
+    const list = groups.get(key) ?? [];
+    list.push(exercise.id);
+    groups.set(key, list);
+  }
+  const issues = [];
+  for (const [name, ids] of groups) {
+    if (ids.length > 1) issues.push(`duplicado:${name} (${ids.length})`);
+  }
+  return issues;
 }
 
 export function spanishName(raw) {
@@ -1214,7 +1490,9 @@ export function spanishName(raw) {
 export function nameQualityIssues(name) {
   const issues = [];
   if (ENGLISH_LEFT.test(name)) issues.push('english');
-  if (/\b(cuadrupedia en cuadrupedia|talón toques|guillotine|dumbbell|barbell)\b/i.test(name)) issues.push('calque');
+  if (/\b(cuadrupedia en cuadrupedia|talón toques|guillotine|dumbbell|barbell|two brazo|un brazo arranque|rear elevación|london puente|sitted|ting remo)\b/i.test(name)) {
+    issues.push('calque');
+  }
   if (/\b(\w+)\s+\1\b/i.test(name)) issues.push('duplicate');
   return issues;
 }
