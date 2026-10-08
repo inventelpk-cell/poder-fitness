@@ -59,7 +59,7 @@ describe('catálogo', () => {
     const bench = catalog.find((item) => item.id === 'gv-0025');
     expect(bench?.nombre).toMatch(/press de banca/i);
     expect(bench?.pasos[0]).toMatch(/Túmbate|Coloca|Agarra/i);
-    expect(exerciseTileMedia(bench!)?.endsWith('.gif')).toBe(true);
+    expect(exerciseTileMedia(bench!)?.endsWith('.jpg')).toBe(true);
   });
 
   it('las reservas no se pueden tratar como borrables', () => {

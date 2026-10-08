@@ -4,6 +4,15 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
   base: '/',
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('gym-visual.es.json')) return 'gym-visual-data';
+        },
+      },
+    },
+  },
   plugins: [
     react(),
     VitePWA({
@@ -27,8 +36,25 @@ export default defineConfig({
       },
       workbox: {
         navigateFallback: '/index.html',
-        globPatterns: ['**/*.{js,css,html,svg,png,jpg,gif,woff2,webmanifest,json,txt}'],
+        globPatterns: ['**/*.{js,css,html,svg,png,woff2,webmanifest,json,txt}'],
+        globIgnores: ['**/gym-visual/**'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+        runtimeCaching: [
+          {
+            urlPattern: /\/gym-visual\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'gym-visual-media',
+              expiration: {
+                maxEntries: 1500,
+                maxAgeSeconds: 60 * 24 * 60 * 60,
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+        ],
       },
     }),
   ],

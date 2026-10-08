@@ -23,23 +23,9 @@ export function exerciseGif(exercise: Pick<Exercise, 'gif' | 'mediaId' | 'id' | 
   return publicSrc(exercise.gif);
 }
 
-export function exerciseImage(exercise: Pick<Exercise, 'origen' | 'imagenes' | 'gif' | 'mediaId' | 'id'>): string | null {
-  const gif = exerciseGif(exercise);
-  if (gif) return gif;
-  const image = exercise.imagenes?.[0];
-  if (image && mediaMatchesExercise(exercise, image)) return publicSrc(image);
-  return verifiedExerciseSrc(exercise.origen, exercise.imagenes);
-}
-
-export function exerciseStageMedia(exercise: Exercise): string | null {
-  return exerciseImage(exercise);
-}
-
-export function exerciseTileMedia(
-  exercise: Pick<Exercise, 'origen' | 'imagenes' | 'gif' | 'mediaId' | 'id'>,
+export function exercisePoster(
+  exercise: Pick<Exercise, 'origen' | 'imagenes' | 'mediaId' | 'id'>,
 ): string | null {
-  const gif = exerciseGif(exercise);
-  if (gif) return gif;
   const image = exercise.imagenes?.[0];
   if (image && mediaMatchesExercise(exercise, image)) return publicSrc(image);
   if (exercise.origen === 'everkinetic') {
@@ -47,6 +33,20 @@ export function exerciseTileMedia(
     return thumb ? imageSrc(thumb) : null;
   }
   return null;
+}
+
+export function exerciseStageMedia(exercise: Exercise): string | null {
+  const gif = exerciseGif(exercise);
+  if (gif) return gif;
+  return exercisePoster(exercise);
+}
+
+export function exerciseTileMedia(
+  exercise: Pick<Exercise, 'origen' | 'imagenes' | 'gif' | 'mediaId' | 'id'>,
+): string | null {
+  const poster = exercisePoster(exercise);
+  if (poster) return poster;
+  return verifiedExerciseSrc(exercise.origen, exercise.imagenes);
 }
 
 export function mediaKind(origen: Origin | undefined, src: string | null): 'gif' | 'image' | 'everkinetic' | null {
