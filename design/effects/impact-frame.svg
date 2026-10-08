@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" fill="none" role="img">
+  <title>Frame de impacto</title><desc>Esquinas doradas para un momento de golpe visual.</desc>
+  <g stroke="#FFC53D" stroke-width="8" stroke-linecap="square" fill="none">
+    <path d="M36 120 V36 H120"/>
+    <path d="M354 120 V36 H270"/>
+    <path d="M36 724 V808 H120"/>
+    <path d="M354 724 V808 H270"/>
+  </g>
+  <rect x="28" y="28" width="334" height="788" stroke="#FFC53D" stroke-opacity="0.28" stroke-width="2"/>
+</svg>

@@ -1,0 +1,27 @@
+PODER FITNESS — AVISOS DE TERCEROS
+
+=== Gym visual (medios: imágenes y GIF) ===
+
+© Gym visual — https://gymvisual.com/
+
+Los medios de ejercicio (miniaturas JPG y animaciones GIF) son propiedad de Gym visual
+y se redistribuyen aquí con permiso. Cada uso debe llevar la atribución
+© Gym visual — https://gymvisual.com/
+
+Resolución distribuida: 180×180.
+Términos de Gym visual: https://gymvisual.com/content/3-terms-and-conditions-of-use
+
+Ver también: data/exercises/NOTICE-GYM-VISUAL.md
+
+=== exercises-dataset (datos: nombres, categorías, instrucciones) ===
+
+MIT License — https://github.com/hasaneyldrm/exercises-dataset
+
+Ver: data/exercises/LICENSE-GYM-VISUAL-DATA.txt
+
+=== Everkinetic (respaldo ilustraciones) ===
+
+Datos: Greg Priday — https://github.com/everkinetic/data
+Licencia: CC BY-SA 4.0 — https://creativecommons.org/licenses/by-sa/4.0/deed.es
+
+Ver: data/exercises/LICENSE-SOURCE.txt

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img">
+  <title>Reto del héroe</title><desc>Insignia del reto del héroe completo: una cumbre con bandera.</desc>
+  <rect x="3.5" y="3.5" width="57" height="57" rx="16" fill="#10131A"/>
+  <rect x="3.5" y="3.5" width="57" height="57" rx="16" stroke="#FFC53D" stroke-width="1.5"/>
+  <rect x="9" y="9" width="46" height="46" rx="12" stroke="#FFC53D" stroke-opacity="0.26"/>
+  <path d="M17 19c5.5-5 24.5-5 30 0" stroke="#fff" stroke-opacity="0.13" stroke-linecap="round"/>
+  <path d="M14 46 L32 20 L50 46" stroke="#FFC53D" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M32 20 V11" stroke="#F4F1EA" stroke-width="2" stroke-linecap="round"/>
+  <path d="M32 12 H41 L32 17 Z" fill="#FF6A1A"/>
+</svg>

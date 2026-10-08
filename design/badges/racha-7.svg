@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img">
+  <title>Racha de 7</title><desc>Insignia de racha de 7 días.</desc>
+  <rect x="3.5" y="3.5" width="57" height="57" rx="16" fill="#10131A"/>
+  <rect x="3.5" y="3.5" width="57" height="57" rx="16" stroke="#FF6A1A" stroke-width="1.5"/>
+  <rect x="9" y="9" width="46" height="46" rx="12" stroke="#FF6A1A" stroke-opacity="0.26"/>
+  <path d="M17 19c5.5-5 24.5-5 30 0" stroke="#fff" stroke-opacity="0.13" stroke-linecap="round"/>
+  <path fill="#FF6A1A" d="M33.3 43.28V44.94H27.09Q27.09 41.13 28.72 37.45Q30.36 33.76 33.16 30.49H23.92V25.67H40.16V28.22Q36.97 32.17 35.14 35.78Q33.3 39.39 33.3 43.28Z"/>
+  <circle cx="22" cy="20" r="1.7" fill="#FF6A1A" opacity="0.45"/>
+  <circle cx="32" cy="17.5" r="1.7" fill="#FF6A1A" opacity="0.7"/>
+  <circle cx="42" cy="20" r="1.7" fill="#FF6A1A"/>
+</svg>

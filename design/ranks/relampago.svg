@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img">
+  <title>Emblema Relámpago</title><desc>Emblema del rango Relámpago: un rayo cian geométrico.</desc>
+  <circle cx="32" cy="32" r="29.75" fill="#10131A"/>
+  <circle cx="32" cy="32" r="29.75" stroke="#5CE1FF" stroke-width="1.5"/>
+  <circle cx="32" cy="32" r="25" stroke="#5CE1FF" stroke-opacity="0.24"/>
+  <path d="M18.5 23.5a15.5 15.5 0 0 1 27 0" stroke="#fff" stroke-opacity="0.14" stroke-linecap="round"/>
+  <path fill="url(#relampago-bolt)" d="M37 12.5 L26 31 H33.2 L29 51.5 L46 28.5 H37.2 L41.2 12.5 Z"/>
+  <defs>
+    <linearGradient id="relampago-bolt" x1="26" y1="51" x2="46" y2="12" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2EC8FF"/>
+      <stop offset="1" stop-color="#F3FCFF"/>
+    </linearGradient>
+  </defs>
+</svg>

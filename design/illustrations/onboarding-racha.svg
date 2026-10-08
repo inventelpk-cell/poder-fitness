@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" fill="none" role="img">
+  <title>La racha</title><desc>Siete brasas en arco. La última arde en dorado.</desc>
+  <rect width="1200" height="750" fill="#07080D"/>
+  <circle cx="600" cy="390" r="200" stroke="#F4F1EA" stroke-opacity="0.045" stroke-width="1.5"/>
+<circle cx="600" cy="390" r="320" stroke="#F4F1EA" stroke-opacity="0.045" stroke-width="1.5"/>
+      <path d="M180 430 L310 385 L440 352 L570 340 L700 352 L830 385 L960 430" stroke="#FF6A1A" stroke-opacity="0.35" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="180" cy="430" r="26" fill="#6A3218" opacity="0.16"/>
+  <circle cx="180" cy="430" r="16" fill="#6A3218"/>
+  <circle cx="310" cy="385" r="27" fill="#8A3E16" opacity="0.16"/>
+  <circle cx="310" cy="385" r="17" fill="#8A3E16"/>
+  <circle cx="440" cy="352" r="28" fill="#C24E10" opacity="0.16"/>
+  <circle cx="440" cy="352" r="18" fill="#C24E10"/>
+  <circle cx="570" cy="340" r="29" fill="#E25810" opacity="0.16"/>
+  <circle cx="570" cy="340" r="19" fill="#E25810"/>
+  <circle cx="700" cy="352" r="30" fill="#FF6A1A" opacity="0.16"/>
+  <circle cx="700" cy="352" r="20" fill="#FF6A1A"/>
+  <circle cx="830" cy="385" r="31" fill="#FF8A3D" opacity="0.16"/>
+  <circle cx="830" cy="385" r="21" fill="#FF8A3D"/>
+  <circle cx="960" cy="430" r="44" fill="#FFC53D" opacity="0.16"/>
+  <circle cx="960" cy="430" r="34" fill="#FFC53D"/>
+  <circle cx="960" cy="430" r="50" fill="none" stroke="#FFC53D" stroke-width="2"/>
+  <circle cx="960" cy="430" r="8" fill="#FFF6D8"/>
+  <rect x="72" y="64" width="42" height="4" fill="#FF6A1A"/><path fill="#FFC53D" d="M 1118.00 668.00 L 1119.70 674.30 L 1126.00 676.00 L 1119.70 677.70 L 1118.00 684.00 L 1116.30 677.70 L 1110.00 676.00 L 1116.30 674.30 Z"/>
+</svg>

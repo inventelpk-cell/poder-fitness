@@ -1,0 +1,65 @@
+import type { ReactElement } from 'react';
+import { Link, useNavigate, useParams } from 'react-router';
+import { isReserveId } from '../catalog';
+import { saveExercise } from '../db/db';
+import { labelLevel, labelPattern } from '../domain/labels';
+import { readDraft, writeDraft } from '../state/draft';
+import { useApp } from '../state/app-state';
+import { HowTo } from '../ui/HowTo';
+
+export function ExercisePage(): ReactElement {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { exercises, refresh } = useApp();
+  const exercise = exercises.find((item) => item.id === id);
+  if (!exercise) {
+    return (
+      <main className="screen">
+        <p>Ese ejercicio no está en la biblioteca.</p>
+        <Link to="/biblioteca">Volver</Link>
+      </main>
+    );
+  }
+  const shown = exercise;
+
+  function useInRoutine(): void {
+    const draft = readDraft();
+    const item = { exerciseId: shown.id, series: 3, repMin: 8, repMax: 12, descansoSegundos: 90, nota: '' };
+    if (draft) {
+      writeDraft({ ...draft, items: [...draft.items, item] });
+      const route = draft.mode === 'day' ? `dia_${draft.id}` : draft.mode === 'new' ? 'nueva' : draft.id;
+      navigate(`/plan/rutina/${route}`);
+      return;
+    }
+    writeDraft({ mode: 'new', id: 'nueva', name: shown.nombre, items: [item] });
+    navigate('/plan/rutina/nueva');
+  }
+
+  async function toggleArchive(): Promise<void> {
+    await saveExercise({ ...shown, archivado: !shown.archivado });
+    await refresh();
+  }
+
+  return (
+    <main className="screen narrow">
+      <Link to="/biblioteca">Biblioteca</Link>
+      <h1>{exercise.nombre}</h1>
+      {exercise.nivel && exercise.patron ? (
+        <p>
+          {labelLevel(exercise.nivel)} · {labelPattern(exercise.patron)}
+        </p>
+      ) : null}
+      {exercise.archivado ? <p>Archivado. No entra en búsquedas ni en el plan.</p> : null}
+      {exercise.resumen ? <p>{exercise.resumen}</p> : null}
+      <HowTo exercise={exercise} />
+      <button type="button" className="btn btn-primary" onClick={useInRoutine}>
+        Usar en una rutina
+      </button>
+      {isReserveId(exercise.id) ? null : (
+        <button type="button" className="btn" onClick={() => void toggleArchive()}>
+          {exercise.archivado ? 'Recuperar' : 'Archivar'}
+        </button>
+      )}
+    </main>
+  );
+}
